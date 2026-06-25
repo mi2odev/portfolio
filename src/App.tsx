@@ -7,8 +7,9 @@ import Reactive from './versions/Reactive';
 import Gamer from './versions/Gamer';
 import Blueprint from './versions/Blueprint';
 import Manga from './versions/Manga';
+import NeuralMap from './versions/NeuralMap';
 
-const VERSIONS: ComponentType<any>[] = [Terminal, Editorial, Serif, Reactive, Gamer, Blueprint, Manga];
+const VERSIONS: ComponentType<any>[] = [Terminal, Editorial, Serif, Reactive, Gamer, Blueprint, Manga, NeuralMap];
 const STORAGE_KEY = 'mi2o_portfolio_version';
 
 export default function App() {

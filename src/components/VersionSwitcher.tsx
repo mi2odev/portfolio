@@ -21,6 +21,7 @@ export const THEMES: VersionTheme[] = [
   { tag: 'V5', kind: 'Gamer', title: 'V5 · Gamer — RPG character sheet HUD', accent: '#B6FF3C', tagFont: "'Chakra Petch',sans-serif", tagWeight: 700, active: { background: 'linear-gradient(120deg,#B6FF3C,#27E0FF)', color: '#070A11', border: '1px solid transparent', borderRadius: '0px', clipPath: 'polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)', boxShadow: '0 0 24px rgba(182,255,60,0.6)' } },
   { tag: 'V6', kind: 'Blueprint', title: 'V6 · Blueprint — technical drawing', accent: '#86E0FF', tagFont: "'Spline Sans Mono',monospace", tagWeight: 600, active: { background: '#0A2742', color: '#EAF2FB', border: '1px solid #86E0FF', borderRadius: '0px', boxShadow: '0 0 0 3px rgba(134,224,255,0.18), 0 0 20px rgba(134,224,255,0.3)' } },
   { tag: 'V7', kind: 'Manga', title: 'V7 · Manga — black & white comic page', accent: '#F2F2F2', tagFont: "'Anton','Cairo',sans-serif", tagWeight: 400, active: { background: '#0B0B0A', color: '#FFFFFF', border: '2px solid #FFFFFF', borderRadius: '0px', boxShadow: '0 0 0 2px rgba(255,255,255,0.18)' } },
+  { tag: 'V8', kind: 'Neural', title: 'V8 · Neural Map — force-directed graph', accent: '#35E8E0', tagFont: "'Space Grotesk',sans-serif", tagWeight: 700, active: { background: '#0A0F20', color: '#EAF0FF', border: '1px solid rgba(53,232,224,0.6)', borderRadius: '12px', boxShadow: '0 0 22px rgba(53,232,224,0.4)' } },
 ];
 
 const base: CSSProperties = {
