@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react';
+import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { Hover } from './Hover';
 
 export interface VersionTheme {
@@ -50,6 +50,34 @@ export function VersionSwitcher({ index, onChange, inline }: Props) {
 function InlineSwitcher({ index, onChange }: { index: number; onChange: (i: number) => void }) {
   const [open, setOpen] = useState(false);
   const cur = THEMES[index];
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Pin the dropdown under the trigger but clamp it inside the viewport, so it
+  // never runs off-screen on mobile (either edge, LTR or RTL).
+  useLayoutEffect(() => {
+    if (!open) return;
+    const place = () => {
+      const wrap = wrapRef.current;
+      const menu = menuRef.current;
+      if (!wrap || !menu) return;
+      const r = wrap.getBoundingClientRect();
+      const vw = document.documentElement.clientWidth;
+      const mw = menu.offsetWidth;
+      const rtl = getComputedStyle(wrap).direction === 'rtl';
+      let left = rtl ? r.left : r.right - mw;
+      left = Math.max(8, Math.min(left, vw - mw - 8));
+      menu.style.left = Math.round(left) + 'px';
+      menu.style.top = Math.round(r.bottom + 8) + 'px';
+    };
+    place();
+    window.addEventListener('resize', place);
+    window.addEventListener('scroll', place, true);
+    return () => {
+      window.removeEventListener('resize', place);
+      window.removeEventListener('scroll', place, true);
+    };
+  }, [open]);
 
   const pick = (i: number) => {
     onChange(i);
@@ -81,7 +109,7 @@ function InlineSwitcher({ index, onChange }: { index: number; onChange: (i: numb
   };
 
   return (
-    <div style={{ position: 'relative', display: 'inline-flex', animation: 'fadein .4s ease both' }}>
+    <div ref={wrapRef} style={{ position: 'relative', display: 'inline-flex', animation: 'fadein .4s ease both' }}>
       <Hover
         as="button"
         title={cur.title}
@@ -101,9 +129,12 @@ function InlineSwitcher({ index, onChange }: { index: number; onChange: (i: numb
           {/* click-away catcher */}
           <div onClick={() => setOpen(false)} style={{ position: 'fixed', inset: 0, zIndex: 8999 }} />
           <div
+            ref={menuRef}
             role="menu"
             style={{
-              position: 'absolute', top: 'calc(100% + 10px)', insetInlineEnd: 0, zIndex: 9000, minWidth: 244,
+              position: 'fixed', top: 0, left: 0, zIndex: 9000,
+              minWidth: 'min(244px, calc(100vw - 16px))', maxWidth: 'calc(100vw - 16px)',
+              maxHeight: '72vh', overflowY: 'auto',
               display: 'flex', flexDirection: 'column', gap: 5, padding: 8, borderRadius: 16,
               background: 'rgba(13,13,22,0.96)', border: '1px solid rgba(255,255,255,0.12)',
               backdropFilter: 'blur(22px) saturate(1.4)', WebkitBackdropFilter: 'blur(22px) saturate(1.4)',

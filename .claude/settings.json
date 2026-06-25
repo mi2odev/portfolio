@@ -8,7 +8,10 @@
       "PowerShell(npx vite build 2>&1 | Select-Object -Last 20; \"exit:$LASTEXITCODE\")",
       "PowerShell(npx vite build 2>&1 | Select-Object -Last 6; \"exit:$LASTEXITCODE\")",
       "PowerShell(npx vite build 2>&1 | Select-Object -Last 5; \"exit:$LASTEXITCODE\")",
-      "PowerShell(npx vite build 2>&1 | Select-Object -Last 4; \"exit:$LASTEXITCODE\")"
+      "PowerShell(npx vite build 2>&1 | Select-Object -Last 4; \"exit:$LASTEXITCODE\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }

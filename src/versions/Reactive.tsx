@@ -1,4 +1,4 @@
-import { useRef, type CSSProperties } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { useReactiveFX } from '../hooks/useReactiveFX';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
@@ -21,6 +21,31 @@ export default function Reactive({ index, onChange }: { index?: number; onChange
   const rootRef = useRef<HTMLDivElement>(null);
   const { lang, setLang, t, dir } = useLanguage();
   useReactiveFX(rootRef);
+
+  // Live extras: ticking local clock, rotating specialty, scroll-to-top.
+  const clockRef = useRef<HTMLSpanElement>(null);
+  const [spec, setSpec] = useState(0);
+  const [showTop, setShowTop] = useState(false);
+  const specs = skillGroups(t).map((g) => g.label);
+  useEffect(() => {
+    const fmt = () => {
+      if (clockRef.current) {
+        clockRef.current.textContent = new Date().toLocaleTimeString('en-GB', { timeZone: 'Africa/Algiers', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      }
+    };
+    fmt();
+    const clock = window.setInterval(fmt, 1000);
+    const rot = window.setInterval(() => setSpec((s) => s + 1), 2400);
+    const onScroll = () => setShowTop((document.scrollingElement?.scrollTop ?? 0) > 700);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => { clearInterval(clock); clearInterval(rot); window.removeEventListener('scroll', onScroll); };
+  }, []);
+  const socials = [
+    { icon: <GitHubIcon />, url: PROFILE.githubUrl, label: 'GitHub' },
+    { icon: <InstagramIcon />, url: PROFILE.instagram, label: 'Instagram' },
+    { icon: <FacebookIcon />, url: PROFILE.facebook, label: 'Facebook' },
+  ];
 
   const langBtn = (l: Lang): CSSProperties => ({
     border: 'none', padding: '8px 15px', borderRadius: 999, fontFamily: sans, fontSize: 12, fontWeight: 700,
@@ -56,6 +81,27 @@ export default function Reactive({ index, onChange }: { index?: number; onChange
       <div data-cursor-ring style={{ position: 'fixed', top: 0, left: 0, zIndex: 9999, width: 38, height: 38, margin: '-19px 0 0 -19px', border: '1.5px solid rgba(232,84,198,0.7)', borderRadius: '50%', pointerEvents: 'none', mixBlendMode: 'screen', transition: 'width .22s, height .22s, margin .22s, background .22s, border-color .22s', willChange: 'transform', opacity: 0 }} />
       <div data-cursor-dot style={{ position: 'fixed', top: 0, left: 0, zIndex: 9999, width: 6, height: 6, margin: '-3px 0 0 -3px', background: col.c, borderRadius: '50%', pointerEvents: 'none', boxShadow: `0 0 12px ${col.c}`, willChange: 'transform', opacity: 0 }} />
 
+      {/* fixed social rail */}
+      <div className="rx-rail" style={{ position: 'fixed', insetInlineStart: 18, top: '50%', transform: 'translateY(-50%)', zIndex: 40, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
+        {socials.map((s) => (
+          <Hover key={s.label} as="a" href={s.url} target="_blank" rel="noreferrer" aria-label={s.label} data-magnetic="1" base={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 38, height: 38, borderRadius: 12, color: col.ink2, background: col.glass, border: `1px solid ${col.line}`, backdropFilter: 'blur(10px)', transition: 'color .2s, border-color .2s, background .2s' }} hover={{ color: '#fff', borderColor: 'transparent', background: `linear-gradient(120deg,${col.v},${col.m})` }}>{s.icon}</Hover>
+        ))}
+        <span style={{ width: 1, height: 56, background: `linear-gradient(${col.line2}, transparent)` }} />
+        <span style={{ writingMode: 'vertical-rl', fontFamily: mono, fontSize: 9.5, letterSpacing: '.32em', textTransform: 'uppercase', color: col.faint }}>scroll</span>
+      </div>
+
+      {/* live status HUD */}
+      <div className="rx-hud" style={{ position: 'fixed', insetInlineStart: 18, bottom: 18, zIndex: 40, display: 'inline-flex', alignItems: 'center', gap: 9, padding: '8px 14px', borderRadius: 999, background: col.glass, border: `1px solid ${col.line}`, backdropFilter: 'blur(10px)', fontFamily: mono, fontSize: 11.5, color: col.ink2 }}>
+        <span style={{ width: 7, height: 7, borderRadius: '50%', background: col.c, boxShadow: `0 0 10px ${col.c}`, animation: 'pulseSoft 2s ease-in-out infinite' }} />
+        <span style={{ fontWeight: 600, letterSpacing: '.1em' }}>LIVE</span>
+        <span style={{ color: col.faint }}>·</span>
+        <span ref={clockRef} style={{ color: col.ink, minWidth: 62, display: 'inline-block' }}>--:--:--</span>
+        <span style={{ color: col.faint }}>Constantine</span>
+      </div>
+
+      {/* scroll to top */}
+      <Hover as="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top" data-magnetic="1" base={{ position: 'fixed', insetInlineEnd: 20, bottom: 20, zIndex: 45, width: 46, height: 46, borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', background: col.glass2, border: `1px solid ${col.line2}`, color: col.ink, backdropFilter: 'blur(10px)', cursor: 'pointer', fontSize: 18, boxShadow: '0 10px 30px -12px rgba(0,0,0,0.7)', transition: 'background .2s, color .2s, opacity .3s, transform .3s', opacity: showTop ? 1 : 0, transform: showTop ? 'translateY(0)' : 'translateY(14px)', pointerEvents: showTop ? 'auto' : 'none' }} hover={{ background: `linear-gradient(120deg,${col.v},${col.m})`, color: '#fff' }}>↑</Hover>
+
       <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: 'rgba(5,5,11,0.55)', backdropFilter: 'blur(22px) saturate(1.4)', WebkitBackdropFilter: 'blur(22px) saturate(1.4)', borderBottom: `1px solid ${col.line}` }}>
         <div className="nav-inner" style={{ maxWidth: 1280, margin: '0 auto', padding: '14px 30px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 18 }}>
           <a href="#top" data-magnetic="1" style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', color: col.ink, flexShrink: 0 }}>
@@ -64,7 +110,7 @@ export default function Reactive({ index, onChange }: { index?: number; onChange
           </a>
           <div className="nav-links" style={{ display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
             {([['about', t.nav.about], ['skills', t.nav.skills], ['work', t.nav.work], ['education', t.nav.edu], ['contact', t.nav.contact]] as const).map(([href, label]) => (
-              <Hover key={href} as="a" href={`#${href}`} base={{ textDecoration: 'none', color: col.ink2, fontSize: 13, fontWeight: 600, padding: '8px 13px', borderRadius: 10, transition: 'color .2s, background .2s' }} hover={{ color: col.ink, background: col.glass2 }}>{label}</Hover>
+              <Hover key={href} as="a" href={`#${href}`} data-magnetic="1" base={{ textDecoration: 'none', color: col.ink2, fontSize: 13, fontWeight: 600, padding: '8px 13px', borderRadius: 10, transition: 'color .2s, background .2s' }} hover={{ color: col.ink, background: col.glass2 }}>{label}</Hover>
             ))}
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: col.glass, border: `1px solid ${col.line}`, borderRadius: 999, padding: 3, backdropFilter: 'blur(10px)' }}>
@@ -89,7 +135,12 @@ export default function Reactive({ index, onChange }: { index?: number; onChange
               <span style={{ display: 'block', color: col.ink }}>{t.hero.name.n1}</span>
               <span style={{ display: 'block', background: `linear-gradient(100deg,${col.v},${col.m} 48%,${col.c})`, backgroundSize: '200% auto', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', animation: 'shimmer 6s linear infinite' }}>{t.hero.name.n2} {t.hero.name.n3}</span>
             </h1>
-            <p style={{ fontSize: 'clamp(15px,1.6vw,18.5px)', lineHeight: 1.72, color: col.ink2, textWrap: 'pretty', maxWidth: 540, marginTop: 30 }}>{t.hero.tagline}</p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 11, marginTop: 22, fontFamily: mono, fontSize: 'clamp(13px,1.4vw,15px)' }}>
+              <span style={{ color: col.c }}>{'>'}</span>
+              <span key={spec} style={{ fontWeight: 700, background: `linear-gradient(90deg,${col.v},${col.m})`, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', animation: 'rise .5s cubic-bezier(.2,.7,.2,1) both' }}>{specs[spec % specs.length]}</span>
+              <span style={{ width: 8, height: 17, background: col.m, display: 'inline-block', animation: 'blink 1s steps(1) infinite' }} />
+            </div>
+            <p style={{ fontSize: 'clamp(15px,1.6vw,18.5px)', lineHeight: 1.72, color: col.ink2, textWrap: 'pretty', maxWidth: 540, marginTop: 22 }}>{t.hero.tagline}</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, marginTop: 36 }}>
               <Hover as="a" href="#contact" data-magnetic="1" base={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: `linear-gradient(120deg,${col.v},${col.m})`, color: '#fff', textDecoration: 'none', fontWeight: 700, fontSize: 14, padding: '15px 27px', borderRadius: 14, transition: 'transform .18s, box-shadow .18s', boxShadow: '0 14px 40px -14px rgba(139,92,246,0.9)' }} hover={{ boxShadow: '0 20px 50px -14px rgba(232,84,198,0.95)' }}>{t.hero.ctaContact} <span>→</span></Hover>
               <Hover as="a" href={PROFILE.cvHref} download data-magnetic="1" base={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: col.glass, color: col.ink, textDecoration: 'none', fontWeight: 700, fontSize: 14, padding: '15px 27px', borderRadius: 14, border: `1px solid ${col.line2}`, backdropFilter: 'blur(10px)', transition: 'border-color .18s, background .18s' }} hover={{ borderColor: 'rgba(255,255,255,0.4)', background: col.glass2 }}>↓ {t.hero.ctaCV}</Hover>
@@ -113,6 +164,12 @@ export default function Reactive({ index, onChange }: { index?: number; onChange
             </div>
           </div>
         </div>
+        <div className="rx-cue" style={{ position: 'absolute', bottom: 24, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 9, color: col.faint, fontFamily: mono, fontSize: 9.5, letterSpacing: '.28em', textTransform: 'uppercase', zIndex: 3 }}>
+          <span>scroll</span>
+          <span style={{ position: 'relative', width: 22, height: 34, borderRadius: 12, border: `1px solid ${col.line2}` }}>
+            <span style={{ position: 'absolute', left: '50%', top: 7, width: 3, height: 6, marginLeft: -1.5, borderRadius: 2, background: col.c, animation: 'scrollcue 1.6s ease-in-out infinite' }} />
+          </span>
+        </div>
       </header>
 
       <div style={{ position: 'relative', zIndex: 2, borderTop: `1px solid ${col.line}`, borderBottom: `1px solid ${col.line}`, overflow: 'hidden', background: 'rgba(255,255,255,0.02)', backdropFilter: 'blur(6px)' }}>
@@ -125,7 +182,7 @@ export default function Reactive({ index, onChange }: { index?: number; onChange
 
       {/* about */}
       <section id="about" style={{ position: 'relative', zIndex: 2, maxWidth: 1280, margin: '0 auto', padding: '114px 30px', scrollMarginTop: 70 }}>
-        {eyebrow('[01]', t.about.label)}
+        {eyebrow('[01]', t.about.label, `${t.about.facts.length} facts`)}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px,1fr))', gap: 54, alignItems: 'start' }}>
           <Reveal>
             <h2 style={{ ...h2, lineHeight: 1.14, marginBottom: 22, textWrap: 'balance' }}>{t.about.heading}</h2>
@@ -180,7 +237,7 @@ export default function Reactive({ index, onChange }: { index?: number; onChange
 
       {/* work */}
       <section id="work" style={{ position: 'relative', zIndex: 2, maxWidth: 1280, margin: '0 auto', padding: '0 30px 114px', scrollMarginTop: 70 }}>
-        {eyebrow('[03]', t.work.label)}
+        {eyebrow('[03]', t.work.label, `${t.work.items.length} roles`)}
         <Reveal as="h2" style={{ ...h2, marginBottom: 34 }}>{t.work.heading}</Reveal>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
           {t.work.items.map((e) => (
@@ -220,7 +277,7 @@ export default function Reactive({ index, onChange }: { index?: number; onChange
 
       {/* education */}
       <section id="education" style={{ position: 'relative', zIndex: 2, maxWidth: 1280, margin: '0 auto', padding: '0 30px 114px', scrollMarginTop: 70 }}>
-        {eyebrow('[04]', t.edu.label)}
+        {eyebrow('[04]', t.edu.label, `${t.edu.items.length} steps`)}
         <Reveal as="h2" style={{ ...h2, marginBottom: 34 }}>{t.edu.heading}</Reveal>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(290px,1fr))', gap: 14 }}>
           {t.edu.items.map((e, i) => (
