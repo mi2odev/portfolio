@@ -258,14 +258,14 @@ export default function Blueprint({ index, onChange }: { index?: number; onChang
         {secHead('02', b.skills.label, '33 ITEMS')}
         <h2 style={{ ...h2, marginBottom: 30 }}>{b.skills.heading}</h2>
         <div style={{ border: `1px solid ${col.line2}` }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '60px 56px 220px 1fr', background: 'rgba(255,255,255,0.03)', borderBottom: `1px solid ${col.line2}`, fontFamily: mono, fontSize: 9.5, letterSpacing: '.1em', textTransform: 'uppercase', color: col.faint }}>
+          <div className="skill-head" style={{ display: 'grid', gridTemplateColumns: '60px 56px 220px 1fr', background: 'rgba(255,255,255,0.03)', borderBottom: `1px solid ${col.line2}`, fontFamily: mono, fontSize: 9.5, letterSpacing: '.1em', textTransform: 'uppercase', color: col.faint }}>
             <span style={{ padding: '11px 14px', borderRight: `1px solid ${col.line}` }}>{b.skills.colItem}</span>
             <span style={{ padding: '11px 14px', borderRight: `1px solid ${col.line}` }}>{b.skills.colQty}</span>
             <span style={{ padding: '11px 14px', borderRight: `1px solid ${col.line}` }}>{b.skills.colCat}</span>
             <span style={{ padding: '11px 14px' }}>{b.skills.colDesc}</span>
           </div>
           {groups.map((g) => (
-            <Hover key={g.i} base={{ display: 'grid', gridTemplateColumns: '60px 56px 220px 1fr', borderBottom: `1px solid ${col.line}`, transition: 'background .2s' }} hover={{ background: col.panel }}>
+            <Hover key={g.i} className="skill-row" base={{ display: 'grid', gridTemplateColumns: '60px 56px 220px 1fr', borderBottom: `1px solid ${col.line}`, transition: 'background .2s' }} hover={{ background: col.panel }}>
               <span style={{ padding: '18px 14px', borderRight: `1px solid ${col.line}`, fontFamily: mono, fontSize: 12, color: col.red }}>{g.i}</span>
               <span style={{ padding: '18px 14px', borderRight: `1px solid ${col.line}`, fontFamily: mono, fontSize: 12, color: col.ink2 }}>{g.qty}</span>
               <span style={{ padding: '18px 14px', borderRight: `1px solid ${col.line}`, fontFamily: sans, fontSize: 15, fontWeight: 700, display: 'flex', alignItems: 'center' }}>{g.label}</span>

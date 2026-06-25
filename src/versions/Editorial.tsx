@@ -156,7 +156,7 @@ export default function Editorial({ index, onChange }: { index?: number; onChang
         <Reveal delay={0.06} as="h2" style={{ ...heading2, marginBottom: 34 }}>{t.skills.heading}</Reveal>
         <Reveal delay={0.12} style={{ border: `1.5px solid ${c.ink}` }}>
           {skillGroups(t).map((g) => (
-            <Hover key={g.i} base={{ display: 'grid', gridTemplateColumns: '230px 1fr', gap: 24, padding: '24px 22px', borderBottom: `1.5px solid ${c.hair}`, transition: 'background .2s' }} hover={{ background: c.panel }}>
+            <Hover key={g.i} className="skill-row" base={{ display: 'grid', gridTemplateColumns: '230px 1fr', gap: 24, padding: '24px 22px', borderBottom: `1.5px solid ${c.hair}`, transition: 'background .2s' }} hover={{ background: c.panel }}>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 11 }}>
                 <span style={{ fontFamily: mono, fontSize: 12, color: c.accent, fontWeight: 700 }}>{g.i}</span>
                 <span style={{ fontSize: 19, fontWeight: 700, letterSpacing: '-.01em' }}>{g.label}</span>

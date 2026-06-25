@@ -146,7 +146,7 @@ export default function Serif({ index, onChange }: { index?: number; onChange?: 
         <Reveal delay={0.06} as="h2" style={{ ...h2serif, marginBottom: 34 }}>{t.skills.heading}</Reveal>
         <Reveal delay={0.12} style={{ background: c.surface, border: `1px solid ${c.line}`, borderRadius: 22, overflow: 'hidden', boxShadow: c.shadow }}>
           {skillGroups(t).map((g) => (
-            <Hover key={g.i} base={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 24, padding: '24px 26px', borderBottom: `1px solid ${c.line}`, transition: 'background .2s' }} hover={{ background: '#FBFAF6' }}>
+            <Hover key={g.i} className="skill-row" base={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 24, padding: '24px 26px', borderBottom: `1px solid ${c.line}`, transition: 'background .2s' }} hover={{ background: '#FBFAF6' }}>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 11 }}>
                 <span style={{ fontFamily: serif, fontStyle: 'italic', fontSize: 18, color: c.accent }}>{g.i}</span>
                 <span style={{ fontSize: 19, fontWeight: 700, letterSpacing: '-.01em' }}>{g.label}</span>

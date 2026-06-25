@@ -96,9 +96,9 @@ function Sfx({ children, style, outline }: { children: ReactNode; style?: CSSPro
 }
 
 /* A bordered comic panel with a folded ink corner. */
-function Panel({ children, style, fold = true }: { children?: ReactNode; style?: CSSProperties; fold?: boolean }) {
+function Panel({ children, style, fold = true, className }: { children?: ReactNode; style?: CSSProperties; fold?: boolean; className?: string }) {
   return (
-    <div style={{ position: 'relative', background: c.page, border: `3px solid ${c.ink}`, overflow: 'hidden', ...style }}>
+    <div className={className} style={{ position: 'relative', background: c.page, border: `3px solid ${c.ink}`, overflow: 'hidden', ...style }}>
       {children}
       {fold && <span aria-hidden style={{ position: 'absolute', top: 0, right: 0, width: 0, height: 0, borderTop: `22px solid ${c.ink}`, borderLeft: '22px solid transparent', pointerEvents: 'none' }} />}
     </div>
@@ -463,7 +463,7 @@ export default function Manga({ index, onChange }: { index?: number; onChange?: 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             {skillGroups(t).map((g, i) => (
               <Reveal key={g.i} delay={0.04 * i}>
-                <Panel style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 20, padding: '20px 22px' }}>
+                <Panel className="skill-row" style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 20, padding: '20px 22px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                     <span style={{ fontFamily: display, fontSize: 30, color: 'transparent', WebkitTextStroke: `1.5px ${c.ink}`, lineHeight: 1 }}>{g.i}</span>
                     <span style={{ fontFamily: display, fontSize: 20, textTransform: 'uppercase', lineHeight: 1.04 }}>{g.label}</span>
