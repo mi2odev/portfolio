@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(npx tsc --noEmit 2>&1)",
+      "PowerShell(npx tsc -b 2>&1 | Select-Object -First 40; \"exit:$LASTEXITCODE\")",
+      "Bash(python -c \"from PIL import Image; print\\(Image.open\\('photo.png'\\).size\\)\")",
+      "Bash(node -e \"const fs=require\\('fs'\\);const b=fs.readFileSync\\('photo.png'\\);console.log\\('width',b.readUInt32BE\\(16\\),'height',b.readUInt32BE\\(20\\)\\);\")",
+      "PowerShell(npx vite build 2>&1 | Select-Object -Last 20; \"exit:$LASTEXITCODE\")",
+      "PowerShell(npx vite build 2>&1 | Select-Object -Last 6; \"exit:$LASTEXITCODE\")",
+      "PowerShell(npx vite build 2>&1 | Select-Object -Last 5; \"exit:$LASTEXITCODE\")",
+      "PowerShell(npx vite build 2>&1 | Select-Object -Last 4; \"exit:$LASTEXITCODE\")"
+    ]
+  }
+}

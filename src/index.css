@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Global resets shared by every version
+   ────────────────────────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background: #05050b;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Text is not user-selectable across any version (these are showcase pages). */
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+/* Keep real inputs usable if any are ever added. */
+input,
+textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Keyframes — union of all six design directions.
+   (Keyframes cannot be inlined, so every animation lives here and is
+    referenced from the per-version components via inline `animation:` styles.)
+   ────────────────────────────────────────────────────────────────────────── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes upin {
+  from { opacity: 0; transform: translate(-50%, 16px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.35; transform: scale(0.8); }
+}
+@keyframes pulseSoft {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes blink {
+  0%, 49%   { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-9px); }
+}
+@keyframes glowDrift {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-2.5%, 2.5%) scale(1.14); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes shimmer {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+@keyframes ringpulse {
+  0%   { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+/* V5 Gamer / V6 Blueprint extras */
+@keyframes scanline {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92%      { opacity: 1; }
+  93%      { opacity: 0.6; }
+  94%      { opacity: 1; }
+}
+@keyframes dash {
+  to { stroke-dashoffset: -1000; }
+}
+/* Compact dropdown for the in-navbar version switcher (no translateX, unlike `upin`) */
+@keyframes popin {
+  from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+/* V5 Gamer shooting-range targets */
+@keyframes targetpop {
+  from { transform: scale(0); opacity: 0; }
+  70%  { transform: scale(1.12); }
+  to   { transform: scale(1); opacity: 1; }
+}
+@keyframes targethit {
+  from { transform: scale(1); opacity: 1; }
+  to   { transform: scale(2); opacity: 0; }
+}
+@keyframes scorepop {
+  from { transform: translate(-50%, -50%); opacity: 1; }
+  to   { transform: translate(-50%, -150%); opacity: 0; }
+}
+/* V7 Manga: drifting speed-line burst + bobbing FX caption */
+@keyframes sway {
+  0%, 100% { transform: rotate(-1.5deg) scale(1.02); }
+  50%      { transform: rotate(1.5deg) scale(1.05); }
+}
+@keyframes bob {
+  0%, 100% { transform: rotate(var(--rot, 0deg)) translateY(0); }
+  50%      { transform: rotate(var(--rot, 0deg)) translateY(-7px); }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Responsive overrides.
+   The versions render with inline styles, which media queries can't touch
+   unless they use `!important`. These rules tame the top navbar on small
+   screens (the inline `display:flex` etc. are overridden below).
+   ────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  /* V2 Editorial: stack the hero so the portrait drops below the name/intro */
+  .edi-hero { grid-template-columns: 1fr !important; }
+  .edi-photo { justify-self: start !important; max-width: 380px !important; }
+}
+@media (max-width: 860px) {
+  /* Drop the section-anchor links so logo + language + version switcher fit */
+  .nav-links { display: none !important; }
+  .nav-inner { padding-left: 18px !important; padding-right: 18px !important; gap: 10px !important; }
+}
+@media (max-width: 480px) {
+  /* Shrink the version switcher trigger to just the dot + tag + chevron */
+  .vswitch-kind { display: none !important; }
+  .nav-inner { padding-left: 14px !important; padding-right: 14px !important; }
+}
+@media (max-width: 360px) {
+  /* Last-resort: let the navbar wrap instead of forcing horizontal overflow */
+  .nav-inner { flex-wrap: wrap !important; row-gap: 8px !important; justify-content: space-between !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
