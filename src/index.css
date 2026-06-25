@@ -116,6 +116,13 @@ textarea {
   from { transform: translate(-50%, -50%); opacity: 1; }
   to   { transform: translate(-50%, -150%); opacity: 0; }
 }
+/* V4 Reactive scroll-cue dot */
+@keyframes scrollcue {
+  0%   { transform: translateY(0); opacity: 0; }
+  25%  { opacity: 1; }
+  75%  { opacity: 1; }
+  100% { transform: translateY(15px); opacity: 0; }
+}
 /* V7 Manga: drifting speed-line burst + bobbing FX caption */
 @keyframes sway {
   0%, 100% { transform: rotate(-1.5deg) scale(1.02); }
@@ -151,6 +158,11 @@ textarea {
   /* Last-resort: let the navbar wrap instead of forcing horizontal overflow */
   .nav-inner { flex-wrap: wrap !important; row-gap: 8px !important; justify-content: space-between !important; }
 }
+
+/* V4 Reactive floating extras — drop them when there's no room in the gutters */
+@media (max-width: 1340px) { .rx-rail { display: none !important; } }
+@media (max-width: 760px) { .rx-cue { display: none !important; } }
+@media (max-width: 600px) { .rx-hud { display: none !important; } }
 
 @media (prefers-reduced-motion: reduce) {
   *,
