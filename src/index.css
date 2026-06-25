@@ -164,6 +164,13 @@ textarea {
 @media (max-width: 760px) { .rx-cue { display: none !important; } }
 @media (max-width: 600px) { .rx-hud { display: none !important; } }
 
+/* Skill rows use a fixed label column that overflows narrow screens — stack them.
+   Shared by every version's skills section (V1–V7). */
+@media (max-width: 680px) {
+  .skill-row { grid-template-columns: 1fr !important; row-gap: 12px !important; }
+  .skill-head { display: none !important; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

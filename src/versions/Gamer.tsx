@@ -294,7 +294,7 @@ export default function Gamer({ index, onChange }: { index?: number; onChange?: 
           {skillGroups(t).map((grp) => (
             <div key={grp.i} style={{ position: 'relative', paddingLeft: 38, paddingBottom: 14 }}>
               <span style={{ position: 'absolute', left: 1, top: 24, width: 16, height: 16, background: col.bg, border: `2px solid ${col.lime}`, transform: 'rotate(45deg)', boxShadow: '0 0 12px rgba(182,255,60,0.5)' }} />
-              <Hover base={{ display: 'grid', gridTemplateColumns: '230px 1fr', gap: 22, padding: '21px 24px', background: col.panel, border: `1px solid ${col.line}`, transition: 'border-color .22s' }} hover={{ borderColor: col.line2 }}>
+              <Hover className="skill-row" base={{ display: 'grid', gridTemplateColumns: '230px 1fr', gap: 22, padding: '21px 24px', background: col.panel, border: `1px solid ${col.line}`, transition: 'border-color .22s' }} hover={{ borderColor: col.line2 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 11 }}>
                   <span style={{ fontFamily: mono, fontSize: 12, color: col.cyan }}>{grp.i}</span>
                   <span style={{ fontFamily: display, fontSize: 17, fontWeight: 700, letterSpacing: '.005em' }}>{grp.label}</span>

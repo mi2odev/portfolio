@@ -206,7 +206,7 @@ export default function Reactive({ index, onChange }: { index?: number; onChange
         <Reveal as="h2" style={{ ...h2, marginBottom: 38 }}>{t.skills.heading}</Reveal>
         <Reveal style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           {skillGroups(t).map((g) => (
-            <Hover key={g.i} base={{ display: 'grid', gridTemplateColumns: '240px 1fr', gap: 24, padding: '24px 26px', background: col.glass, border: `1px solid ${col.line}`, borderRadius: 18, backdropFilter: 'blur(12px)', transition: 'border-color .22s' }} hover={{ borderColor: col.line2 }}>
+            <Hover key={g.i} className="skill-row" base={{ display: 'grid', gridTemplateColumns: '240px 1fr', gap: 24, padding: '24px 26px', background: col.glass, border: `1px solid ${col.line}`, borderRadius: 18, backdropFilter: 'blur(12px)', transition: 'border-color .22s' }} hover={{ borderColor: col.line2 }}>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 12 }}>
                 <span style={{ fontFamily: mono, fontSize: 13, color: col.m }}>{g.i}</span>
                 <span style={{ fontFamily: display, fontSize: 18, fontWeight: 700, letterSpacing: '-.01em' }}>{g.label}</span>
