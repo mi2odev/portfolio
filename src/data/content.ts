@@ -109,7 +109,7 @@ export const CONTENT: Record<Lang, Content> = {
       role2: 'Master · SDSI',
       name: { n1: 'Mohamed', n2: 'Mehdi', n3: 'Zitouni' },
       locLabel: 'Localisation',
-      progLabel: 'Programme',
+      progLabel: 'Diplôme',
     },
     about: {
       label: 'À propos',
@@ -265,7 +265,7 @@ export const CONTENT: Record<Lang, Content> = {
       role2: 'MSc · SDSI',
       name: { n1: 'Mohamed', n2: 'Mehdi', n3: 'Zitouni' },
       locLabel: 'Location',
-      progLabel: 'Program',
+      progLabel: 'Degree',
     },
     about: {
       label: 'About',
@@ -420,7 +420,7 @@ export const CONTENT: Record<Lang, Content> = {
       role2: 'ماستر · SDSI',
       name: { n1: 'محمد', n2: 'مهدي', n3: 'زيتوني' },
       locLabel: 'الموقع',
-      progLabel: 'البرنامج',
+      progLabel: 'الشهادة',
     },
     about: {
       label: 'نبذة',
