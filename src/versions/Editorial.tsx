@@ -81,7 +81,7 @@ export default function Editorial({ index, onChange }: { index?: number; onChang
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: c.accent, boxShadow: '0 0 0 3px rgba(229,66,30,0.2)' }} />{t.status}
           </span>
           <span style={{ flex: 1, height: 1.5, background: c.hair2 }} />
-          <span style={{ fontFamily: mono, fontSize: 11.5, color: c.faint, whiteSpace: 'nowrap' }}>CONSTANTINE · DZ — 36.36°N</span>
+          <span className="edi-coord" style={{ fontFamily: mono, fontSize: 11.5, color: c.faint, whiteSpace: 'nowrap' }}>CONSTANTINE · DZ — 36.36°N</span>
         </div>
 
         <div className="edi-hero" style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) 360px', gap: '40px 54px', alignItems: 'start', marginTop: 34, paddingBottom: 64 }}>
