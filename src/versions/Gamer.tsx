@@ -82,14 +82,14 @@ const GAMER: Record<Lang, GamerVocab> = {
   },
 };
 
+// Indexed positionally against work.items — keep in step with that order, or a
+// project is shown with another one's tier and status.
 const QUEST_META = [
+  { rarity: 'legendary', status: 'done', xp: 2500 },
+  { rarity: 'epic', status: 'active', xp: 1500 },
   { rarity: 'epic', status: 'done', xp: 1200 },
-  { rarity: 'epic', status: 'done', xp: 1500 },
-  { rarity: 'rare', status: 'active', xp: 800 },
-  { rarity: 'legendary', status: 'active', xp: 2500 },
-  { rarity: 'rare', status: 'active', xp: 900 },
-  { rarity: 'common', status: 'done', xp: 400 },
-  { rarity: 'common', status: 'done', xp: 350 },
+  { rarity: 'rare', status: 'done', xp: 900 },
+  { rarity: 'rare', status: 'done', xp: 800 },
   { rarity: 'epic', status: 'done', xp: 1300 },
 ];
 const RC: Record<string, string> = { legendary: col.gold, epic: col.epic, rare: col.rare, common: col.ink2 };

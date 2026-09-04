@@ -81,8 +81,8 @@ export const PROFILE = {
 
 // ── Skill chips (language-independent) ────────────────────────────────────
 export const SKILL_CHIPS = {
-  fe: ['HTML5', 'CSS3', 'JavaScript', 'TypeScript', 'React', 'Vue.js', 'Tailwind CSS'],
-  be: ['PHP (Laravel)', 'Python (Django)', 'Spring Boot', 'Node.js / Express', 'MySQL', 'PostgreSQL / PostGIS'],
+  fe: ['HTML5', 'CSS3', 'JavaScript', 'TypeScript', 'React', 'React Native', 'Vue.js', 'Tailwind CSS'],
+  be: ['PHP (Laravel)', 'Python (Django)', 'Python (Flask)', 'Spring Boot', 'Node.js / Express', 'MySQL', 'PostgreSQL / PostGIS'],
   data: ['Python', 'Pandas', 'Scikit-learn', 'LightGBM', 'SHAP', 'Spark (PySpark)', 'Hadoop'],
   ops: ['Docker', 'Git & GitHub', 'Linux', 'UML', 'Vite'],
   cloud: ['AWS IoT Core', 'AWS Lambda', 'DynamoDB', 'SNS', 'CloudWatch', 'EC2', 'MQTT', 'ESP32', 'Grafana'],
@@ -148,29 +148,6 @@ export const CONTENT: Record<Lang, Content> = {
         },
         {
           i: '02',
-          title: 'Analyse de sentiments — Avis Amazon',
-          role: 'Machine Learning · Big Data & NoSQL',
-          period: 'Mars – Mai 2025',
-          bullets: [
-            'Développement d’un modèle capable d’analyser et de classifier les sentiments exprimés dans les avis clients Amazon.',
-            'Prétraitement et traitement de données d’avis à grande échelle avec des technologies Big Data telles que PySpark et Hadoop.',
-            'Conteneurisation complète du système avec Docker pour garantir la portabilité et simplifier le déploiement.',
-          ],
-          tags: ['Python', 'PySpark', 'Hadoop', 'Docker', 'NLP'],
-        },
-        {
-          i: '03',
-          title: 'Application web & mobile de gestion de livraison',
-          role: 'Projet de fin d’études (Licence)',
-          period: '2024',
-          bullets: [
-            'Conception et développement d’une application web et mobile dédiée à la gestion de la livraison des commandes.',
-            'Mise en place de la gestion et du suivi des commandes, de leur passation jusqu’à la livraison au client.',
-          ],
-          tags: ['Web', 'Mobile', 'Full-Stack', 'UML'],
-        },
-        {
-          i: '04',
           title: 'Développeur web full-stack freelance',
           role: 'Applications web & mobiles',
           period: '2023 – Présent',
@@ -192,6 +169,29 @@ export const CONTENT: Record<Lang, Content> = {
             { label: 'School System', url: 'https://github.com/mi2odev/schoolsystem' },
             { label: 'GitHub', url: 'https://github.com/mi2odev' },
           ],
+        },
+        {
+          i: '03',
+          title: 'Analyse de sentiments — Avis Amazon',
+          role: 'Machine Learning · Big Data & NoSQL',
+          period: 'Mars – Mai 2025',
+          bullets: [
+            'Développement d’un modèle capable d’analyser et de classifier les sentiments exprimés dans les avis clients Amazon.',
+            'Prétraitement et traitement de données d’avis à grande échelle avec des technologies Big Data telles que PySpark et Hadoop.',
+            'Conteneurisation complète du système avec Docker pour garantir la portabilité et simplifier le déploiement.',
+          ],
+          tags: ['Python', 'PySpark', 'Hadoop', 'Docker', 'NLP'],
+        },
+        {
+          i: '04',
+          title: 'Application web & mobile de gestion de livraison',
+          role: 'Projet de fin d’études (Licence)',
+          period: '2024',
+          bullets: [
+            'Conception et développement d’une application web et mobile dédiée à la gestion de la livraison des commandes.',
+            'Mise en place de la gestion et du suivi des commandes, de leur passation jusqu’à la livraison au client.',
+          ],
+          tags: ['Web', 'Mobile', 'Full-Stack', 'UML'],
         },
         {
           i: '05',
@@ -304,29 +304,6 @@ export const CONTENT: Record<Lang, Content> = {
         },
         {
           i: '02',
-          title: 'Amazon Reviews Sentiment Analysis',
-          role: 'Machine Learning · Big Data & NoSQL',
-          period: 'Mar – May 2025',
-          bullets: [
-            'Developed a model able to analyse and classify the sentiment expressed in Amazon customer reviews.',
-            'Pre-processed and handled large-scale review data using Big Data technologies such as PySpark and Hadoop.',
-            'Containerised the whole system with Docker to guarantee portability and simplify deployment.',
-          ],
-          tags: ['Python', 'PySpark', 'Hadoop', 'Docker', 'NLP'],
-        },
-        {
-          i: '03',
-          title: 'Delivery Management Web & Mobile Application',
-          role: 'Final-Year Project (BSc)',
-          period: '2024',
-          bullets: [
-            'Designed and developed a web and mobile application dedicated to managing order deliveries.',
-            'Implemented order management and tracking, from placement through to delivery to the customer.',
-          ],
-          tags: ['Web', 'Mobile', 'Full-Stack', 'UML'],
-        },
-        {
-          i: '04',
           title: 'Freelance Full-Stack Web Developer',
           role: 'Web & Mobile Apps',
           period: '2023 – Present',
@@ -348,6 +325,29 @@ export const CONTENT: Record<Lang, Content> = {
             { label: 'School System', url: 'https://github.com/mi2odev/schoolsystem' },
             { label: 'GitHub', url: 'https://github.com/mi2odev' },
           ],
+        },
+        {
+          i: '03',
+          title: 'Amazon Reviews Sentiment Analysis',
+          role: 'Machine Learning · Big Data & NoSQL',
+          period: 'Mar – May 2025',
+          bullets: [
+            'Developed a model able to analyse and classify the sentiment expressed in Amazon customer reviews.',
+            'Pre-processed and handled large-scale review data using Big Data technologies such as PySpark and Hadoop.',
+            'Containerised the whole system with Docker to guarantee portability and simplify deployment.',
+          ],
+          tags: ['Python', 'PySpark', 'Hadoop', 'Docker', 'NLP'],
+        },
+        {
+          i: '04',
+          title: 'Delivery Management Web & Mobile Application',
+          role: 'Final-Year Project (BSc)',
+          period: '2024',
+          bullets: [
+            'Designed and developed a web and mobile application dedicated to managing order deliveries.',
+            'Implemented order management and tracking, from placement through to delivery to the customer.',
+          ],
+          tags: ['Web', 'Mobile', 'Full-Stack', 'UML'],
         },
         {
           i: '05',
@@ -459,29 +459,6 @@ export const CONTENT: Record<Lang, Content> = {
         },
         {
           i: '02',
-          title: 'تحليل المشاعر — مراجعات أمازون',
-          role: 'تعلّم آلي · البيانات الضخمة و NoSQL',
-          period: 'مارس – ماي 2025',
-          bullets: [
-            'تطوير نموذج قادر على تحليل وتصنيف المشاعر المعبّر عنها في مراجعات عملاء أمازون.',
-            'معالجة أوّلية لبيانات مراجعات ضخمة باستخدام تقنيات البيانات الضخمة مثل PySpark و Hadoop.',
-            'وضع النظام بالكامل في حاويات Docker لضمان قابلية النقل وتبسيط النشر.',
-          ],
-          tags: ['Python', 'PySpark', 'Hadoop', 'Docker', 'NLP'],
-        },
-        {
-          i: '03',
-          title: 'تطبيق ويب وموبايل لإدارة التوصيل',
-          role: 'مشروع نهاية الدراسة (ليسانس)',
-          period: '2024',
-          bullets: [
-            'تصميم وتطوير تطبيق ويب وموبايل مخصّص لإدارة توصيل الطلبات.',
-            'تنفيذ إدارة وتتبّع الطلبات، من لحظة الطلب حتى تسليمها إلى العميل.',
-          ],
-          tags: ['Web', 'Mobile', 'Full-Stack', 'UML'],
-        },
-        {
-          i: '04',
           title: 'مطوّر ويب Full-Stack بشكل حر',
           role: 'تطبيقات ويب وموبايل',
           period: '2023 – حتى الآن',
@@ -503,6 +480,29 @@ export const CONTENT: Record<Lang, Content> = {
             { label: 'School System', url: 'https://github.com/mi2odev/schoolsystem' },
             { label: 'GitHub', url: 'https://github.com/mi2odev' },
           ],
+        },
+        {
+          i: '03',
+          title: 'تحليل المشاعر — مراجعات أمازون',
+          role: 'تعلّم آلي · البيانات الضخمة و NoSQL',
+          period: 'مارس – ماي 2025',
+          bullets: [
+            'تطوير نموذج قادر على تحليل وتصنيف المشاعر المعبّر عنها في مراجعات عملاء أمازون.',
+            'معالجة أوّلية لبيانات مراجعات ضخمة باستخدام تقنيات البيانات الضخمة مثل PySpark و Hadoop.',
+            'وضع النظام بالكامل في حاويات Docker لضمان قابلية النقل وتبسيط النشر.',
+          ],
+          tags: ['Python', 'PySpark', 'Hadoop', 'Docker', 'NLP'],
+        },
+        {
+          i: '04',
+          title: 'تطبيق ويب وموبايل لإدارة التوصيل',
+          role: 'مشروع نهاية الدراسة (ليسانس)',
+          period: '2024',
+          bullets: [
+            'تصميم وتطوير تطبيق ويب وموبايل مخصّص لإدارة توصيل الطلبات.',
+            'تنفيذ إدارة وتتبّع الطلبات، من لحظة الطلب حتى تسليمها إلى العميل.',
+          ],
+          tags: ['Web', 'Mobile', 'Full-Stack', 'UML'],
         },
         {
           i: '05',

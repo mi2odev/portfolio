@@ -141,14 +141,14 @@ const COL: Record<string, string> = {
 const SKILLS: Record<string, readonly string[]> = SKILL_CHIPS;
 
 // Project → skills mapping for the association edges (language-independent).
+// Indexed positionally against CONTENT.en.work.items — keep in step with that
+// order, and use names that exist in SKILL_CHIPS or the edge is silently dropped.
 const PROJSK: string[][] = [
-  ['Python', 'Hadoop', 'Spark', 'Docker'],
+  ['React', 'Node.js / Express', 'PostgreSQL / PostGIS', 'LightGBM', 'SHAP'],
+  ['React', 'React Native', 'TypeScript', 'Tailwind CSS', 'Vite'],
+  ['Python', 'Spark (PySpark)', 'Hadoop', 'Docker'],
   ['JavaScript', 'UML'],
-  ['JavaScript', 'React'],
-  ['React', 'Python', 'Deep Learning'],
-  ['Python', 'Deep Learning'],
-  ['JavaScript', 'MySQL'],
-  ['JavaScript', 'MySQL'],
+  ['Python'],
   ['ESP32', 'MQTT', 'AWS IoT Core', 'AWS Lambda', 'DynamoDB', 'SNS', 'CloudWatch', 'Grafana'],
 ];
 
