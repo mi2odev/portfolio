@@ -171,6 +171,29 @@ textarea {
   .skill-head { display: none !important; }
 }
 
+/* V2 Editorial: the coordinate readout shares a row with the availability pill and
+   has no room left beside it on phones — drop the decoration rather than clip it. */
+@media (max-width: 560px) {
+  .edi-coord { display: none !important; }
+}
+
+/* V6 Blueprint: the revisions table's fixed rev/date columns leave the degree text
+   about 100px on phones — stack each row and drop the now-meaningless header. */
+@media (max-width: 680px) {
+  .bp-edu-row { grid-template-columns: 1fr !important; }
+  .bp-edu-row > * { border-right: 0 !important; }
+  .bp-edu-head { display: none !important; }
+}
+
+/* V6 Blueprint: the elevation's left dimension line is drawn outside the figure and
+   falls off the screen once the gutters shrink. It is pure decoration — drop it. */
+@media (max-width: 680px) {
+  .bp-dim { display: none !important; }
+  /* The drawing title block is pinned to the viewport corner; on a phone it sits on
+     top of the section content instead of in a margin. */
+  .bp-titleblock { display: none !important; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

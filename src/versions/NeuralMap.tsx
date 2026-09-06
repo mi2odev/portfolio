@@ -141,14 +141,14 @@ const COL: Record<string, string> = {
 const SKILLS: Record<string, readonly string[]> = SKILL_CHIPS;
 
 // Project → skills mapping for the association edges (language-independent).
+// Indexed positionally against CONTENT.en.work.items — keep in step with that
+// order, and use names that exist in SKILL_CHIPS or the edge is silently dropped.
 const PROJSK: string[][] = [
-  ['Python', 'Hadoop', 'Spark', 'Docker'],
+  ['React', 'Node.js / Express', 'PostgreSQL / PostGIS', 'LightGBM', 'SHAP'],
+  ['React', 'React Native', 'TypeScript', 'Tailwind CSS', 'Vite'],
+  ['Python', 'Spark (PySpark)', 'Hadoop', 'Docker'],
   ['JavaScript', 'UML'],
-  ['JavaScript', 'React'],
-  ['React', 'Python', 'Deep Learning'],
-  ['Python', 'Deep Learning'],
-  ['JavaScript', 'MySQL'],
-  ['JavaScript', 'MySQL'],
+  ['Python'],
   ['ESP32', 'MQTT', 'AWS IoT Core', 'AWS Lambda', 'DynamoDB', 'SNS', 'CloudWatch', 'Grafana'],
 ];
 
@@ -660,7 +660,9 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
 
         {/* drawer */}
         {this.state.open && d && (
-          <div dir={dir} style={{ position: 'absolute', top: 0, bottom: 0, [drawerSide]: 0, width: 'min(430px,92vw)', zIndex: 20, padding: 18, display: 'flex', pointerEvents: 'none' }}>
+          <div dir={dir} style={{ position: 'absolute', top: 0, bottom: 0, [drawerSide]: 0, width: 'min(430px,92vw)', zIndex: 20, // clears the lang/version switcher above and the zoom controls below, which
+                // sit on this same edge — a full-height card made both unclickable.
+                padding: '108px 18px 68px', display: 'flex', pointerEvents: 'none' }}>
             <div className="npv8-scroll" style={{ pointerEvents: 'auto', width: '100%', height: '100%', overflowY: 'auto', overflowX: 'hidden', background: 'rgba(10,15,32,.8)', backdropFilter: 'blur(22px)', WebkitBackdropFilter: 'blur(22px)', border: '1px solid rgba(130,150,210,.22)', borderRadius: 20, boxShadow: '0 30px 80px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.06)', padding: '26px 26px 32px', animation: 'npv8_in .42s cubic-bezier(.2,.8,.25,1) both' }}>
               <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 18 }}>
                 <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: 10.5, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.16em', color: acc, border: '1px solid rgba(53,232,224,.35)', padding: '6px 11px', borderRadius: 8 }}>{d.tag}</span>

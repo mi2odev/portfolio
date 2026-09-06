@@ -40,7 +40,7 @@ const GAMER: Record<Lang, GamerVocab> = {
     hero: { kicker: 'JOUEUR 01 — PRÊT', start: 'Démarrer la quête', loadout: 'Loadout (CV)', regionLabel: 'Serveur', guildLabel: 'Guilde', statusLabel: 'Statut', statusVal: 'En ligne · Dispo' },
     playerCard: { class: 'Full-Stack Dev · Mage de la Data', lvlLabel: 'NIVEAU', rank: 'Légendaire', online: 'en ligne', statsLabel: 'Attributs' },
     aboutLabel: 'Dossier Joueur',
-    aboutBody: 'Master 2 Sciences des Données & Systèmes Intelligents. Je transforme des idées en produits — du pixel jusqu’au modèle.',
+    aboutBody: 'Développeur web full-stack, freelance depuis 2023. Master en Sciences des Données & Systèmes Intelligents. Je transforme des idées en produits — du pixel jusqu’au modèle.',
     skills: { label: 'Arbre de compétences', heading: 'Compétences débloquées & équipement.', unlocked: 'débloquées', comms: 'Communication / Langues' },
     work: { label: 'Journal de quêtes', heading: 'Quêtes accomplies & en cours.', loot: 'Butin', enter: 'Entrer' },
     edu: { label: 'Succès débloqués', heading: 'Progression de la campagne.', unlocked: 'Succès débloqué' },
@@ -55,7 +55,7 @@ const GAMER: Record<Lang, GamerVocab> = {
     hero: { kicker: 'PLAYER 01 — READY', start: 'Start quest', loadout: 'Loadout (CV)', regionLabel: 'Server', guildLabel: 'Guild', statusLabel: 'Status', statusVal: 'Online · Open' },
     playerCard: { class: 'Full-Stack Dev · Data Mage', lvlLabel: 'LEVEL', rank: 'Legendary', online: 'online', statsLabel: 'Attributes' },
     aboutLabel: 'Player File',
-    aboutBody: "Master's in Data Science & Intelligent Systems. I turn ideas into products — from the pixel all the way to the model.",
+    aboutBody: "Full-stack web developer, freelancing since 2023. MSc in Data Science & Intelligent Systems. I turn ideas into products — from the pixel all the way to the model.",
     skills: { label: 'Skill tree', heading: 'Unlocked skills & equipment.', unlocked: 'unlocked', comms: 'Comms / Languages' },
     work: { label: 'Quest log', heading: 'Quests cleared & in progress.', loot: 'Loot', enter: 'Enter' },
     edu: { label: 'Achievements unlocked', heading: 'Campaign progression.', unlocked: 'Achievement unlocked' },
@@ -82,14 +82,14 @@ const GAMER: Record<Lang, GamerVocab> = {
   },
 };
 
+// Indexed positionally against work.items — keep in step with that order, or a
+// project is shown with another one's tier and status.
 const QUEST_META = [
+  { rarity: 'legendary', status: 'done', xp: 2500 },
+  { rarity: 'epic', status: 'active', xp: 1500 },
   { rarity: 'epic', status: 'done', xp: 1200 },
-  { rarity: 'epic', status: 'done', xp: 1500 },
-  { rarity: 'rare', status: 'active', xp: 800 },
-  { rarity: 'legendary', status: 'active', xp: 2500 },
-  { rarity: 'rare', status: 'active', xp: 900 },
-  { rarity: 'common', status: 'done', xp: 400 },
-  { rarity: 'common', status: 'done', xp: 350 },
+  { rarity: 'rare', status: 'done', xp: 900 },
+  { rarity: 'rare', status: 'done', xp: 800 },
   { rarity: 'epic', status: 'done', xp: 1300 },
 ];
 const RC: Record<string, string> = { legendary: col.gold, epic: col.epic, rare: col.rare, common: col.ink2 };

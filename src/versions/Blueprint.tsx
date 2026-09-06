@@ -33,7 +33,7 @@ const BP: Record<Lang, BPVocab> = {
     nav: { about: 'Aperçu', skills: 'Spécifs', work: 'Plans', edu: 'Révisions', contact: 'Validation' },
     hero: { stamp: 'Bon pour réalisation', discipline: 'DISCIPLINE — DÉV. WEB & IA', start: 'Demander un devis', cv: 'Télécharger le CV', subject: 'sujet' },
     aboutLabel: 'Aperçu',
-    aboutBody: 'Master 2 Sciences des Données & Systèmes Intelligents. Je transforme des idées en produits — du pixel jusqu’au modèle, avec rigueur et précision.',
+    aboutBody: 'Développeur web full-stack, freelance depuis 2023. Master en Sciences des Données & Systèmes Intelligents. Je transforme des idées en produits — du pixel jusqu’au modèle, avec rigueur et précision.',
     skills: { label: 'Spécifications', heading: 'Nomenclature technique.', colItem: 'Réf', colQty: 'Qté', colCat: 'Catégorie', colDesc: 'Composants', comms: 'Langues / Communication' },
     work: { label: 'Plans', heading: 'Plans & projets sélectionnés.', notes: 'Notes', spec: 'Spéc' },
     edu: { label: 'Révisions', heading: 'Historique des révisions.', colRev: 'Rév', colDate: 'Date', colDesc: 'Description' },
@@ -44,7 +44,7 @@ const BP: Record<Lang, BPVocab> = {
     nav: { about: 'Overview', skills: 'Specs', work: 'Drawings', edu: 'Revisions', contact: 'Sign-off' },
     hero: { stamp: 'For construction', discipline: 'DISCIPLINE — WEB DEV & AI', start: 'Request a quote', cv: 'Download CV', subject: 'subject' },
     aboutLabel: 'Overview',
-    aboutBody: "Master's in Data Science & Intelligent Systems. I turn ideas into products — from the pixel all the way to the model, with rigor and precision.",
+    aboutBody: "Full-stack web developer, freelancing since 2023. MSc in Data Science & Intelligent Systems. I turn ideas into products — from the pixel all the way to the model, with rigor and precision.",
     skills: { label: 'Specifications', heading: 'Technical bill of materials.', colItem: 'Item', colQty: 'Qty', colCat: 'Category', colDesc: 'Components', comms: 'Languages / Comms' },
     work: { label: 'Drawings', heading: 'Selected drawings & projects.', notes: 'Notes', spec: 'Spec' },
     edu: { label: 'Revisions', heading: 'Revision history.', colRev: 'Rev', colDate: 'Date', colDesc: 'Description' },
@@ -68,7 +68,10 @@ const REV_COLORS = [col.cyan, col.cyan, col.red, col.red, col.red, col.ink2, col
 const REV_LABELS = ['REV A', 'REV A', 'REV B', 'REV C', 'REV B', 'REV A', 'REV A', 'REV B'];
 const SCALES = ['1:50', '1:75', '1:25', '1:10', '1:40', '1:100', '1:100', '1:60'];
 const EDU_REVS = ['C', 'B', 'A'];
-const SKILL_QTY = [SKILL_CHIPS.fe, SKILL_CHIPS.be, SKILL_CHIPS.data, SKILL_CHIPS.ops, SKILL_CHIPS.cloud].map((a) => String(a.length).padStart(2, '0'));
+const SKILL_LISTS = [SKILL_CHIPS.fe, SKILL_CHIPS.be, SKILL_CHIPS.data, SKILL_CHIPS.ops, SKILL_CHIPS.cloud];
+const SKILL_QTY = SKILL_LISTS.map((a) => String(a.length).padStart(2, '0'));
+// Derived so the sheet's item count can't drift out of sync with the chips above.
+const SKILL_TOTAL = SKILL_LISTS.reduce((n, a) => n + a.length, 0);
 
 export default function Blueprint({ index, onChange }: { index?: number; onChange?: (i: number) => void }) {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -150,7 +153,7 @@ export default function Blueprint({ index, onChange }: { index?: number; onChang
         <div data-progress style={{ position: 'absolute', left: 0, bottom: -1, height: 2, width: 0, background: col.red, transition: 'width .12s linear' }} />
       </nav>
 
-      <div style={{ position: 'fixed', bottom: 22, right: 22, zIndex: 45, background: 'rgba(10,39,66,0.92)', border: `1px solid ${col.line2}`, fontFamily: mono, backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', boxShadow: '0 18px 50px -20px rgba(0,0,0,0.7)' }}>
+      <div className="bp-titleblock" style={{ position: 'fixed', bottom: 22, right: 22, zIndex: 45, background: 'rgba(10,39,66,0.92)', border: `1px solid ${col.line2}`, fontFamily: mono, backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', boxShadow: '0 18px 50px -20px rgba(0,0,0,0.7)' }}>
         <div style={{ padding: '8px 12px', borderBottom: `1px solid ${col.line2}`, display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ fontSize: 9, color: col.faint, letterSpacing: '.1em' }}>TITLE</span>
           <span style={{ fontSize: 11, color: col.ink, letterSpacing: '.02em' }}>M. M. ZITOUNI — PORTFOLIO</span>
@@ -199,7 +202,7 @@ export default function Blueprint({ index, onChange }: { index?: number; onChang
 
           <div style={{ position: 'relative', justifySelf: 'center', maxWidth: 380, width: '100%', animation: 'rise .95s cubic-bezier(.2,.7,.2,1) both' }}>
             <div style={{ position: 'absolute', top: -14, left: 0, fontFamily: mono, fontSize: 10, letterSpacing: '.12em', color: col.cyan }}>FIG.1 — ELEVATION</div>
-            <div style={{ position: 'absolute', left: -38, top: 0, bottom: 0, width: 1, background: col.line2 }}>
+            <div className="bp-dim" style={{ position: 'absolute', left: -38, top: 0, bottom: 0, width: 1, background: col.line2 }}>
               <span style={{ position: 'absolute', top: 0, left: -4, width: 9, height: 1, background: col.line2 }} />
               <span style={{ position: 'absolute', bottom: 0, left: -4, width: 9, height: 1, background: col.line2 }} />
               <span style={{ position: 'absolute', top: '50%', left: -26, transform: 'translateY(-50%) rotate(-90deg)', fontFamily: mono, fontSize: 9.5, color: col.ink2, whiteSpace: 'nowrap' }}>1340</span>
@@ -255,7 +258,7 @@ export default function Blueprint({ index, onChange }: { index?: number; onChang
 
       {/* skills */}
       <section id="skills" style={{ position: 'relative', zIndex: 2, maxWidth: 1320, margin: '0 auto', padding: '0 40px 104px', scrollMarginTop: 90 }}>
-        {secHead('02', b.skills.label, '33 ITEMS')}
+        {secHead('02', b.skills.label, `${SKILL_TOTAL} ITEMS`)}
         <h2 style={{ ...h2, marginBottom: 30 }}>{b.skills.heading}</h2>
         <div style={{ border: `1px solid ${col.line2}` }}>
           <div className="skill-head" style={{ display: 'grid', gridTemplateColumns: '60px 56px 220px 1fr', background: 'rgba(255,255,255,0.03)', borderBottom: `1px solid ${col.line2}`, fontFamily: mono, fontSize: 9.5, letterSpacing: '.1em', textTransform: 'uppercase', color: col.faint }}>
@@ -346,13 +349,13 @@ export default function Blueprint({ index, onChange }: { index?: number; onChang
         {secHead('04', b.edu.label)}
         <h2 style={{ ...h2, marginBottom: 30 }}>{b.edu.heading}</h2>
         <div style={{ border: `1px solid ${col.line2}` }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '60px 150px 1fr', background: 'rgba(255,255,255,0.03)', borderBottom: `1px solid ${col.line2}`, fontFamily: mono, fontSize: 9.5, letterSpacing: '.1em', textTransform: 'uppercase', color: col.faint }}>
+          <div className="bp-edu-row bp-edu-head" style={{ display: 'grid', gridTemplateColumns: '60px 150px 1fr', background: 'rgba(255,255,255,0.03)', borderBottom: `1px solid ${col.line2}`, fontFamily: mono, fontSize: 9.5, letterSpacing: '.1em', textTransform: 'uppercase', color: col.faint }}>
             <span style={{ padding: '11px 14px', borderRight: `1px solid ${col.line}` }}>{b.edu.colRev}</span>
             <span style={{ padding: '11px 14px', borderRight: `1px solid ${col.line}` }}>{b.edu.colDate}</span>
             <span style={{ padding: '11px 14px' }}>{b.edu.colDesc}</span>
           </div>
           {education.map((e, i) => (
-            <Hover key={i} base={{ display: 'grid', gridTemplateColumns: '60px 150px 1fr', borderBottom: `1px solid ${col.line}`, transition: 'background .2s' }} hover={{ background: col.panel }}>
+            <Hover key={i} className="bp-edu-row" base={{ display: 'grid', gridTemplateColumns: '60px 150px 1fr', borderBottom: `1px solid ${col.line}`, transition: 'background .2s' }} hover={{ background: col.panel }}>
               <span style={{ padding: '22px 14px', borderRight: `1px solid ${col.line}`, fontFamily: mono, fontSize: 15, color: col.red, display: 'flex', alignItems: 'flex-start' }}>{e.rev}</span>
               <span style={{ padding: '22px 14px', borderRight: `1px solid ${col.line}`, fontFamily: mono, fontSize: 11, color: col.ink2, display: 'flex', alignItems: 'flex-start' }}>{e.period}</span>
               <div style={{ padding: '22px 18px' }}>

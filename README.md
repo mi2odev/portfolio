@@ -33,7 +33,8 @@ npm run preview    # preview the production build
 ```
 portfolio-react/
 ├─ public/
-│  ├─ photo.png                      # portrait used by every version
+│  ├─ photo.webp                     # portrait used by every version (900×1200)
+│  ├─ photo.jpg                      # same portrait as JPEG, for link previews (og:image)
 │  ├─ CV_Mohamed_Mehdi_ZITOUNI.pdf   # CV (the “Download CV” buttons)
 │  └─ favicon.svg
 ├─ src/
