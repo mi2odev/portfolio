@@ -1,4 +1,5 @@
 import { useRef, type CSSProperties } from 'react';
+import { useIsPhone } from '../hooks/useMediaQuery';
 import { useLanguage } from '../context/LanguageContext';
 import { useGamerFX } from '../hooks/useGamerFX';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
@@ -102,6 +103,7 @@ export default function Gamer({ index, onChange }: { index?: number; onChange?: 
   const { lang, setLang, t, dir } = useLanguage();
   const g = GAMER[lang];
   useGamerFX(rootRef);
+  const phone = useIsPhone();
 
   const langBtn = (l: Lang): CSSProperties => ({
     border: 'none', padding: '7px 14px', fontFamily: display, fontSize: 12, fontWeight: 700, cursor: 'pointer',
@@ -122,7 +124,7 @@ export default function Gamer({ index, onChange }: { index?: number; onChange?: 
 
   const secHead = (n: string, label: string, extra?: string) => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 13, marginBottom: 18 }}>
-      <span style={{ fontFamily: mono, fontSize: 13, color: col.lime }}>{`// ${n}`}</span>
+      <span style={{ fontFamily: mono, fontSize: 13, color: col.lime, whiteSpace: 'nowrap' }}>{`// ${n}`}</span>
       <span style={{ fontFamily: display, fontSize: 13, fontWeight: 700, letterSpacing: '.16em', textTransform: 'uppercase', color: col.ink2 }}>{label}</span>
       <span style={{ flex: 1, height: 1, background: col.line }} />
       {extra && <span style={{ fontFamily: mono, fontSize: 11, color: col.faint }}>{extra}</span>}
@@ -157,7 +159,7 @@ export default function Gamer({ index, onChange }: { index?: number; onChange?: 
         <div className="nav-inner" style={{ maxWidth: 1300, margin: '0 auto', padding: '11px 26px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
           <a href="#top" data-mag style={{ display: 'flex', alignItems: 'center', gap: 11, textDecoration: 'none', color: col.ink, flexShrink: 0 }}>
             <span style={{ width: 34, height: 34, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: orbit, fontWeight: 900, fontSize: 16, color: '#070A11', background: `linear-gradient(135deg,${col.lime},${col.cyan})`, clipPath: 'polygon(0 0,100% 0,100% 70%,70% 100%,0 100%)', boxShadow: '0 0 18px rgba(182,255,60,0.55)' }}>M</span>
-            <span style={{ fontFamily: display, fontWeight: 700, letterSpacing: '.02em', fontSize: 15 }}>mi2o<span style={{ color: col.lime }}>.dev</span> <span style={{ fontFamily: mono, fontSize: 10, color: col.faint }}>[v5]</span></span>
+            <span style={{ fontFamily: display, fontWeight: 700, letterSpacing: '.02em', fontSize: 15 }}>mi2o<span style={{ color: col.lime }}>.dev</span> <span className="nav-tag" style={{ fontFamily: mono, fontSize: 10, color: col.faint }}>[v5]</span></span>
           </a>
           <div className="nav-links" style={{ display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
             {([['about', g.nav.about], ['skills', g.nav.skills], ['work', g.nav.work], ['education', g.nav.edu], ['contact', g.nav.contact]] as const).map(([href, label]) => (
@@ -169,12 +171,12 @@ export default function Gamer({ index, onChange }: { index?: number; onChange?: 
               <span><span data-fps style={{ color: col.lime }}>60</span> FPS</span>
               <span>PING <span data-ping style={{ color: col.cyan }}>12</span>ms</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 2, background: col.panel, border: `1px solid ${col.line}`, padding: 3 }}>
+            <div className="nav-lang" style={{ display: 'flex', alignItems: 'center', gap: 2, background: col.panel, border: `1px solid ${col.line}`, padding: 3 }}>
               <button onClick={() => setLang('fr')} style={langBtn('fr')}>FR</button>
               <button onClick={() => setLang('en')} style={langBtn('en')}>EN</button>
               <button onClick={() => setLang('ar')} style={langBtn('ar')}>ع</button>
             </div>
-            <div style={{ marginLeft: 8 }}>
+            <div className="nav-switch" style={{ marginLeft: 8 }}>
               {onChange && typeof index === 'number' && <VersionSwitcher index={index} onChange={onChange} inline />}
             </div>
           </div>
@@ -185,10 +187,11 @@ export default function Gamer({ index, onChange }: { index?: number; onChange?: 
             <div data-xpbar style={{ height: '100%', width: '0%', background: `linear-gradient(90deg,${col.lime},${col.cyan})`, boxShadow: '0 0 10px rgba(182,255,60,0.7)', transition: 'width .12s linear' }} />
           </div>
           <span data-xptext style={{ fontFamily: mono, fontSize: 10, color: col.ink2, whiteSpace: 'nowrap' }}>XP 0%</span>
+          {phone && <span style={{ fontFamily: mono, fontSize: 10, color: col.faint, whiteSpace: 'nowrap' }}><span data-fps style={{ color: col.lime }}>60</span> FPS</span>}
         </div>
       </nav>
 
-      <header id="top" style={{ position: 'relative', zIndex: 2, minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '138px 26px 70px', scrollMarginTop: 96 }}>
+      <header id="top" className="gm-hero" style={{ position: 'relative', zIndex: 2, minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '138px 26px 70px', scrollMarginTop: 96 }}>
         <div data-hero style={{ maxWidth: 1300, margin: '0 auto', width: '100%', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(310px,1fr))', gap: '54px 64px', alignItems: 'center' }}>
           <div data-depth="20" style={{ animation: 'rise .9s cubic-bezier(.2,.7,.2,1) both', willChange: 'transform' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '7px 14px', background: col.panel, border: `1px solid ${col.line2}`, fontFamily: mono, fontSize: 11.5, letterSpacing: '.06em', color: col.ink2, marginBottom: 30, clipPath: clip(8) }}>
@@ -260,7 +263,7 @@ export default function Gamer({ index, onChange }: { index?: number; onChange?: 
       </div>
 
       {/* about */}
-      <section id="about" style={{ position: 'relative', zIndex: 2, maxWidth: 1300, margin: '0 auto', padding: '110px 26px', scrollMarginTop: 84 }}>
+      <section id="about" className="gm-section" style={{ position: 'relative', zIndex: 2, maxWidth: 1300, margin: '0 auto', padding: '110px 26px', scrollMarginTop: 84 }}>
         {secHead('01', g.aboutLabel)}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px,1fr))', gap: 50, alignItems: 'start', marginTop: 24 }}>
           <div>
@@ -274,7 +277,7 @@ export default function Gamer({ index, onChange }: { index?: number; onChange?: 
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             {t.about.facts.map((f) => (
-              <Hover key={f.k} data-tilt base={{ position: 'relative', background: col.panel, border: `1px solid ${col.line}`, padding: '22px 20px', transition: 'transform .2s cubic-bezier(.2,.7,.2,1), border-color .22s, background .22s', transformStyle: 'preserve-3d' }} hover={{ borderColor: col.line2, background: col.panel2 }}>
+              <Hover key={f.k} data-tilt className="gm-fact" base={{ position: 'relative', background: col.panel, border: `1px solid ${col.line}`, padding: '22px 20px', transition: 'transform .2s cubic-bezier(.2,.7,.2,1), border-color .22s, background .22s', transformStyle: 'preserve-3d' }} hover={{ borderColor: col.line2, background: col.panel2 }}>
                 <span style={{ position: 'absolute', top: -1, left: -1, width: 13, height: 13, borderTop: `2px solid ${col.cyan}`, borderLeft: `2px solid ${col.cyan}` }} />
                 <span style={{ position: 'absolute', bottom: -1, right: -1, width: 13, height: 13, borderBottom: `2px solid ${col.cyan}`, borderRight: `2px solid ${col.cyan}` }} />
                 <div style={{ fontFamily: mono, fontSize: 10, fontWeight: 500, color: col.cyan, letterSpacing: '.08em', textTransform: 'uppercase', marginBottom: 11 }}>{f.k}</div>
@@ -286,15 +289,15 @@ export default function Gamer({ index, onChange }: { index?: number; onChange?: 
       </section>
 
       {/* skills */}
-      <section id="skills" style={{ position: 'relative', zIndex: 2, maxWidth: 1300, margin: '0 auto', padding: '0 26px 110px', scrollMarginTop: 84 }}>
+      <section id="skills" className="gm-section" style={{ position: 'relative', zIndex: 2, maxWidth: 1300, margin: '0 auto', padding: '0 26px 110px', scrollMarginTop: 84 }}>
         {secHead('02', g.skills.label, `33 ${g.skills.unlocked}`)}
         <h2 style={{ ...h2, marginBottom: 34 }}>{g.skills.heading}</h2>
         <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: 0 }}>
           <div style={{ position: 'absolute', top: 14, bottom: 14, left: 8, width: 2, background: `linear-gradient(${col.lime},${col.cyan},${col.pink})`, opacity: 0.5 }} />
           {skillGroups(t).map((grp) => (
-            <div key={grp.i} style={{ position: 'relative', paddingLeft: 38, paddingBottom: 14 }}>
+            <div key={grp.i} style={{ position: 'relative', paddingLeft: phone ? 30 : 38, paddingBottom: 14 }}>
               <span style={{ position: 'absolute', left: 1, top: 24, width: 16, height: 16, background: col.bg, border: `2px solid ${col.lime}`, transform: 'rotate(45deg)', boxShadow: '0 0 12px rgba(182,255,60,0.5)' }} />
-              <Hover className="skill-row" base={{ display: 'grid', gridTemplateColumns: '230px 1fr', gap: 22, padding: '21px 24px', background: col.panel, border: `1px solid ${col.line}`, transition: 'border-color .22s' }} hover={{ borderColor: col.line2 }}>
+              <Hover className="skill-row" base={{ display: 'grid', gridTemplateColumns: '230px 1fr', gap: 22, padding: phone ? '18px 16px' : '21px 24px', background: col.panel, border: `1px solid ${col.line}`, transition: 'border-color .22s' }} hover={{ borderColor: col.line2 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 11 }}>
                   <span style={{ fontFamily: mono, fontSize: 12, color: col.cyan }}>{grp.i}</span>
                   <span style={{ fontFamily: display, fontSize: 17, fontWeight: 700, letterSpacing: '.005em' }}>{grp.label}</span>
@@ -329,12 +332,12 @@ export default function Gamer({ index, onChange }: { index?: number; onChange?: 
       </section>
 
       {/* work / quests */}
-      <section id="work" style={{ position: 'relative', zIndex: 2, maxWidth: 1300, margin: '0 auto', padding: '0 26px 110px', scrollMarginTop: 84 }}>
+      <section id="work" className="gm-section" style={{ position: 'relative', zIndex: 2, maxWidth: 1300, margin: '0 auto', padding: '0 26px 110px', scrollMarginTop: 84 }}>
         {secHead('03', g.work.label)}
         <h2 style={{ ...h2, marginBottom: 30 }}>{g.work.heading}</h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 15 }}>
           {quests.map((q) => (
-            <Hover key={q.i} data-tilt data-tilt-soft base={{ '--qc': q.color, position: 'relative', background: col.panel, border: `1px solid ${col.line}`, borderLeft: `3px solid ${q.color}`, padding: '26px 28px', display: 'grid', gridTemplateColumns: '1fr', gap: 14, overflow: 'hidden', transition: 'transform .2s cubic-bezier(.2,.7,.2,1), border-color .25s, background .25s', transformStyle: 'preserve-3d' }} hover={{ background: col.panel2 }}>
+            <Hover key={q.i} data-tilt data-tilt-soft base={{ '--qc': q.color, position: 'relative', background: col.panel, border: `1px solid ${col.line}`, borderLeft: `3px solid ${q.color}`, padding: phone ? '20px 18px' : '26px 28px', display: 'grid', gridTemplateColumns: '1fr', gap: 14, overflow: 'hidden', transition: 'transform .2s cubic-bezier(.2,.7,.2,1), border-color .25s, background .25s', transformStyle: 'preserve-3d' }} hover={{ background: col.panel2 }}>
               <span style={{ position: 'absolute', top: -1, right: -1, width: 15, height: 15, borderTop: `2px solid ${q.color}`, borderRight: `2px solid ${q.color}` }} />
               <span style={{ position: 'absolute', bottom: -1, right: -1, width: 15, height: 15, borderBottom: `2px solid ${q.color}`, borderRight: `2px solid ${q.color}` }} />
               <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 9 }}>
@@ -372,7 +375,7 @@ export default function Gamer({ index, onChange }: { index?: number; onChange?: 
       </section>
 
       {/* education */}
-      <section id="education" style={{ position: 'relative', zIndex: 2, maxWidth: 1300, margin: '0 auto', padding: '0 26px 110px', scrollMarginTop: 84 }}>
+      <section id="education" className="gm-section" style={{ position: 'relative', zIndex: 2, maxWidth: 1300, margin: '0 auto', padding: '0 26px 110px', scrollMarginTop: 84 }}>
         {secHead('04', g.edu.label)}
         <h2 style={{ ...h2, marginBottom: 30 }}>{g.edu.heading}</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(290px,1fr))', gap: 13 }}>
@@ -402,7 +405,7 @@ export default function Gamer({ index, onChange }: { index?: number; onChange?: 
       </section>
 
       {/* contact */}
-      <section id="contact" style={{ position: 'relative', zIndex: 2, maxWidth: 1300, margin: '0 auto', padding: '0 26px 80px', scrollMarginTop: 84 }}>
+      <section id="contact" className="gm-section" style={{ position: 'relative', zIndex: 2, maxWidth: 1300, margin: '0 auto', padding: '0 26px 80px', scrollMarginTop: 84 }}>
         <div style={{ position: 'relative', padding: 3, background: `linear-gradient(135deg,${col.lime},${col.cyan} 50%,${col.pink})`, clipPath: clip(26) }}>
           <div style={{ position: 'relative', background: '#0A0E16', padding: 'clamp(40px,5.5vw,78px) clamp(26px,5vw,70px)', clipPath: clip(25), overflow: 'hidden' }}>
             <div data-contact-blob style={{ position: 'absolute', top: '-30%', right: '-8%', width: '48%', height: '160%', background: 'radial-gradient(circle at center, rgba(182,255,60,0.22), transparent 62%)', filter: 'blur(70px)', pointerEvents: 'none', transition: 'transform .4s cubic-bezier(.2,.7,.2,1)' }} />
