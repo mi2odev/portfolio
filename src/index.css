@@ -84,6 +84,18 @@ textarea {
   100% { transform: scale(2.4); opacity: 0; }
 }
 /* V5 Gamer / V6 Blueprint extras */
+/* background grid that keeps marching one cell — referenced by V5's fixed grid layer */
+@keyframes gridmove {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 0 46px, 46px 0; }
+}
+/* V5 scan band sweeping down the screen (the band is 34vh tall, so 300% ≈ one screen) */
+@keyframes scan {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { transform: translateY(300%); opacity: 0; }
+}
 @keyframes scanline {
   0%   { transform: translateY(-100%); }
   100% { transform: translateY(100%); }
@@ -153,6 +165,11 @@ textarea {
   /* Shrink the version switcher trigger to just the dot + tag + chevron */
   .vswitch-kind { display: none !important; }
   .nav-inner { padding-left: 14px !important; padding-right: 14px !important; }
+  /* V5 / V6 navbars carry a logo + language group + switcher: drop the decorative
+     tag, tighten the language buttons and the switcher margin so they fit 360px. */
+  .nav-tag { display: none !important; }
+  .nav-lang button { padding-left: 9px !important; padding-right: 9px !important; }
+  .nav-switch { margin-left: 0 !important; margin-right: 0 !important; }
 }
 @media (max-width: 360px) {
   /* Last-resort: let the navbar wrap instead of forcing horizontal overflow */
@@ -169,6 +186,48 @@ textarea {
 @media (max-width: 680px) {
   .skill-row { grid-template-columns: 1fr !important; row-gap: 12px !important; }
   .skill-head { display: none !important; }
+}
+
+/* ── V5 Gamer phone layout ─────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .gm-hero { padding-top: 124px !important; padding-bottom: 48px !important; min-height: 0 !important; }
+  .gm-section { padding-top: 0 !important; padding-bottom: 72px !important; }
+  #about.gm-section { padding-top: 72px !important; }
+  .gm-fact { padding: 16px 14px !important; }
+  /* the target-range HUD must never sit over the switcher dropdown */
+  .tr-hud { max-width: calc(100vw - 20px); }
+}
+@media (max-width: 380px) {
+  .gm-section, .gm-hero { padding-left: 18px !important; padding-right: 18px !important; }
+}
+
+/* ── V6 Blueprint phone layout ─────────────────────────────────────────── */
+@media (max-width: 760px) {
+  /* nomenclature table: item · qty · category on one line, chips beneath */
+  .bp-skill-row { grid-template-columns: auto auto 1fr !important; }
+  .bp-skill-row .bp-cell { padding: 12px 14px !important; }
+  .bp-skill-row .bp-cell-last { border-right: none !important; }
+  .bp-skill-row .bp-cell-wide { grid-column: 1 / -1 !important; border-top: 1px solid rgba(220,234,247,0.22); padding: 12px 14px 14px !important; }
+  /* revision table: rev · date on one line, description beneath */
+  .bp-edu-row { grid-template-columns: auto 1fr !important; }
+  .bp-edu-row .bp-cell { padding: 12px 14px !important; }
+  .bp-edu-row .bp-cell-last { border-right: none !important; }
+  .bp-edu-row .bp-cell-wide { grid-column: 1 / -1 !important; border-top: 1px solid rgba(220,234,247,0.22); padding: 14px 14px 18px !important; }
+}
+@media (max-width: 640px) {
+  .bp-hero { padding: 118px 28px 60px !important; min-height: 0 !important; }
+  .bp-section { padding-left: 28px !important; padding-right: 28px !important; padding-bottom: 72px !important; }
+  #about.bp-section { padding-top: 72px !important; }
+  /* the vertical dimension line would sit in the sheet margin — drop it */
+  .bp-dim-v { display: none !important; }
+  /* drawing-sheet header: no · date · scale on one line, revision on its own ruled line */
+  .bp-sheet-cell { padding: 9px 12px !important; }
+  .bp-sheet-scale { border-right: none !important; flex: 1 !important; }
+  .bp-sheet-spacer { display: none !important; }
+  .bp-sheet-rev { flex: 1 0 100% !important; border-top: 1px solid rgba(220,234,247,0.22); }
+}
+@media (max-width: 380px) {
+  .bp-hero, .bp-section { padding-left: 22px !important; padding-right: 22px !important; }
 }
 
 @media (prefers-reduced-motion: reduce) {
