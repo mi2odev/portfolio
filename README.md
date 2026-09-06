@@ -48,8 +48,10 @@ portfolio-react/
 │  │  ├─ useScrollProgress.ts        # top progress bar
 │  │  ├─ useHover.ts                 # hover state for inline-styled elements
 │  │  ├─ useReactiveFX.ts            # V4 engine (canvas, cursor, parallax, tilt, magnetic)
-│  │  ├─ useGamerFX.ts               # V5 engine (reticle, parallax, XP bar, stat fills)
-│  │  └─ useBlueprintFX.ts           # V6 engine (crosshair guides, plot %)
+│  │  ├─ useGamerFX.ts               # V5 engine (reticle, parallax, XP bar, stat fills; touch + gyro on phones)
+│  │  ├─ useBlueprintFX.ts           # V6 engine (crosshair + coordinates, survey markers, grid drift, plot %)
+│  │  ├─ useMediaQuery.ts            # reactive matchMedia (+ useIsPhone / useIsTouch)
+│  │  └─ useTilt.ts                  # shared touch helpers: haptics, gyroscope binding
 │  ├─ components/
 │  │  ├─ Hover.tsx                   # polymorphic element with a hover style
 │  │  ├─ Reveal.tsx                  # scroll-into-view entrance animation
