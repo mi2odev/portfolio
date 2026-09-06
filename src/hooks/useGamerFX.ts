@@ -1,9 +1,17 @@
 import { useEffect, type RefObject } from 'react';
+import { bindOrientation, haptic, isTouchDevice, prefersReducedMotion } from './useTilt';
 
 /**
  * Port of V5's gamer-HUD engine, scoped to a root ref:
  * reticle cursor, hero depth parallax, contact blob follow, 3D tilt,
  * magnetic pull, XP progress bar + readout, and stat-bar fills on scroll.
+ *
+ * Touch devices get their own take on every effect:
+ *  · the reticle appears under the finger while it's on the glass and the
+ *    tap fires the same hitmarker / shockwave burst (+ a haptic tick)
+ *  · cards tilt toward the finger while pressed
+ *  · hero depth layers follow the gyroscope, or the scroll position when the
+ *    sensor is unavailable / denied
  */
 export function useGamerFX(rootRef: RefObject<HTMLElement | null>) {
   useEffect(() => {
@@ -11,7 +19,8 @@ export function useGamerFX(rootRef: RefObject<HTMLElement | null>) {
     if (!root) return;
 
     const fine = typeof matchMedia !== 'undefined' && matchMedia('(pointer:fine)').matches;
-    const reduce = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion:reduce)').matches;
+    const touch = isTouchDevice();
+    const reduce = prefersReducedMotion();
 
     let mx = window.innerWidth / 2, my = window.innerHeight / 2;
     let rx = mx, ry = my, rs = 1, crs = 1;
@@ -27,38 +36,53 @@ export function useGamerFX(rootRef: RefObject<HTMLElement | null>) {
     if (ro && window.innerWidth > 1080) ro.style.display = 'flex';
 
     // live HUD readout: randomly fluctuating FPS + ping, like a fake game meter
-    const fpsEl = q('[data-fps]');
-    const pingEl = q('[data-ping]');
+    const fpsEls = Array.from(root.querySelectorAll<HTMLElement>('[data-fps]'));
+    const pingEls = Array.from(root.querySelectorAll<HTMLElement>('[data-ping]'));
     let fps = 60;
     let ping = 12;
     let fpsTimer = 0;
     let pingTimer = 0;
-    if (fpsEl && !reduce) {
+    if (fpsEls.length && !reduce) {
       fpsTimer = window.setInterval(() => {
         fps += Math.round((Math.random() - 0.5) * 6);
         if (fps < 54) fps = 54;
         if (fps > 60) fps = 60;
-        fpsEl.textContent = String(fps);
+        fpsEls.forEach((el) => { el.textContent = String(fps); });
       }, 700);
     }
-    if (pingEl && !reduce) {
+    if (pingEls.length && !reduce) {
       pingTimer = window.setInterval(() => {
         ping += Math.round((Math.random() - 0.5) * 8);
         if (ping < 6) ping = 6;
         if (ping > 28) ping = 28;
-        pingEl.textContent = String(ping);
+        pingEls.forEach((el) => { el.textContent = String(ping); });
       }, 1400);
     }
 
-    // scroll → xp bar + readout
+    // scroll → xp bar + readout (+ scroll parallax on touch, see below)
     const bar = q('[data-xpbar]');
     const txt = q('[data-xptext]');
+    const hero = q('[data-hero]');
+    const depthEls = hero ? Array.from(hero.querySelectorAll<HTMLElement>('[data-depth]')) : [];
+    let gyroLive = false;
+    const setDepth = (nx: number, ny: number) => {
+      depthEls.forEach((el) => {
+        const d = parseFloat(el.getAttribute('data-depth') || '0') || 0;
+        el.style.transform = `translate3d(${nx * d}px,${ny * d}px,0)`;
+      });
+    };
     const onScroll = () => {
       const sc = document.scrollingElement || document.documentElement;
       const max = sc.scrollHeight - sc.clientHeight;
       const pct = max > 0 ? (sc.scrollTop / max) * 100 : 0;
       if (bar) bar.style.width = pct.toFixed(1) + '%';
       if (txt) txt.textContent = 'XP ' + Math.round(pct) + '%';
+
+      // phones without a usable gyroscope: drift the hero layers with the scroll
+      if (touch && !reduce && !gyroLive && hero) {
+        const y = sc.scrollTop;
+        if (y < window.innerHeight * 1.2) setDepth(0, -(y / window.innerHeight) * 1.6);
+      }
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
@@ -85,14 +109,14 @@ export function useGamerFX(rootRef: RefObject<HTMLElement | null>) {
 
     // reticle
     const ret = q('[data-reticle]');
-    if (fine) {
+    if (fine && !touch) {
       cursorStyle = document.createElement('style');
       cursorStyle.textContent = '*{cursor:none!important}';
       document.head.appendChild(cursorStyle);
       if (ret) ret.style.opacity = '1';
     }
 
-    // click → shooting effect: hitmarker burst + shockwave ring + reticle recoil
+    // click / tap → shooting effect: hitmarker burst + shockwave ring + reticle recoil
     const shoot = (x: number, y: number) => {
       if (reduce) return;
       const layer = document.createElement('div');
@@ -131,23 +155,35 @@ export function useGamerFX(rootRef: RefObject<HTMLElement | null>) {
 
     const onDown = (e: PointerEvent) => {
       crs = 2.4; // reticle recoil punch — the rAF loop eases it back
+      if (e.pointerType === 'touch') {
+        // snap the reticle straight onto the finger so the recoil is visible
+        mx = rx = e.clientX; my = ry = e.clientY;
+        haptic(12);
+      }
       shoot(e.clientX, e.clientY);
     };
     window.addEventListener('pointerdown', onDown);
 
+    // ── tilt / magnetic helpers shared by mouse + touch ──
+    const applyTilt = (tilt: HTMLElement, cx: number, cy: number) => {
+      const r = tilt.getBoundingClientRect();
+      const px = (cx - r.left) / r.width;
+      const py = (cy - r.top) / r.height;
+      const max = tilt.hasAttribute('data-tilt-soft') ? 3.5 : 7;
+      const ry2 = (px - 0.5) * max * 2;
+      const rxx = -(py - 0.5) * max * 2;
+      tilt.style.transform = `perspective(900px) rotateX(${rxx}deg) rotateY(${ry2}deg)`;
+    };
+
     const onMove = (e: MouseEvent) => {
       mx = e.clientX; my = e.clientY;
 
-      const hero = q('[data-hero]');
       if (hero && !reduce) {
         const r = hero.getBoundingClientRect();
         if (r.bottom > 0 && r.top < window.innerHeight) {
           const nx = (e.clientX - (r.left + r.width / 2)) / r.width;
           const ny = (e.clientY - (r.top + r.height / 2)) / r.height;
-          hero.querySelectorAll<HTMLElement>('[data-depth]').forEach((el) => {
-            const d = parseFloat(el.getAttribute('data-depth') || '0') || 0;
-            el.style.transform = `translate3d(${nx * d}px,${ny * d}px,0)`;
-          });
+          setDepth(nx, ny);
         }
       }
 
@@ -166,15 +202,7 @@ export function useGamerFX(rootRef: RefObject<HTMLElement | null>) {
         if (activeTilt) activeTilt.style.transform = '';
         activeTilt = tilt;
       }
-      if (tilt && !reduce) {
-        const r = tilt.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width;
-        const py = (e.clientY - r.top) / r.height;
-        const max = tilt.hasAttribute('data-tilt-soft') ? 3.5 : 7;
-        const ry2 = (px - 0.5) * max * 2;
-        const rxx = -(py - 0.5) * max * 2;
-        tilt.style.transform = `perspective(900px) rotateX(${rxx}deg) rotateY(${ry2}deg)`;
-      }
+      if (tilt && !reduce) applyTilt(tilt, e.clientX, e.clientY);
 
       const mag = target && target.closest ? target.closest<HTMLElement>('[data-mag]') : null;
       if (mag !== activeMag) {
@@ -191,12 +219,63 @@ export function useGamerFX(rootRef: RefObject<HTMLElement | null>) {
       const interactive = target && target.closest ? target.closest('a,button,[data-mag],[data-tilt]') : null;
       rs = interactive ? 1.7 : 1;
     };
-    window.addEventListener('mousemove', onMove, { passive: true });
-
     const onOut = (e: MouseEvent) => { if (!e.relatedTarget && ret) ret.style.opacity = '0'; };
     const onOver = () => { if (fine && ret) ret.style.opacity = '1'; };
-    window.addEventListener('mouseout', onOut);
-    window.addEventListener('mouseover', onOver);
+    if (!touch) {
+      window.addEventListener('mousemove', onMove, { passive: true });
+      window.addEventListener('mouseout', onOut);
+      window.addEventListener('mouseover', onOver);
+    }
+
+    // ── touch: finger reticle + press-tilt ──
+    let hideTimer = 0;
+    let touchTilt: HTMLElement | null = null;
+    const onTouchStart = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (!t) return;
+      clearTimeout(hideTimer);
+      mx = rx = t.clientX; my = ry = t.clientY;
+      if (ret) ret.style.opacity = '1';
+      const target = e.target as HTMLElement | null;
+      const interactive = target && target.closest ? target.closest('a,button,[data-mag],[data-tilt],[data-target]') : null;
+      rs = interactive ? 1.7 : 1;
+      const tilt = target && target.closest ? target.closest<HTMLElement>('[data-tilt]') : null;
+      if (tilt !== touchTilt && touchTilt) touchTilt.style.transform = '';
+      touchTilt = tilt;
+      if (tilt && !reduce) applyTilt(tilt, t.clientX, t.clientY);
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (!t) return;
+      mx = t.clientX; my = t.clientY;
+      if (touchTilt && !reduce) applyTilt(touchTilt, t.clientX, t.clientY);
+    };
+    const onTouchEnd = () => {
+      if (touchTilt) { touchTilt.style.transform = ''; touchTilt = null; }
+      rs = 1;
+      clearTimeout(hideTimer);
+      hideTimer = window.setTimeout(() => { if (ret) ret.style.opacity = '0'; }, 520);
+    };
+    let unbindOrient = () => {};
+    if (touch) {
+      window.addEventListener('touchstart', onTouchStart, { passive: true });
+      window.addEventListener('touchmove', onTouchMove, { passive: true });
+      window.addEventListener('touchend', onTouchEnd, { passive: true });
+      window.addEventListener('touchcancel', onTouchEnd, { passive: true });
+
+      // gyroscope parallax: hero depth layers + contact blob lean with the phone
+      if (!reduce) {
+        unbindOrient = bindOrientation((nx, ny) => {
+          gyroLive = true;
+          if (hero) {
+            const r = hero.getBoundingClientRect();
+            if (r.bottom > 0 && r.top < window.innerHeight) setDepth(nx * 0.9, ny * 0.9);
+          }
+          const blob = q('[data-contact-blob]');
+          if (blob) blob.style.transform = `translateX(${nx * 36}px)`;
+        });
+      }
+    }
 
     const loop = () => {
       rx += (mx - rx) * 0.22;
@@ -213,6 +292,12 @@ export function useGamerFX(rootRef: RefObject<HTMLElement | null>) {
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('mouseout', onOut);
       window.removeEventListener('mouseover', onOver);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', onTouchEnd);
+      window.removeEventListener('touchcancel', onTouchEnd);
+      unbindOrient();
+      clearTimeout(hideTimer);
       cancelAnimationFrame(raf);
       if (fpsTimer) clearInterval(fpsTimer);
       if (pingTimer) clearInterval(pingTimer);
