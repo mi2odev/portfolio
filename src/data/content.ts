@@ -75,7 +75,7 @@ export const PROFILE = {
   instagram: 'https://www.instagram.com/_.mi2o/',
   facebook: 'https://www.facebook.com/Mohamed.mehdi.zitouni?locale=fr_FR',
   cvHref: '/CV_Mohamed_Mehdi_ZITOUNI.pdf',
-  photo: '/photo.png',
+  photo: '/photo.webp',
   year: '2026',
 } as const;
 
