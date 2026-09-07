@@ -15,6 +15,7 @@ import { haptic, isTouchDevice, prefersReducedMotion } from '../hooks/useTilt';
 const mono = "'Share Tech Mono','JetBrains Mono',monospace";
 const display = "'Chakra Petch',sans-serif";
 const COLORS = ['#B6FF3C', '#27E0FF', '#FF3D81', '#FFC53D'];
+const PAUSE_KEY = 'mi2o_target_range_paused';
 
 interface Target {
   id: number;
@@ -50,7 +51,13 @@ export function TargetRange() {
   const [hits, setHits] = useState(0);
   const [misses, setMisses] = useState(0);
   const [mode, setMode] = useState<Mode>('off');
-  const [paused, setPaused] = useState(false);
+  const [paused, setPaused] = useState<boolean>(() => {
+    try { return localStorage.getItem(PAUSE_KEY) === '1'; } catch { return false; }
+  });
+  const togglePaused = () => setPaused((p) => {
+    try { localStorage.setItem(PAUSE_KEY, p ? '0' : '1'); } catch { /* ignore */ }
+    return !p;
+  });
 
   const idRef = useRef(0);
   const expireTimers = useRef<Record<number, number>>({});
@@ -145,7 +152,7 @@ export function TargetRange() {
             <Row label="ACC" value={`${acc}%`} color={acc >= 70 ? '#FFC53D' : '#8B96A8'} compact />
             <button
               type="button"
-              onClick={() => setPaused((p) => !p)}
+              onClick={togglePaused}
               aria-pressed={paused}
               aria-label={paused ? 'Resume target range' : 'Pause target range'}
               style={{

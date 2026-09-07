@@ -144,9 +144,9 @@ export default function Blueprint({ index, onChange }: { index?: number; onChang
             ))}
           </div>
           <div className="nav-lang" style={{ display: 'flex', alignItems: 'center', border: `1px solid ${col.line2}` }}>
-            <button onClick={() => setLang('fr')} style={langBtn('fr')}>FR</button>
-            <button onClick={() => setLang('en')} style={langBtn('en')}>EN</button>
-            <button onClick={() => setLang('ar')} style={langBtn('ar')}>ع</button>
+            <button onClick={() => setLang('fr')} aria-pressed={lang === 'fr'} lang="fr" style={langBtn('fr')}>FR</button>
+            <button onClick={() => setLang('en')} aria-pressed={lang === 'en'} lang="en" style={langBtn('en')}>EN</button>
+            <button onClick={() => setLang('ar')} aria-pressed={lang === 'ar'} lang="ar" style={langBtn('ar')}>ع</button>
           </div>
           <div className="nav-switch" style={{ marginLeft: 8 }}>
             {onChange && typeof index === 'number' && <VersionSwitcher index={index} onChange={onChange} inline />}

@@ -60,9 +60,9 @@ export default function Serif({ index, onChange }: { index?: number; onChange?: 
             ))}
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 3, background: c.surface, border: `1px solid ${c.line}`, borderRadius: 999, padding: 3, boxShadow: c.shadow }}>
-            <button onClick={() => setLang('fr')} style={langBtn('fr')}>FR</button>
-            <button onClick={() => setLang('en')} style={langBtn('en')}>EN</button>
-            <button onClick={() => setLang('ar')} style={langBtn('ar')}>ع</button>
+            <button onClick={() => setLang('fr')} aria-pressed={lang === 'fr'} lang="fr" style={langBtn('fr')}>FR</button>
+            <button onClick={() => setLang('en')} aria-pressed={lang === 'en'} lang="en" style={langBtn('en')}>EN</button>
+            <button onClick={() => setLang('ar')} aria-pressed={lang === 'ar'} lang="ar" style={langBtn('ar')}>ع</button>
           </div>
           <div style={{ marginLeft: 12, display: 'flex', alignItems: 'center' }}>
             {onChange && typeof index === 'number' && <VersionSwitcher index={index} onChange={onChange} inline />}
