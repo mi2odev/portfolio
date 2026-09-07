@@ -333,9 +333,9 @@ export default function Manga({ index, onChange }: { index?: number; onChange?: 
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', border: `2px solid ${c.ink}` }}>
-              <button onClick={() => setLang('fr')} style={langBtn('fr')}>FR</button>
-              <button onClick={() => setLang('en')} style={langBtn('en')}>EN</button>
-              <button onClick={() => setLang('ar')} style={langBtn('ar')}>ع</button>
+              <button onClick={() => setLang('fr')} aria-pressed={lang === 'fr'} lang="fr" style={langBtn('fr')}>FR</button>
+              <button onClick={() => setLang('en')} aria-pressed={lang === 'en'} lang="en" style={langBtn('en')}>EN</button>
+              <button onClick={() => setLang('ar')} aria-pressed={lang === 'ar'} lang="ar" style={langBtn('ar')}>ع</button>
             </div>
             {onChange && typeof index === 'number' && <VersionSwitcher index={index} onChange={onChange} inline />}
           </div>
@@ -574,7 +574,7 @@ export default function Manga({ index, onChange }: { index?: number; onChange?: 
 
             <div style={{ position: 'relative', zIndex: 1, color: c.page }}>
               <div style={{ fontFamily: mono, fontSize: 11, fontWeight: 600, marginBottom: 18, textTransform: 'uppercase', letterSpacing: '.2em' }}>第五話 · {chapter} 05 · {t.contact.label} · {KANJI.contact}</div>
-              <h2 style={{ fontFamily: display, fontSize: 'clamp(44px,8vw,108px)', textTransform: 'uppercase', lineHeight: 0.9, marginBottom: 18, textWrap: 'balance' }}>{t.contact.heading} <span style={{ color: c.ink, WebkitTextStroke: `2px ${c.page}` }}>!</span></h2>
+              <h2 style={{ fontFamily: display, fontSize: 'clamp(44px,8vw,108px)', textTransform: 'uppercase', lineHeight: 0.9, marginBottom: 18, textWrap: 'balance' }}>{t.contact.heading}{'\u00A0'}<span style={{ color: c.ink, WebkitTextStroke: `2px ${c.page}` }}>!</span></h2>
               <p style={{ fontSize: 16.5, lineHeight: 1.7, color: 'rgba(255,255,255,0.74)', maxWidth: 500, marginBottom: 28, textWrap: 'pretty' }}>{t.contact.body}</p>
               <Hover as="a" href={PROFILE.mailto} base={{ display: 'inline-block', fontFamily: mono, fontSize: 'clamp(14px,2.2vw,24px)', fontWeight: 600, color: c.page, textDecoration: 'none', borderBottom: `3px solid ${c.page}`, paddingBottom: 5, wordBreak: 'break-all', marginBottom: 30, transition: 'opacity .2s' }} hover={{ opacity: 0.6 }}>{PROFILE.email}</Hover>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14 }}>

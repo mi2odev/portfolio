@@ -64,9 +64,9 @@ export default function Editorial({ index, onChange }: { index?: number; onChang
             ))}
           </div>
           <div style={{ display: 'flex', alignItems: 'center', border: `1.5px solid ${c.ink}`, flexShrink: 0 }}>
-            <button onClick={() => setLang('fr')} style={langBtn('fr')}>FR</button>
-            <button onClick={() => setLang('en')} style={langBtn('en')}>EN</button>
-            <button onClick={() => setLang('ar')} style={langBtn('ar')}>ع</button>
+            <button onClick={() => setLang('fr')} aria-pressed={lang === 'fr'} lang="fr" style={langBtn('fr')}>FR</button>
+            <button onClick={() => setLang('en')} aria-pressed={lang === 'en'} lang="en" style={langBtn('en')}>EN</button>
+            <button onClick={() => setLang('ar')} aria-pressed={lang === 'ar'} lang="ar" style={langBtn('ar')}>ع</button>
           </div>
           <div style={{ marginLeft: 8 }}>
             {onChange && typeof index === 'number' && <VersionSwitcher index={index} onChange={onChange} inline />}

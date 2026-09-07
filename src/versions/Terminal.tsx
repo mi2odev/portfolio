@@ -79,9 +79,9 @@ export default function Terminal({ index, onChange }: { index?: number; onChange
             ))}
           </div>
           <div style={{ display: 'flex', alignItems: 'center', border: `1px solid ${c.line}`, borderRadius: 999, padding: 3, flexShrink: 0 }}>
-            <button onClick={() => setLang('fr')} style={langBtn('fr', 'FR')}>FR</button>
-            <button onClick={() => setLang('en')} style={langBtn('en', 'EN')}>EN</button>
-            <button onClick={() => setLang('ar')} style={langBtn('ar', 'ع')}>ع</button>
+            <button onClick={() => setLang('fr')} aria-pressed={lang === 'fr'} lang="fr" style={langBtn('fr', 'FR')}>FR</button>
+            <button onClick={() => setLang('en')} aria-pressed={lang === 'en'} lang="en" style={langBtn('en', 'EN')}>EN</button>
+            <button onClick={() => setLang('ar')} aria-pressed={lang === 'ar'} lang="ar" style={langBtn('ar', 'ع')}>ع</button>
           </div>
           <div style={{ marginLeft: 10 }}>
             {onChange && typeof index === 'number' && <VersionSwitcher index={index} onChange={onChange} inline />}
