@@ -172,9 +172,9 @@ export default function Gamer({ index, onChange }: { index?: number; onChange?: 
               <span>PING <span data-ping style={{ color: col.cyan }}>12</span>ms</span>
             </div>
             <div className="nav-lang" style={{ display: 'flex', alignItems: 'center', gap: 2, background: col.panel, border: `1px solid ${col.line}`, padding: 3 }}>
-              <button onClick={() => setLang('fr')} style={langBtn('fr')}>FR</button>
-              <button onClick={() => setLang('en')} style={langBtn('en')}>EN</button>
-              <button onClick={() => setLang('ar')} style={langBtn('ar')}>ع</button>
+              <button onClick={() => setLang('fr')} aria-pressed={lang === 'fr'} lang="fr" style={langBtn('fr')}>FR</button>
+              <button onClick={() => setLang('en')} aria-pressed={lang === 'en'} lang="en" style={langBtn('en')}>EN</button>
+              <button onClick={() => setLang('ar')} aria-pressed={lang === 'ar'} lang="ar" style={langBtn('ar')}>ع</button>
             </div>
             <div className="nav-switch" style={{ marginLeft: 8 }}>
               {onChange && typeof index === 'number' && <VersionSwitcher index={index} onChange={onChange} inline />}

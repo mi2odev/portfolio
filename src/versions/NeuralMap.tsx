@@ -620,7 +620,7 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
         {/* brand */}
         <div style={{ position: 'absolute', top: 20, insetInlineStart: 22, zIndex: 10, display: 'flex', alignItems: 'center', gap: 12, pointerEvents: 'none' }}>
           <div style={{ width: 42, height: 42, borderRadius: 12, background: `linear-gradient(135deg, ${acc}, #9B7BFF)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 20, color: '#05070F', boxShadow: '0 0 24px rgba(53,232,224,.5)' }}>M</div>
-          <div>
+          <div className="npv8-brand-text">
             <div style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 16, letterSpacing: '.01em', lineHeight: 1 }}>{NAME[lang]}</div>
             <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: 10.5, color: '#8B96BA', marginTop: 5, letterSpacing: '.02em', display: 'flex', alignItems: 'center', gap: 7 }}>
               <span style={{ width: 7, height: 7, borderRadius: '50%', background: acc, boxShadow: `0 0 8px ${acc}`, animation: 'npv8_blink 1.6s steps(1) infinite' }} />{T.status}
@@ -632,9 +632,9 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
         <div style={{ position: 'absolute', top: 20, insetInlineEnd: 22, zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 11 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <div style={{ display: 'flex', alignItems: 'center', border: '1px solid rgba(130,144,180,.3)', borderRadius: 11, overflow: 'hidden', backdropFilter: 'blur(12px)', background: 'rgba(12,18,38,.5)' }}>
-              <button onClick={() => this.setLang('fr')} style={langBtn(lang === 'fr')}>FR</button>
-              <button onClick={() => this.setLang('en')} style={langBtn(lang === 'en')}>EN</button>
-              <button onClick={() => this.setLang('ar')} style={langBtn(lang === 'ar')}>ع</button>
+              <button onClick={() => this.setLang('fr')} aria-pressed={lang === 'fr'} lang="fr" style={langBtn(lang === 'fr')}>FR</button>
+              <button onClick={() => this.setLang('en')} aria-pressed={lang === 'en'} lang="en" style={langBtn(lang === 'en')}>EN</button>
+              <button onClick={() => this.setLang('ar')} aria-pressed={lang === 'ar'} lang="ar" style={langBtn(lang === 'ar')}>ع</button>
             </div>
             {typeof this.props.index === 'number' && this.props.onChange && (
               <VersionSwitcher index={this.props.index} onChange={this.props.onChange} inline />
@@ -660,7 +660,7 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
 
         {/* drawer */}
         {this.state.open && d && (
-          <div dir={dir} style={{ position: 'absolute', top: 0, bottom: 0, [drawerSide]: 0, width: 'min(430px,92vw)', zIndex: 20, padding: 18, display: 'flex', pointerEvents: 'none' }}>
+          <div dir={dir} className="npv8-drawer" style={{ position: 'absolute', top: 0, bottom: 0, [drawerSide]: 0, width: 'min(430px,92vw)', zIndex: 20, padding: 18, display: 'flex', pointerEvents: 'none' }}>
             <div className="npv8-scroll" style={{ pointerEvents: 'auto', width: '100%', height: '100%', overflowY: 'auto', overflowX: 'hidden', background: 'rgba(10,15,32,.8)', backdropFilter: 'blur(22px)', WebkitBackdropFilter: 'blur(22px)', border: '1px solid rgba(130,150,210,.22)', borderRadius: 20, boxShadow: '0 30px 80px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.06)', padding: '26px 26px 32px', animation: 'npv8_in .42s cubic-bezier(.2,.8,.25,1) both' }}>
               <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 18 }}>
                 <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: 10.5, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.16em', color: acc, border: '1px solid rgba(53,232,224,.35)', padding: '6px 11px', borderRadius: 8 }}>{d.tag}</span>

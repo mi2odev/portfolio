@@ -201,6 +201,15 @@ textarea {
   .gm-section, .gm-hero { padding-left: 18px !important; padding-right: 18px !important; }
 }
 
+/* ── V8 Neural Map phone layout ────────────────────────────────────────── */
+@media (max-width: 640px) {
+  /* the detail drawer covered the brand, language / version controls and the
+     zoom bar — keep it between them so the page stays navigable */
+  .npv8-drawer { top: 104px !important; bottom: 66px !important; padding: 10px !important; width: 100vw !important; }
+  /* the name + status line ran into the language buttons — keep just the logo mark */
+  .npv8-brand-text { display: none !important; }
+}
+
 /* ── V6 Blueprint phone layout ─────────────────────────────────────────── */
 @media (max-width: 760px) {
   /* nomenclature table: item · qty · category on one line, chips beneath */
