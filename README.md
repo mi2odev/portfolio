@@ -1,6 +1,6 @@
 # Mohamed Mehdi Zitouni — Portfolio
 
-Six fully-designed portfolio directions in one app, with a live version switcher and FR / EN / AR (RTL) language toggle. Built with **Vite + React + TypeScript + Tailwind CSS**.
+Eight fully-designed portfolio directions in one app, with a live version switcher and FR / EN / AR (RTL) language toggle. Built with **Vite + React + TypeScript + Tailwind CSS**.
 
 | # | Version | Vibe |
 |---|---------|------|
@@ -10,6 +10,8 @@ Six fully-designed portfolio directions in one app, with a live version switcher
 | V4 | **Reactive** | Live constellation, custom cursor, 3D tilt |
 | V5 | **Gamer** | RPG character-sheet HUD |
 | V6 | **Blueprint** | Technical drawing |
+| V7 | **Manga** | Black & white comic page |
+| V8 | **Neural Map** | Force-directed skills graph |
 
 Use the floating switcher at the bottom of the screen to move between versions (← / → or click a tile). The choice and the chosen language both persist across reloads.
 
