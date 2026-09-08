@@ -92,6 +92,7 @@ portfolio/
 │  │  ├─ useReactiveFX.ts             # V4 engine (canvas, cursor, parallax, tilt, magnetic)
 │  │  ├─ useGamerFX.ts                # V5 engine (reticle, parallax, XP bar; touch + gyro on phones)
 │  │  ├─ useBlueprintFX.ts            # V6 engine (crosshair, survey markers, grid drift)
+│  │  ├─ useImageProtection.ts        # mounts the portrait copy-deterrents
 │  │  ├─ useMediaQuery.ts             # reactive matchMedia (+ useIsPhone / useIsTouch)
 │  │  └─ useTilt.ts                   # shared touch helpers: haptics, gyroscope binding
 │  ├─ components/
@@ -106,6 +107,7 @@ portfolio/
 │  │  └─ versionThemes.ts             # per-version tag, accent and active styles
 │  ├─ lib/
 │  │  ├─ versions.ts                  # ?v= slugs, parsing and validation
+│  │  ├─ imageProtection.ts           # blocks right-click / drag on the portrait
 │  │  ├─ lang.ts                      # ?lang= parsing + browser-language detection
 │  │  └─ url.ts                       # query-string writes (replace vs push)
 │  ├─ versions/                       # the eight designs + their shared props type
@@ -159,7 +161,21 @@ never blocks the first paint. Scroll, resize and pointer listeners are passive.
 - The tab title and description follow the language and the design on screen, so
   history and bookmarks stay meaningful when eight views share one URL.
 - Page text is selectable — a recruiter can copy the email address — and the
-  phone number is a `tel:` link; only the chrome and decorative layers are not.
+  phone number is a `tel:` link; only the chrome, the decorative layers and the
+  portrait are not (see below).
+
+### Image copying
+
+The portrait is guarded against casual copying: it cannot be selected, dragged
+out, or right-clicked for **Save image as**, and iOS shows no long-press share
+sheet. The CSS lives in `src/index.css`; the right-click and drag handlers in
+`src/lib/imageProtection.ts`, mounted from `App` via `useImageProtection`. Add
+`data-no-copy` to any element that paints the photo as a CSS background to give
+it the same treatment.
+
+This is a deterrent, not protection — the file is served publicly, so the direct
+URL, the network panel and a plain screenshot all still work. Text elsewhere on
+the page is deliberately left selectable and right-clickable.
 
 ---
 

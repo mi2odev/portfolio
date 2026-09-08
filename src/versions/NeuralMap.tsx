@@ -670,7 +670,7 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
 
               {d.photo && (
                 <div style={{ width: 84, height: 84, borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,.18)', boxShadow: '0 0 28px rgba(53,232,224,.3)', marginBottom: 16 }}>
-                  <img src={this.photoSrc} alt={NAME[lang]} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', filter: 'grayscale(.15) contrast(1.05)' }} />
+                  <img src={this.photoSrc} draggable={false} alt={NAME[lang]} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', filter: 'grayscale(.15) contrast(1.05)' }} />
                 </div>
               )}
 
