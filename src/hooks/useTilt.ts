@@ -37,15 +37,24 @@ export function bindOrientation(cb: (nx: number, ny: number) => void): () => voi
     cb(nx, ny);
   };
 
-  const DOE = DeviceOrientationEvent as unknown as { requestPermission?: () => Promise<'granted' | 'denied'> };
+  const DOE = DeviceOrientationEvent as unknown as {
+    requestPermission?: () => Promise<'granted' | 'denied'>;
+  };
   let asked = false;
   const ask = () => {
     if (asked) return;
     asked = true;
     window.removeEventListener('touchend', ask);
-    DOE.requestPermission!().then((state) => {
-      if (state === 'granted') window.addEventListener('deviceorientation', onOrient, { passive: true } as AddEventListenerOptions);
-    }).catch(() => { /* denied — scroll parallax stays */ });
+    DOE.requestPermission!()
+      .then((state) => {
+        if (state === 'granted')
+          window.addEventListener('deviceorientation', onOrient, {
+            passive: true,
+          } as AddEventListenerOptions);
+      })
+      .catch(() => {
+        /* denied — scroll parallax stays */
+      });
   };
 
   if (typeof DOE.requestPermission === 'function') {

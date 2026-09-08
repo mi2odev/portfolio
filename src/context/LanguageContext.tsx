@@ -1,36 +1,26 @@
-import { createContext, useContext, useState, useMemo, useEffect, type ReactNode } from 'react';
-import { CONTENT, type Content, type Lang } from '../data/content';
-
-interface LanguageState {
-  lang: Lang;
-  setLang: (l: Lang) => void;
-  t: Content;
-  dir: 'ltr' | 'rtl';
-}
-
-const LanguageContext = createContext<LanguageState | null>(null);
-
-const STORAGE_KEY = 'mi2o_portfolio_lang';
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { CONTENT, type Lang } from '../data/content';
+import { LanguageContext, LANG_STORAGE_KEY, type LanguageState } from './languageContextValue';
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY) as Lang | null;
+      const saved = localStorage.getItem(LANG_STORAGE_KEY) as Lang | null;
       if (saved === 'fr' || saved === 'en' || saved === 'ar') return saved;
     } catch {
-      /* ignore */
+      /* localStorage can be blocked (private mode, embedded webviews) — ignore. */
     }
     return 'fr';
   });
 
-  const setLang = (l: Lang) => {
+  const setLang = useCallback((l: Lang) => {
     setLangState(l);
     try {
-      localStorage.setItem(STORAGE_KEY, l);
+      localStorage.setItem(LANG_STORAGE_KEY, l);
     } catch {
       /* ignore */
     }
-  };
+  }, []);
 
   const dir: 'ltr' | 'rtl' = lang === 'ar' ? 'rtl' : 'ltr';
 
@@ -41,14 +31,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo<LanguageState>(
     () => ({ lang, setLang, t: CONTENT[lang], dir }),
-    [lang, dir],
+    [lang, dir, setLang],
   );
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
-}
-
-export function useLanguage(): LanguageState {
-  const ctx = useContext(LanguageContext);
-  if (!ctx) throw new Error('useLanguage must be used within a LanguageProvider');
-  return ctx;
 }

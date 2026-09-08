@@ -12,8 +12,9 @@
  */
 
 import React from 'react';
+import type { VersionProps } from './types';
 import { CONTENT, PROFILE, SKILL_CHIPS, type Lang } from '../data/content';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../context/useLanguage';
 import { VersionSwitcher } from '../components/VersionSwitcher';
 
 /* ------------------------------------------------------------------ */
@@ -496,7 +497,7 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
   }
 
   /* ---------- lifecycle ---------- */
-  componentDidMount() {
+  override componentDidMount() {
     this.reduceMotion = !!this.props.reduceMotion || (typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion:reduce)').matches);
     this.alpha = 0.95; this.alphaMin = 0.04; this.damp = 0.8; this.REP = 5200;
     this.buildGraph(); this.buildAmbient();
@@ -560,7 +561,7 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
     this._introT = setTimeout(() => { if (!this.state.selectedId) this.select('me'); }, 850);
   }
 
-  componentDidUpdate(_pp: PortfolioV8Props, ps: PortfolioV8State) {
+  override componentDidUpdate(_pp: PortfolioV8Props, ps: PortfolioV8State) {
     if (ps.selectedId !== this.state.selectedId && this.state.selectedId) {
       this.highlight(this.state.selectedId); this.panToNode(this.state.selectedId); this.runDrawerFx(this.state.selectedId);
     }
@@ -570,7 +571,7 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
     if (ps.lang !== this.state.lang) { this.relabel(); if (this.state.open && this.state.selectedId) this.runDrawerFx(this.state.selectedId); }
   }
 
-  componentWillUnmount() {
+  override componentWillUnmount() {
     if (this._raf) cancelAnimationFrame(this._raf);
     if (this._typer) clearInterval(this._typer);
     if (this._tourI) clearInterval(this._tourI);
@@ -581,7 +582,7 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
   }
 
   /* ---------- render ---------- */
-  render() {
+  override render() {
     const lang = this.state.lang; const T = CONTENT[lang]; const ui = UI[lang]; const rtl = lang === 'ar';
     const acc = this.accent;
     const dir = rtl ? 'rtl' : 'ltr';
@@ -769,7 +770,7 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
                   <a className="npv8-social" href={INSTAGRAM} target="_blank" rel="noreferrer" style={{ color: '#9AA6CC', textDecoration: 'none' }}>Instagram ↗</a>
                   <a className="npv8-social" href={FACEBOOK} target="_blank" rel="noreferrer" style={{ color: '#9AA6CC', textDecoration: 'none' }}>Facebook ↗</a>
                   <a className="npv8-social" href={MAILTO} style={{ color: '#9AA6CC', textDecoration: 'none', wordBreak: 'break-all' }}>{EMAIL}</a>
-                  <span style={{ color: '#9AA6CC' }}>{PHONE}</span>
+                  <a href={PROFILE.tel} style={{ color: '#9AA6CC', textDecoration: 'none' }}>{PHONE}</a>
                 </div>
               )}
             </div>
@@ -784,7 +785,7 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
 /* Default export: wires the graph to the shared language provider.    */
 /* ------------------------------------------------------------------ */
 
-export default function NeuralMap({ index, onChange }: { index?: number; onChange?: (i: number) => void }) {
+export default function NeuralMap({ index, onChange }: VersionProps) {
   const { lang, setLang } = useLanguage();
   return (
     <PortfolioV8

@@ -1,0 +1,15 @@
+dist
+coverage
+node_modules
+package-lock.json
+public
+*.tsbuildinfo
+
+# The eight design files are hand-tuned: each element keeps its full inline
+# style object on one line so a value can be tweaked without hunting across
+# wrapped lines. Prettier would reflow all of it and destroy that layout.
+src/versions
+
+# The keyframe table is deliberately compact (one keyframe step per line) so all
+# ~30 animations stay readable side by side.
+src/index.css

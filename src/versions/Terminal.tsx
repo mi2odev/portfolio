@@ -1,5 +1,6 @@
 import { type CSSProperties } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import type { VersionProps } from './types';
+import { useLanguage } from '../context/useLanguage';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
@@ -28,11 +29,11 @@ const sectionLabel = (n: string, label: string) => (
   </Reveal>
 );
 
-export default function Terminal({ index, onChange }: { index?: number; onChange?: (i: number) => void }) {
+export default function Terminal({ index, onChange }: VersionProps) {
   const { lang, setLang, t } = useLanguage();
   const progressRef = useScrollProgress();
 
-  const langBtn = (l: Lang, label: string): CSSProperties => ({
+  const langBtn = (l: Lang): CSSProperties => ({
     border: 'none',
     borderRadius: 999,
     padding: '6px 13px',
@@ -79,9 +80,9 @@ export default function Terminal({ index, onChange }: { index?: number; onChange
             ))}
           </div>
           <div style={{ display: 'flex', alignItems: 'center', border: `1px solid ${c.line}`, borderRadius: 999, padding: 3, flexShrink: 0 }}>
-            <button onClick={() => setLang('fr')} aria-pressed={lang === 'fr'} lang="fr" style={langBtn('fr', 'FR')}>FR</button>
-            <button onClick={() => setLang('en')} aria-pressed={lang === 'en'} lang="en" style={langBtn('en', 'EN')}>EN</button>
-            <button onClick={() => setLang('ar')} aria-pressed={lang === 'ar'} lang="ar" style={langBtn('ar', 'ع')}>ع</button>
+            <button onClick={() => setLang('fr')} aria-pressed={lang === 'fr'} lang="fr" style={langBtn('fr')}>FR</button>
+            <button onClick={() => setLang('en')} aria-pressed={lang === 'en'} lang="en" style={langBtn('en')}>EN</button>
+            <button onClick={() => setLang('ar')} aria-pressed={lang === 'ar'} lang="ar" style={langBtn('ar')}>ع</button>
           </div>
           <div style={{ marginLeft: 10 }}>
             {onChange && typeof index === 'number' && <VersionSwitcher index={index} onChange={onChange} inline />}
@@ -288,7 +289,7 @@ export default function Terminal({ index, onChange }: { index?: number; onChange
             <Hover as="a" href={PROFILE.githubUrl} target="_blank" rel="noreferrer" base={{ color: c.muted, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 7, transition: 'color .2s' }} hover={{ color: c.accent }}><span style={{ color: c.accent, display: 'inline-flex' }}><GitHubIcon /></span> github.com/{PROFILE.github}</Hover>
             <Hover as="a" href={PROFILE.instagram} target="_blank" rel="noreferrer" base={{ color: c.muted, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 7, transition: 'color .2s' }} hover={{ color: c.accent }}><span style={{ color: c.accent, display: 'inline-flex' }}><InstagramIcon /></span> @_.mi2o</Hover>
             <Hover as="a" href={PROFILE.facebook} target="_blank" rel="noreferrer" base={{ color: c.muted, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 7, transition: 'color .2s' }} hover={{ color: c.accent }}><span style={{ color: c.accent, display: 'inline-flex' }}><FacebookIcon /></span> facebook</Hover>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7 }}><span style={{ color: c.accent, display: 'inline-flex' }}><PhoneIcon /></span> {PROFILE.phone}</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7 }}><span style={{ color: c.accent, display: 'inline-flex' }}><PhoneIcon /></span> <a href={PROFILE.tel} style={{ color: 'inherit', textDecoration: 'none' }}>{PROFILE.phone}</a></span>
           </div>
         </Reveal>
       </section>

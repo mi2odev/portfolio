@@ -1,0 +1,21 @@
+{
+  "name": "Mohamed Mehdi Zitouni — Portfolio",
+  "short_name": "MMZ Portfolio",
+  "description": "Full Stack Developer · Data Science & AI. Eight design directions, one portfolio.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#05050b",
+  "theme_color": "#05050b",
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": ["portfolio", "education", "productivity"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

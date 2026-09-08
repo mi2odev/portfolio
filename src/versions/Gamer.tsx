@@ -1,6 +1,7 @@
 import { useRef, type CSSProperties } from 'react';
+import type { VersionProps } from './types';
 import { useIsPhone } from '../hooks/useMediaQuery';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../context/useLanguage';
 import { useGamerFX } from '../hooks/useGamerFX';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
@@ -98,7 +99,7 @@ const SC: Record<string, string> = { done: col.lime, active: col.gold };
 
 const clip = (n: number) => `polygon(${n}px 0,100% 0,100% calc(100% - ${n}px),calc(100% - ${n}px) 100%,0 100%,0 ${n}px)`;
 
-export default function Gamer({ index, onChange }: { index?: number; onChange?: (i: number) => void }) {
+export default function Gamer({ index, onChange }: VersionProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const { lang, setLang, t, dir } = useLanguage();
   const g = GAMER[lang];
@@ -423,7 +424,7 @@ export default function Gamer({ index, onChange }: { index?: number; onChange?: 
                 <Hover as="a" href={PROFILE.githubUrl} target="_blank" rel="noreferrer" base={{ color: col.ink2, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, transition: 'color .2s' }} hover={{ color: col.lime }}><GitHubIcon /> github.com/{PROFILE.github}</Hover>
                 <Hover as="a" href={PROFILE.instagram} target="_blank" rel="noreferrer" base={{ color: col.ink2, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, transition: 'color .2s' }} hover={{ color: col.lime }}><InstagramIcon /> @_.mi2o</Hover>
                 <Hover as="a" href={PROFILE.facebook} target="_blank" rel="noreferrer" base={{ color: col.ink2, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, transition: 'color .2s' }} hover={{ color: col.lime }}><FacebookIcon /> facebook</Hover>
-                <span style={{ color: col.ink2, display: 'inline-flex', alignItems: 'center', gap: 8 }}><PhoneIcon /> {PROFILE.phone}</span>
+                <span style={{ color: col.ink2, display: 'inline-flex', alignItems: 'center', gap: 8 }}><PhoneIcon /> <a href={PROFILE.tel} style={{ color: 'inherit', textDecoration: 'none' }}>{PROFILE.phone}</a></span>
               </div>
             </div>
           </div>
