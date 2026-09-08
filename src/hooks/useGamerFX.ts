@@ -22,8 +22,12 @@ export function useGamerFX(rootRef: RefObject<HTMLElement | null>) {
     const touch = isTouchDevice();
     const reduce = prefersReducedMotion();
 
-    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
-    let rx = mx, ry = my, rs = 1, crs = 1;
+    let mx = window.innerWidth / 2,
+      my = window.innerHeight / 2;
+    let rx = mx,
+      ry = my,
+      rs = 1,
+      crs = 1;
     let raf = 0;
     let activeTilt: HTMLElement | null = null;
     let activeMag: HTMLElement | null = null;
@@ -47,7 +51,9 @@ export function useGamerFX(rootRef: RefObject<HTMLElement | null>) {
         fps += Math.round((Math.random() - 0.5) * 6);
         if (fps < 54) fps = 54;
         if (fps > 60) fps = 60;
-        fpsEls.forEach((el) => { el.textContent = String(fps); });
+        fpsEls.forEach((el) => {
+          el.textContent = String(fps);
+        });
       }, 700);
     }
     if (pingEls.length && !reduce) {
@@ -55,7 +61,9 @@ export function useGamerFX(rootRef: RefObject<HTMLElement | null>) {
         ping += Math.round((Math.random() - 0.5) * 8);
         if (ping < 6) ping = 6;
         if (ping > 28) ping = 28;
-        pingEls.forEach((el) => { el.textContent = String(ping); });
+        pingEls.forEach((el) => {
+          el.textContent = String(ping);
+        });
       }, 1400);
     }
 
@@ -90,7 +98,9 @@ export function useGamerFX(rootRef: RefObject<HTMLElement | null>) {
     // stat-bar fills
     const fills = Array.from(root.querySelectorAll<HTMLElement>('[data-fill]'));
     if (!('IntersectionObserver' in window)) {
-      fills.forEach((f) => { f.style.width = (f.getAttribute('data-fill') || '0') + '%'; });
+      fills.forEach((f) => {
+        f.style.width = (f.getAttribute('data-fill') || '0') + '%';
+      });
     } else {
       io = new IntersectionObserver(
         (entries) => {
@@ -123,22 +133,34 @@ export function useGamerFX(rootRef: RefObject<HTMLElement | null>) {
       layer.style.cssText = `position:fixed;left:${x}px;top:${y}px;z-index:9998;pointer-events:none;mix-blend-mode:screen;`;
 
       const ring = document.createElement('div');
-      ring.style.cssText = 'position:absolute;left:-10px;top:-10px;width:20px;height:20px;border:2px solid #27E0FF;border-radius:50%;box-shadow:0 0 12px rgba(39,224,255,0.6);';
+      ring.style.cssText =
+        'position:absolute;left:-10px;top:-10px;width:20px;height:20px;border:2px solid #27E0FF;border-radius:50%;box-shadow:0 0 12px rgba(39,224,255,0.6);';
       layer.appendChild(ring);
       ring.animate(
-        [{ transform: 'scale(0.4)', opacity: 0.95 }, { transform: 'scale(2.8)', opacity: 0 }],
+        [
+          { transform: 'scale(0.4)', opacity: 0.95 },
+          { transform: 'scale(2.8)', opacity: 0 },
+        ],
         { duration: 430, easing: 'cubic-bezier(.2,.7,.2,1)' },
       );
 
       const flash = document.createElement('div');
-      flash.style.cssText = 'position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:#FFFFFF;box-shadow:0 0 16px 4px #B6FF3C;';
+      flash.style.cssText =
+        'position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:#FFFFFF;box-shadow:0 0 16px 4px #B6FF3C;';
       layer.appendChild(flash);
-      flash.animate([{ opacity: 0.9, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(0.3)' }], { duration: 160, easing: 'ease-out' });
+      flash.animate(
+        [
+          { opacity: 0.9, transform: 'scale(1)' },
+          { opacity: 0, transform: 'scale(0.3)' },
+        ],
+        { duration: 160, easing: 'ease-out' },
+      );
 
       for (let i = 0; i < 4; i++) {
         const deg = i * 90 + 45;
         const s = document.createElement('div');
-        s.style.cssText = 'position:absolute;left:-1.5px;top:-6px;width:3px;height:12px;border-radius:2px;background:#B6FF3C;box-shadow:0 0 7px #B6FF3C;transform-origin:center;';
+        s.style.cssText =
+          'position:absolute;left:-1.5px;top:-6px;width:3px;height:12px;border-radius:2px;background:#B6FF3C;box-shadow:0 0 7px #B6FF3C;transform-origin:center;';
         layer.appendChild(s);
         s.animate(
           [
@@ -157,7 +179,8 @@ export function useGamerFX(rootRef: RefObject<HTMLElement | null>) {
       crs = 2.4; // reticle recoil punch — the rAF loop eases it back
       if (e.pointerType === 'touch') {
         // snap the reticle straight onto the finger so the recoil is visible
-        mx = rx = e.clientX; my = ry = e.clientY;
+        mx = rx = e.clientX;
+        my = ry = e.clientY;
         haptic(12);
       }
       shoot(e.clientX, e.clientY);
@@ -176,7 +199,8 @@ export function useGamerFX(rootRef: RefObject<HTMLElement | null>) {
     };
 
     const onMove = (e: MouseEvent) => {
-      mx = e.clientX; my = e.clientY;
+      mx = e.clientX;
+      my = e.clientY;
 
       if (hero && !reduce) {
         const r = hero.getBoundingClientRect();
@@ -219,8 +243,12 @@ export function useGamerFX(rootRef: RefObject<HTMLElement | null>) {
       const interactive = target && target.closest ? target.closest('a,button,[data-mag],[data-tilt]') : null;
       rs = interactive ? 1.7 : 1;
     };
-    const onOut = (e: MouseEvent) => { if (!e.relatedTarget && ret) ret.style.opacity = '0'; };
-    const onOver = () => { if (fine && ret) ret.style.opacity = '1'; };
+    const onOut = (e: MouseEvent) => {
+      if (!e.relatedTarget && ret) ret.style.opacity = '0';
+    };
+    const onOver = () => {
+      if (fine && ret) ret.style.opacity = '1';
+    };
     if (!touch) {
       window.addEventListener('mousemove', onMove, { passive: true });
       window.addEventListener('mouseout', onOut);
@@ -234,10 +262,12 @@ export function useGamerFX(rootRef: RefObject<HTMLElement | null>) {
       const t = e.touches[0];
       if (!t) return;
       clearTimeout(hideTimer);
-      mx = rx = t.clientX; my = ry = t.clientY;
+      mx = rx = t.clientX;
+      my = ry = t.clientY;
       if (ret) ret.style.opacity = '1';
       const target = e.target as HTMLElement | null;
-      const interactive = target && target.closest ? target.closest('a,button,[data-mag],[data-tilt],[data-target]') : null;
+      const interactive =
+        target && target.closest ? target.closest('a,button,[data-mag],[data-tilt],[data-target]') : null;
       rs = interactive ? 1.7 : 1;
       const tilt = target && target.closest ? target.closest<HTMLElement>('[data-tilt]') : null;
       if (tilt !== touchTilt && touchTilt) touchTilt.style.transform = '';
@@ -247,14 +277,20 @@ export function useGamerFX(rootRef: RefObject<HTMLElement | null>) {
     const onTouchMove = (e: TouchEvent) => {
       const t = e.touches[0];
       if (!t) return;
-      mx = t.clientX; my = t.clientY;
+      mx = t.clientX;
+      my = t.clientY;
       if (touchTilt && !reduce) applyTilt(touchTilt, t.clientX, t.clientY);
     };
     const onTouchEnd = () => {
-      if (touchTilt) { touchTilt.style.transform = ''; touchTilt = null; }
+      if (touchTilt) {
+        touchTilt.style.transform = '';
+        touchTilt = null;
+      }
       rs = 1;
       clearTimeout(hideTimer);
-      hideTimer = window.setTimeout(() => { if (ret) ret.style.opacity = '0'; }, 520);
+      hideTimer = window.setTimeout(() => {
+        if (ret) ret.style.opacity = '0';
+      }, 520);
     };
     let unbindOrient = () => {};
     if (touch) {

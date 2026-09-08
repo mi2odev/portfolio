@@ -1,5 +1,6 @@
 import { useEffect, useRef, type CSSProperties, type ReactNode } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import type { VersionProps } from './types';
+import { useLanguage } from '../context/useLanguage';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
@@ -116,7 +117,7 @@ function Bubble({ children, style }: { children: ReactNode; style?: CSSPropertie
   );
 }
 
-export default function Manga({ index, onChange }: { index?: number; onChange?: (i: number) => void }) {
+export default function Manga({ index, onChange }: VersionProps) {
   const { lang, setLang, t, dir } = useLanguage();
   const progressRef = useScrollProgress();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -502,7 +503,7 @@ export default function Manga({ index, onChange }: { index?: number; onChange?: 
         <div style={pageFrame}>
           <ChapterBar n={3} label={t.work.label} sub="THE ARC" kanji={KANJI.work} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-            {t.work.items.map((e, i) => (
+            {t.work.items.map((e) => (
               <Reveal key={e.i}>
                 <Panel style={{ padding: '28px 28px' }}>
                   {/* corner speed-burst */}
@@ -585,7 +586,7 @@ export default function Manga({ index, onChange }: { index?: number; onChange?: 
                 <Hover as="a" href={PROFILE.githubUrl} target="_blank" rel="noreferrer" base={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, fontWeight: 500 }} hover={{ color: c.page }}><span style={{ display: 'inline-flex' }}><GitHubIcon /></span> github.com/{PROFILE.github}</Hover>
                 <Hover as="a" href={PROFILE.instagram} target="_blank" rel="noreferrer" base={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, fontWeight: 500 }} hover={{ color: c.page }}><span style={{ display: 'inline-flex' }}><InstagramIcon /></span> @_.mi2o</Hover>
                 <Hover as="a" href={PROFILE.facebook} target="_blank" rel="noreferrer" base={{ color: 'rgba(255,255,255,0.8)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, fontWeight: 500 }} hover={{ color: c.page }}><span style={{ display: 'inline-flex' }}><FacebookIcon /></span> facebook</Hover>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'rgba(255,255,255,0.8)', fontWeight: 500 }}><span style={{ display: 'inline-flex' }}><PhoneIcon /></span> {PROFILE.phone}</span>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'rgba(255,255,255,0.8)', fontWeight: 500 }}><span style={{ display: 'inline-flex' }}><PhoneIcon /></span> <a href={PROFILE.tel} style={{ color: 'inherit', textDecoration: 'none' }}>{PROFILE.phone}</a></span>
               </div>
             </div>
           </Reveal>

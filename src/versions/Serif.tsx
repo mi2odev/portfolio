@@ -1,5 +1,6 @@
 import { type CSSProperties } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import type { VersionProps } from './types';
+import { useLanguage } from '../context/useLanguage';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
@@ -23,7 +24,7 @@ const c = {
 const sans = "'Hanken Grotesk','IBM Plex Sans Arabic',sans-serif";
 const serif = "'Instrument Serif','IBM Plex Sans Arabic',serif";
 
-export default function Serif({ index, onChange }: { index?: number; onChange?: (i: number) => void }) {
+export default function Serif({ index, onChange }: VersionProps) {
   const { lang, setLang, t, dir } = useLanguage();
   const progressRef = useScrollProgress();
 
@@ -256,7 +257,7 @@ export default function Serif({ index, onChange }: { index?: number; onChange?: 
             <Hover as="a" href={PROFILE.githubUrl} target="_blank" rel="noreferrer" base={{ color: 'rgba(255,255,255,0.82)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, fontWeight: 500, transition: 'color .2s' }} hover={{ color: '#fff' }}><span style={{ display: 'inline-flex' }}><GitHubIcon /></span> github.com/{PROFILE.github}</Hover>
             <Hover as="a" href={PROFILE.instagram} target="_blank" rel="noreferrer" base={{ color: 'rgba(255,255,255,0.82)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, fontWeight: 500, transition: 'color .2s' }} hover={{ color: '#fff' }}><span style={{ display: 'inline-flex' }}><InstagramIcon /></span> @_.mi2o</Hover>
             <Hover as="a" href={PROFILE.facebook} target="_blank" rel="noreferrer" base={{ color: 'rgba(255,255,255,0.82)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, fontWeight: 500, transition: 'color .2s' }} hover={{ color: '#fff' }}><span style={{ display: 'inline-flex' }}><FacebookIcon /></span> facebook</Hover>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'rgba(255,255,255,0.82)', fontWeight: 500 }}><span style={{ display: 'inline-flex' }}><PhoneIcon /></span> {PROFILE.phone}</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'rgba(255,255,255,0.82)', fontWeight: 500 }}><span style={{ display: 'inline-flex' }}><PhoneIcon /></span> <a href={PROFILE.tel} style={{ color: 'inherit', textDecoration: 'none' }}>{PROFILE.phone}</a></span>
           </div>
         </Reveal>
       </section>

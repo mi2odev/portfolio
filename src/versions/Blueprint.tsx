@@ -1,6 +1,7 @@
 import { useRef, type CSSProperties } from 'react';
+import type { VersionProps } from './types';
 import { useIsPhone } from '../hooks/useMediaQuery';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../context/useLanguage';
 import { useBlueprintFX } from '../hooks/useBlueprintFX';
 import { PROFILE, TECH_MARQUEE, SKILL_CHIPS, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
@@ -71,7 +72,7 @@ const SCALES = ['1:50', '1:75', '1:25', '1:10', '1:40', '1:100', '1:100', '1:60'
 const EDU_REVS = ['C', 'B', 'A'];
 const SKILL_QTY = [SKILL_CHIPS.fe, SKILL_CHIPS.be, SKILL_CHIPS.data, SKILL_CHIPS.ops, SKILL_CHIPS.cloud].map((a) => String(a.length).padStart(2, '0'));
 
-export default function Blueprint({ index, onChange }: { index?: number; onChange?: (i: number) => void }) {
+export default function Blueprint({ index, onChange }: VersionProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const { lang, setLang, t, dir } = useLanguage();
   const b = BP[lang];
@@ -407,7 +408,7 @@ export default function Blueprint({ index, onChange }: { index?: number; onChang
               <Hover as="a" href={PROFILE.githubUrl} target="_blank" rel="noreferrer" base={{ color: col.ink2, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, transition: 'color .2s' }} hover={{ color: col.ink }}><GitHubIcon /> github.com/{PROFILE.github}</Hover>
               <Hover as="a" href={PROFILE.instagram} target="_blank" rel="noreferrer" base={{ color: col.ink2, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, transition: 'color .2s' }} hover={{ color: col.ink }}><InstagramIcon /> @_.mi2o</Hover>
               <Hover as="a" href={PROFILE.facebook} target="_blank" rel="noreferrer" base={{ color: col.ink2, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, transition: 'color .2s' }} hover={{ color: col.ink }}><FacebookIcon /> facebook</Hover>
-              <span style={{ color: col.ink2, display: 'inline-flex', alignItems: 'center', gap: 8 }}><PhoneIcon /> {PROFILE.phone}</span>
+              <span style={{ color: col.ink2, display: 'inline-flex', alignItems: 'center', gap: 8 }}><PhoneIcon /> <a href={PROFILE.tel} style={{ color: 'inherit', textDecoration: 'none' }}>{PROFILE.phone}</a></span>
             </div>
           </div>
         </div>

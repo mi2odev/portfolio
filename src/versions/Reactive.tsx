@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import type { VersionProps } from './types';
+import { useLanguage } from '../context/useLanguage';
 import { useReactiveFX } from '../hooks/useReactiveFX';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
@@ -17,7 +18,7 @@ const sans = "'Manrope','IBM Plex Sans Arabic',sans-serif";
 const display = "'Sora','IBM Plex Sans Arabic',sans-serif";
 const mono = "'JetBrains Mono',monospace";
 
-export default function Reactive({ index, onChange }: { index?: number; onChange?: (i: number) => void }) {
+export default function Reactive({ index, onChange }: VersionProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const { lang, setLang, t, dir } = useLanguage();
   useReactiveFX(rootRef);
@@ -315,7 +316,7 @@ export default function Reactive({ index, onChange }: { index?: number; onChange
               <Hover as="a" href={PROFILE.githubUrl} target="_blank" rel="noreferrer" base={{ color: col.ink2, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, fontWeight: 500, transition: 'color .2s' }} hover={{ color: col.ink }}><span style={{ display: 'inline-flex' }}><GitHubIcon /></span> github.com/{PROFILE.github}</Hover>
               <Hover as="a" href={PROFILE.instagram} target="_blank" rel="noreferrer" base={{ color: col.ink2, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, fontWeight: 500, transition: 'color .2s' }} hover={{ color: col.ink }}><span style={{ display: 'inline-flex' }}><InstagramIcon /></span> @_.mi2o</Hover>
               <Hover as="a" href={PROFILE.facebook} target="_blank" rel="noreferrer" base={{ color: col.ink2, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, fontWeight: 500, transition: 'color .2s' }} hover={{ color: col.ink }}><span style={{ display: 'inline-flex' }}><FacebookIcon /></span> facebook</Hover>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: col.ink2, fontWeight: 500 }}><span style={{ display: 'inline-flex' }}><PhoneIcon /></span> {PROFILE.phone}</span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: col.ink2, fontWeight: 500 }}><span style={{ display: 'inline-flex' }}><PhoneIcon /></span> <a href={PROFILE.tel} style={{ color: 'inherit', textDecoration: 'none' }}>{PROFILE.phone}</a></span>
             </div>
           </div>
         </Reveal>

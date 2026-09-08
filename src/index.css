@@ -18,17 +18,59 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Text is not user-selectable across any version (these are showcase pages). */
-* {
+/* Chrome and decorative layers are not selectable — dragging across the page
+   should never highlight the UI. Real content stays selectable so a visitor can
+   copy the email address, the phone number or a project name. */
+button,
+nav,
+canvas,
+svg,
+[role='menu'],
+[aria-hidden='true'] {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
 }
-/* Keep real inputs usable if any are ever added. */
-input,
-textarea {
-  -webkit-user-select: text;
-  user-select: text;
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Focus visibility.
+   Versions style their controls inline, several with `outline: none`, which
+   would leave keyboard users with no focus indicator at all. `currentColor`
+   tracks each control's own text colour, so the ring stays legible on the
+   dark, cream and paper themes alike.
+   ────────────────────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid currentColor !important;
+  outline-offset: 2px !important;
+}
+
+/* Skip link — hidden until focused, then pinned to the top-left. */
+.skip-link {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 10000;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: #0b0d11;
+  color: #c6f24e;
+  border: 1px solid rgba(198, 242, 78, 0.7);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform 0.18s ease;
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* Larger tap targets on touch devices (WCAG 2.5.8 asks for ~24px minimum). */
+@media (pointer: coarse) {
+  button,
+  a[role='button'] {
+    min-height: 32px;
+  }
 }
 
 /* ──────────────────────────────────────────────────────────────────────────

@@ -1,5 +1,6 @@
 import { type CSSProperties } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import type { VersionProps } from './types';
+import { useLanguage } from '../context/useLanguage';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
@@ -20,7 +21,7 @@ const c = {
 const sans = "'Bricolage Grotesque','IBM Plex Sans Arabic',sans-serif";
 const mono = "'Space Mono','IBM Plex Sans Arabic',monospace";
 
-export default function Editorial({ index, onChange }: { index?: number; onChange?: (i: number) => void }) {
+export default function Editorial({ index, onChange }: VersionProps) {
   const { lang, setLang, t, dir } = useLanguage();
   const progressRef = useScrollProgress();
 
@@ -265,7 +266,7 @@ export default function Editorial({ index, onChange }: { index?: number; onChang
             <Hover as="a" href={PROFILE.githubUrl} target="_blank" rel="noreferrer" base={{ color: 'rgba(242,237,227,0.78)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, transition: 'color .2s' }} hover={{ color: c.accent }}><span style={{ color: c.accent, display: 'inline-flex' }}><GitHubIcon /></span> github.com/{PROFILE.github}</Hover>
             <Hover as="a" href={PROFILE.instagram} target="_blank" rel="noreferrer" base={{ color: 'rgba(242,237,227,0.78)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, transition: 'color .2s' }} hover={{ color: c.accent }}><span style={{ color: c.accent, display: 'inline-flex' }}><InstagramIcon /></span> @_.mi2o</Hover>
             <Hover as="a" href={PROFILE.facebook} target="_blank" rel="noreferrer" base={{ color: 'rgba(242,237,227,0.78)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8, transition: 'color .2s' }} hover={{ color: c.accent }}><span style={{ color: c.accent, display: 'inline-flex' }}><FacebookIcon /></span> facebook</Hover>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'rgba(242,237,227,0.78)' }}><span style={{ color: c.accent, display: 'inline-flex' }}><PhoneIcon /></span> {PROFILE.phone}</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'rgba(242,237,227,0.78)' }}><span style={{ color: c.accent, display: 'inline-flex' }}><PhoneIcon /></span> <a href={PROFILE.tel} style={{ color: 'inherit', textDecoration: 'none' }}>{PROFILE.phone}</a></span>
           </div>
         </Reveal>
       </section>

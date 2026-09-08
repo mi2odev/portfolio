@@ -22,7 +22,8 @@ export function useBlueprintFX(rootRef: RefObject<HTMLElement | null>) {
     const bar = q('[data-progress]');
     const plot = q('[data-plot]');
     const grid = q('[data-grid]');
-    let gyroX = 0, gyroY = 0;
+    let gyroX = 0,
+      gyroY = 0;
     let scrollY = 0;
     const paintGrid = () => {
       if (!grid || reduce) return;
@@ -53,12 +54,18 @@ export function useBlueprintFX(rootRef: RefObject<HTMLElement | null>) {
     const cy = q('[data-coord-y]');
     const pad = (n: number) => String(Math.max(0, Math.round(n))).padStart(4, '0');
     const place = (x: number, y: number, finger: boolean) => {
-      if (v) { v.style.transform = `translateX(${x}px)`; v.style.opacity = '0.5'; }
-      if (h) { h.style.transform = `translateY(${y}px)`; h.style.opacity = '0.4'; }
+      if (v) {
+        v.style.transform = `translateX(${x}px)`;
+        v.style.opacity = '0.5';
+      }
+      if (h) {
+        h.style.transform = `translateY(${y}px)`;
+        h.style.opacity = '0.4';
+      }
       if (coords) {
         // keep the label clear of the finger on touch; tuck it beside the cursor on desktop
         const flip = x > window.innerWidth - 120;
-        const ox = finger ? (flip ? -96 : 22) : (flip ? -92 : 14);
+        const ox = finger ? (flip ? -96 : 22) : flip ? -92 : 14;
         const oy = finger ? -54 : 14;
         coords.style.transform = `translate(${x + ox}px,${y + oy}px)`;
         coords.style.opacity = '1';
@@ -79,12 +86,20 @@ export function useBlueprintFX(rootRef: RefObject<HTMLElement | null>) {
       layer.style.cssText = `position:fixed;left:${x}px;top:${y}px;z-index:9998;pointer-events:none;font-family:'Spline Sans Mono',monospace;`;
 
       const ring = document.createElement('div');
-      ring.style.cssText = 'position:absolute;left:-14px;top:-14px;width:28px;height:28px;border:1px solid #FF6F5E;border-radius:50%;';
-      ring.animate([{ transform: 'scale(0.3)', opacity: 1 }, { transform: 'scale(1.9)', opacity: 0 }], { duration: 520, easing: 'cubic-bezier(.2,.7,.2,1)' });
+      ring.style.cssText =
+        'position:absolute;left:-14px;top:-14px;width:28px;height:28px;border:1px solid #FF6F5E;border-radius:50%;';
+      ring.animate(
+        [
+          { transform: 'scale(0.3)', opacity: 1 },
+          { transform: 'scale(1.9)', opacity: 0 },
+        ],
+        { duration: 520, easing: 'cubic-bezier(.2,.7,.2,1)' },
+      );
       layer.appendChild(ring);
 
       const box = document.createElement('div');
-      box.style.cssText = 'position:absolute;left:-6px;top:-6px;width:12px;height:12px;border:1px solid #86E0FF;transform:rotate(45deg);';
+      box.style.cssText =
+        'position:absolute;left:-6px;top:-6px;width:12px;height:12px;border:1px solid #86E0FF;transform:rotate(45deg);';
       box.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 700, easing: 'ease-out' });
       layer.appendChild(box);
 
@@ -103,7 +118,13 @@ export function useBlueprintFX(rootRef: RefObject<HTMLElement | null>) {
       const flip = x > window.innerWidth - 110;
       label.textContent = `PT ${pad(x)},${pad(y + scrollY)}`;
       label.style.cssText = `position:absolute;${flip ? 'right:16px' : 'left:16px'};top:-24px;font-size:9.5px;letter-spacing:.1em;color:#86E0FF;white-space:nowrap;`;
-      label.animate([{ opacity: 1, transform: 'translateY(0)' }, { opacity: 0, transform: 'translateY(-10px)' }], { duration: 760, easing: 'ease-out' });
+      label.animate(
+        [
+          { opacity: 1, transform: 'translateY(0)' },
+          { opacity: 0, transform: 'translateY(-10px)' },
+        ],
+        { duration: 760, easing: 'ease-out' },
+      );
       layer.appendChild(label);
 
       document.body.appendChild(layer);
@@ -118,7 +139,9 @@ export function useBlueprintFX(rootRef: RefObject<HTMLElement | null>) {
 
     // ── desktop: follow the mouse ──
     const onMove = (e: MouseEvent) => place(e.clientX, e.clientY, false);
-    const onLeave = (e: MouseEvent) => { if (!e.relatedTarget) hide(); };
+    const onLeave = (e: MouseEvent) => {
+      if (!e.relatedTarget) hide();
+    };
     if (fine && !touch) {
       window.addEventListener('mousemove', onMove, { passive: true });
       window.addEventListener('mouseout', onLeave);
@@ -148,7 +171,8 @@ export function useBlueprintFX(rootRef: RefObject<HTMLElement | null>) {
       window.addEventListener('touchcancel', onTouchEnd, { passive: true });
       if (!reduce) {
         unbindOrient = bindOrientation((nx, ny) => {
-          gyroX = nx; gyroY = ny;
+          gyroX = nx;
+          gyroY = ny;
           paintGrid();
         });
       }

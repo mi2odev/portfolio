@@ -1,6 +1,11 @@
 import { useEffect, type RefObject } from 'react';
 
-interface Pt { x: number; y: number; vx: number; vy: number }
+interface Pt {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+}
 
 /**
  * Port of V4's mouse-reactive engine, scoped to a root element ref.
@@ -18,8 +23,10 @@ export function useReactiveFX(rootRef: RefObject<HTMLElement | null>) {
 
     let mx = window.innerWidth / 2;
     let my = window.innerHeight / 2;
-    let rx = mx, ry = my;
-    let ringScale = 1, curRingScale = 1;
+    let rx = mx,
+      ry = my;
+    let ringScale = 1,
+      curRingScale = 1;
     let raf = 0;
     let pts: Pt[] = [];
     let activeTilt: HTMLElement | null = null;
@@ -41,22 +48,34 @@ export function useReactiveFX(rootRef: RefObject<HTMLElement | null>) {
     // ── constellation ──
     const canvas = q('[data-constellation]') as HTMLCanvasElement | null;
     const ctx = canvas ? canvas.getContext('2d') : null;
-    let W = 0, H = 0;
+    let W = 0,
+      H = 0;
     const resize = () => {
       if (!canvas || !ctx) return;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = window.innerWidth; H = window.innerHeight;
-      canvas.width = W * dpr; canvas.height = H * dpr;
-      canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const target = Math.round((W * H) / 17000);
       const count = Math.max(34, Math.min(120, target));
       pts = [];
       for (let i = 0; i < count; i++) {
-        pts.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5) * 0.32, vy: (Math.random() - 0.5) * 0.32 });
+        pts.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          vx: (Math.random() - 0.5) * 0.32,
+          vy: (Math.random() - 0.5) * 0.32,
+        });
       }
     };
-    if (canvas && ctx) { window.addEventListener('resize', resize, { passive: true }); resize(); }
+    if (canvas && ctx) {
+      window.addEventListener('resize', resize, { passive: true });
+      resize();
+    }
 
     // ── cursor + interaction ──
     const dot = q('[data-cursor-dot]');
@@ -77,7 +96,8 @@ export function useReactiveFX(rootRef: RefObject<HTMLElement | null>) {
     };
 
     const onMove = (e: MouseEvent) => {
-      mx = e.clientX; my = e.clientY;
+      mx = e.clientX;
+      my = e.clientY;
 
       root.style.setProperty('--mx', e.clientX + 'px');
       root.style.setProperty('--my', e.clientY + 'px');
@@ -144,7 +164,8 @@ export function useReactiveFX(rootRef: RefObject<HTMLElement | null>) {
         mag.style.transform = `translate(${mxp * 0.32}px,${myp * 0.42}px)`;
       }
 
-      const interactive = target && target.closest ? target.closest('a,button,[data-magnetic],[data-tilt]') : null;
+      const interactive =
+        target && target.closest ? target.closest('a,button,[data-magnetic],[data-tilt]') : null;
       ringScale = interactive ? 1.8 : 1;
       if (ring) ring.style.borderColor = interactive ? 'rgba(58,224,208,0.9)' : 'rgba(232,84,198,0.7)';
     };
@@ -175,43 +196,60 @@ export function useReactiveFX(rootRef: RefObject<HTMLElement | null>) {
 
       if (ctx && pts.length) {
         ctx.clearRect(0, 0, W, H);
-        const LINK = 132, MOUSE = 184;
+        const LINK = 132,
+          MOUSE = 184;
         for (let i = 0; i < pts.length; i++) {
           const p = pts[i];
-          const ddx = p.x - mx, ddy = p.y - my;
+          const ddx = p.x - mx,
+            ddy = p.y - my;
           const md = Math.sqrt(ddx * ddx + ddy * ddy);
           if (md < MOUSE && md > 0.1) {
             const f = ((MOUSE - md) / MOUSE) * 0.9;
             p.vx += (ddx / md) * f * 0.18;
             p.vy += (ddy / md) * f * 0.18;
           }
-          p.vx *= 0.99; p.vy *= 0.99;
+          p.vx *= 0.99;
+          p.vy *= 0.99;
           const sp = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-          if (sp > 1.4) { p.vx = (p.vx / sp) * 1.4; p.vy = (p.vy / sp) * 1.4; }
-          p.x += p.vx; p.y += p.vy;
-          if (p.x < -20) p.x = W + 20; else if (p.x > W + 20) p.x = -20;
-          if (p.y < -20) p.y = H + 20; else if (p.y > H + 20) p.y = -20;
+          if (sp > 1.4) {
+            p.vx = (p.vx / sp) * 1.4;
+            p.vy = (p.vy / sp) * 1.4;
+          }
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < -20) p.x = W + 20;
+          else if (p.x > W + 20) p.x = -20;
+          if (p.y < -20) p.y = H + 20;
+          else if (p.y > H + 20) p.y = -20;
         }
         for (let i = 0; i < pts.length; i++) {
           const a = pts[i];
           for (let j = i + 1; j < pts.length; j++) {
             const b = pts[j];
-            const dx = a.x - b.x, dy = a.y - b.y;
+            const dx = a.x - b.x,
+              dy = a.y - b.y;
             const d = Math.sqrt(dx * dx + dy * dy);
             if (d < LINK) {
               const al = (1 - d / LINK) * 0.5;
               ctx.strokeStyle = `rgba(139,92,246,${al.toFixed(3)})`;
               ctx.lineWidth = 1;
-              ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
             }
           }
-          const dmx = a.x - mx, dmy = a.y - my;
+          const dmx = a.x - mx,
+            dmy = a.y - my;
           const dm = Math.sqrt(dmx * dmx + dmy * dmy);
           if (dm < MOUSE) {
             const al = (1 - dm / MOUSE) * 0.6;
             ctx.strokeStyle = `rgba(58,224,208,${al.toFixed(3)})`;
             ctx.lineWidth = 1;
-            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mx, my); ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(mx, my);
+            ctx.stroke();
           }
         }
         for (let i = 0; i < pts.length; i++) {

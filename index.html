@@ -11,6 +11,12 @@
     />
 
     <meta name="theme-color" content="#05050b" />
+    <meta name="author" content="Mohamed Mehdi Zitouni" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="canonical" href="%SITE_URL%/" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
 
     <!-- Open Graph / social link previews (SITE_URL is resolved at build time, see vite.config.ts) -->
     <meta property="og:type" content="website" />
@@ -21,6 +27,9 @@
       content="Full Stack Developer · Data Science &amp; AI. Building ideas for a better tomorrow."
     />
     <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:locale:alternate" content="ar_DZ" />
     <meta property="og:image" content="%SITE_URL%/og-image.jpg" />
     <meta property="og:image:secure_url" content="%SITE_URL%/og-image.jpg" />
     <meta property="og:image:type" content="image/jpeg" />
@@ -35,6 +44,9 @@
     />
     <meta name="twitter:image" content="%SITE_URL%/og-image.jpg" />
     <meta name="twitter:image:alt" content="Mohamed Mehdi Zitouni — Full Stack Developer portfolio" />
+    <!-- The portrait is above the fold in every version -->
+    <link rel="preload" as="image" type="image/webp" href="/photo.webp" fetchpriority="high" />
+
     <!-- All fonts used across the eight versions, in one request -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -42,9 +54,47 @@
       href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Cairo:wght@400;600;700;900&family=Chakra+Petch:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Orbitron:wght@700;800&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=Sora:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Spline+Sans+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Structured data: helps search engines show the profile as a person, not a page -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Mohamed Mehdi Zitouni",
+        "url": "%SITE_URL%/",
+        "image": "%SITE_URL%/photo.webp",
+        "jobTitle": "Full Stack Developer",
+        "description": "Full Stack Developer and Master 2 student in Data Science & Intelligent Systems.",
+        "email": "mailto:mohamedmehdi.zitouni@univ-constantine2.dz",
+        "address": { "@type": "PostalAddress", "addressLocality": "Constantine", "addressCountry": "DZ" },
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Université Constantine 2 — Abdelhamid Mehri" },
+        "knowsLanguage": ["fr", "en", "ar"],
+        "knowsAbout": ["Web Development", "React", "TypeScript", "Data Science", "Machine Learning"],
+        "sameAs": [
+          "https://github.com/mi2odev",
+          "https://www.instagram.com/_.mi2o/",
+          "https://www.facebook.com/Mohamed.mehdi.zitouni"
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <div style="padding: 40px; font-family: system-ui, sans-serif; color: #eaf0ff; background: #05050b">
+        <h1>Mohamed Mehdi Zitouni — Full Stack Developer</h1>
+        <p>This portfolio needs JavaScript. Meanwhile, here is how to reach me:</p>
+        <ul>
+          <li>
+            <a style="color: #c6f24e" href="mailto:mohamedmehdi.zitouni@univ-constantine2.dz"
+              >mohamedmehdi.zitouni@univ-constantine2.dz</a
+            >
+          </li>
+          <li><a style="color: #c6f24e" href="https://github.com/mi2odev">github.com/mi2odev</a></li>
+          <li><a style="color: #c6f24e" href="/CV_Mohamed_Mehdi_ZITOUNI.pdf">Download my CV (PDF)</a></li>
+        </ul>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
