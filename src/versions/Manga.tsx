@@ -234,7 +234,7 @@ export default function Manga({ index, onChange }: VersionProps) {
     window.addEventListener('mouseup', endStroke);
     window.addEventListener('blur', endStroke);
     window.addEventListener('dragstart', onDragStart);
-    window.addEventListener('resize', sizeSvg);
+    window.addEventListener('resize', sizeSvg, { passive: true });
 
     const loop = () => {
       if (nib) nib.style.transform = `translate(${mx}px,${my}px)`;
@@ -345,6 +345,8 @@ export default function Manga({ index, onChange }: VersionProps) {
       </nav>
 
       {/* ── SPLASH PAGE ─────────────────────────────────────────────────── */}
+      {/* main landmark: everything between the navbar and the footer */}
+      <main id="main">
       <header id="top" style={{ ...sectionWrap, paddingTop: 102 }}>
         <div style={pageFrame}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 16, fontFamily: mono, fontSize: 10.5, fontWeight: 600, letterSpacing: '.2em', textTransform: 'uppercase', color: c.ink2 }}>
@@ -595,6 +597,7 @@ export default function Manga({ index, onChange }: VersionProps) {
         <div style={{ maxWidth: 1180, margin: '20px auto 0', textAlign: 'center', fontFamily: display, fontSize: 'clamp(26px,4vw,46px)', textTransform: 'uppercase', letterSpacing: '.06em', color: 'transparent', WebkitTextStroke: `1.5px ${c.ink}` }}>続く … TO BE CONTINUED</div>
       </section>
 
+      </main>
       <footer style={{ position: 'relative', zIndex: 2, marginTop: 30, borderTop: `4px solid ${c.ink}`, background: c.page }}>
         <div style={{ maxWidth: 1180, margin: '0 auto', padding: '20px 22px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 14, fontFamily: mono }}>
           <div style={{ fontSize: 12, color: c.ink2 }}>© {PROFILE.year} · {t.footer.built} · 完</div>

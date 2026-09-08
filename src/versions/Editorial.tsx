@@ -76,6 +76,8 @@ export default function Editorial({ index, onChange }: VersionProps) {
         <div ref={progressRef} style={{ position: 'absolute', left: 0, bottom: -1.5, height: 3, width: 0, background: c.accent, transition: 'width .12s linear' }} />
       </nav>
 
+      {/* main landmark: everything between the navbar and the footer */}
+      <main id="main">
       <header id="top" style={{ position: 'relative', zIndex: 1, maxWidth: 1240, margin: '0 auto', padding: '120px 26px 0', scrollMarginTop: 90 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14, paddingTop: 22, animation: 'rise .7s cubic-bezier(.2,.7,.2,1) both' }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 9, flexShrink: 0, whiteSpace: 'nowrap', border: `1.5px solid ${c.ink}`, background: c.paper, padding: '8px 13px', fontFamily: mono, fontSize: 11.5, textTransform: 'uppercase', letterSpacing: '.06em', boxShadow: `3px 3px 0 ${c.ink}` }}>
@@ -271,6 +273,7 @@ export default function Editorial({ index, onChange }: VersionProps) {
         </Reveal>
       </section>
 
+      </main>
       <footer style={{ position: 'relative', zIndex: 1, borderTop: `1.5px solid ${c.ink}` }}>
         <div style={{ maxWidth: 1240, margin: '0 auto', padding: '24px 26px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 14 }}>
           <div style={{ fontFamily: mono, fontSize: 12, color: c.ink2 }}>© {PROFILE.year} · {t.footer.built}</div>

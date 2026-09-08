@@ -2,6 +2,10 @@ import { Suspense, lazy, useCallback, useEffect, useState, type ComponentType } 
 import { LanguageProvider } from './context/LanguageContext';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { SkipLink } from './components/SkipLink';
+import { DocumentMeta } from './components/DocumentMeta';
+import { VersionAnnouncer } from './components/VersionAnnouncer';
+import { indexFromSearch, normaliseIndex, slugForIndex } from './lib/versions';
+import { writeQuery } from './lib/url';
 import type { VersionProps } from './versions/types';
 
 /**
@@ -23,14 +27,16 @@ const VERSIONS = LOADERS.map((load) => lazy(load));
 
 const STORAGE_KEY = 'mi2o_portfolio_version';
 
-function readStoredIndex(): number {
+/** `?v=` wins over the remembered choice, so a shared link always opens its design. */
+function initialIndex(): number {
+  const fromUrl = typeof window !== 'undefined' ? indexFromSearch(window.location.search) : null;
+  if (fromUrl !== null) return fromUrl;
   try {
-    const saved = Number.parseInt(localStorage.getItem(STORAGE_KEY) ?? '', 10);
-    if (Number.isInteger(saved) && saved >= 0 && saved < VERSIONS.length) return saved;
+    return normaliseIndex(localStorage.getItem(STORAGE_KEY)) ?? 0;
   } catch {
     /* localStorage can be blocked (private mode, embedded webviews) — ignore. */
+    return 0;
   }
-  return 0;
 }
 
 /** Warms the chunks either side of the current version while the browser is idle. */
@@ -49,19 +55,40 @@ function prefetchNeighbours(index: number) {
 }
 
 export default function App() {
-  const [index, setIndex] = useState<number>(readStoredIndex);
+  const [index, setIndex] = useState<number>(initialIndex);
 
-  const change = useCallback((i: number) => {
+  /** Applies a version everywhere it is remembered: state, storage and the URL. */
+  const change = useCallback((i: number, { fromHistory = false } = {}) => {
     setIndex(i);
     try {
       localStorage.setItem(STORAGE_KEY, String(i));
     } catch {
       /* ignore */
     }
-    window.scrollTo({ top: 0, behavior: 'auto' });
+    if (!fromHistory) {
+      writeQuery({ v: slugForIndex(i) }, { push: true });
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+  }, []);
+
+  // Reflect the version the visitor landed on without adding a history entry.
+  useEffect(() => {
+    writeQuery({ v: slugForIndex(index) });
+    // Only on mount: later changes go through `change`.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => prefetchNeighbours(index), [index]);
+
+  // Back / forward move between the designs the visitor has seen.
+  useEffect(() => {
+    const onPop = () => {
+      const fromUrl = indexFromSearch(window.location.search);
+      if (fromUrl !== null) change(fromUrl, { fromHistory: true });
+    };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, [change]);
 
   // Alt/Option + ← / → cycles through the designs without hijacking plain
   // arrow keys, which visitors still need for scrolling and text navigation.
@@ -71,20 +98,18 @@ export default function App() {
       if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
       e.preventDefault();
       const step = e.key === 'ArrowRight' ? 1 : -1;
-      setIndex((i) => {
-        const nextIndex = (i + step + VERSIONS.length) % VERSIONS.length;
-        change(nextIndex);
-        return nextIndex;
-      });
+      change((index + step + VERSIONS.length) % VERSIONS.length);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [change]);
+  }, [change, index]);
 
   const Active = VERSIONS[index] ?? VERSIONS[0];
 
   return (
     <LanguageProvider>
+      <DocumentMeta versionIndex={index} />
+      <VersionAnnouncer index={index} />
       <SkipLink />
       <ErrorBoundary key={`boundary-${index}`} onReset={() => change(0)}>
         <Suspense fallback={<VersionFallback />}>
