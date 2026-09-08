@@ -33,6 +33,22 @@ svg,
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
+   Images are not selectable, draggable or long-pressable, so the portrait
+   cannot be dragged out, copied from a selection, or saved from the iOS
+   share sheet. Right-click and dragstart are blocked in
+   src/lib/imageProtection.ts. This deters casual copying only — the file is
+   still served publicly and a screenshot always works.
+   ────────────────────────────────────────────────────────────────────────── */
+img,
+[data-no-copy] {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
    Focus visibility.
    Versions style their controls inline, several with `outline: none`, which
    would leave keyboard users with no focus indicator at all. `currentColor`

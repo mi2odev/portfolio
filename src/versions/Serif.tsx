@@ -106,7 +106,7 @@ export default function Serif({ index, onChange }: VersionProps) {
           <div style={{ position: 'relative', justifySelf: 'center', maxWidth: 380, width: '100%', animation: 'rise .95s cubic-bezier(.2,.7,.2,1) both' }}>
             <div style={{ position: 'absolute', inset: '-22px -22px auto auto', width: 130, height: 130, borderRadius: '50%', background: c.soft, zIndex: 0 }} />
             <div style={{ position: 'relative', zIndex: 1, borderRadius: 26, overflow: 'hidden', boxShadow: c.shadow, border: `1px solid ${c.line}` }}>
-              <img src={PROFILE.photo} alt="Mohamed Mehdi Zitouni" style={{ width: '100%', aspectRatio: '1086/1448', objectFit: 'cover', objectPosition: 'center top', display: 'block' }} />
+              <img src={PROFILE.photo} draggable={false} alt="Mohamed Mehdi Zitouni" style={{ width: '100%', aspectRatio: '1086/1448', objectFit: 'cover', objectPosition: 'center top', display: 'block' }} />
             </div>
             <div style={{ position: 'absolute', zIndex: 2, left: 18, bottom: 18, right: 18, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, background: 'rgba(255,255,255,0.78)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.6)', borderRadius: 14, padding: '10px 14px', boxShadow: '0 10px 24px -12px rgba(28,27,24,0.4)' }}>
               <span style={{ fontSize: 13, fontWeight: 700 }}>M. M. Zitouni</span>

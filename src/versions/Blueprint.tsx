@@ -228,7 +228,7 @@ export default function Blueprint({ index, onChange }: VersionProps) {
               <span style={{ position: 'absolute', left: '50%', top: 5, transform: 'translateX(-50%)', fontFamily: mono, fontSize: 9.5, color: col.ink2 }}>1086</span>
             </div>
             <div style={{ position: 'relative', border: `1px solid ${col.line2}`, background: col.bg2, overflow: 'hidden' }}>
-              <img src={PROFILE.photo} alt="Mohamed Mehdi Zitouni" style={{ width: '100%', aspectRatio: '1086/1448', objectFit: 'cover', objectPosition: 'center top', display: 'block', filter: 'grayscale(1) brightness(1.05) contrast(1.04)', mixBlendMode: 'luminosity', opacity: 0.92 }} />
+              <img src={PROFILE.photo} draggable={false} alt="Mohamed Mehdi Zitouni" style={{ width: '100%', aspectRatio: '1086/1448', objectFit: 'cover', objectPosition: 'center top', display: 'block', filter: 'grayscale(1) brightness(1.05) contrast(1.04)', mixBlendMode: 'luminosity', opacity: 0.92 }} />
               <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'linear-gradient(180deg, rgba(10,39,66,0.18), transparent 30%, transparent 72%, rgba(10,39,66,0.55))', mixBlendMode: 'multiply' }} />
               <span style={{ position: 'absolute', left: '50%', top: '50%', width: 30, height: 1, background: 'rgba(134,224,255,0.6)', transform: 'translate(-50%,-50%)' }} />
               <span style={{ position: 'absolute', left: '50%', top: '50%', width: 1, height: 30, background: 'rgba(134,224,255,0.6)', transform: 'translate(-50%,-50%)' }} />

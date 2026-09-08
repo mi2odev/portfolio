@@ -383,7 +383,7 @@ export default function Manga({ index, onChange }: VersionProps) {
             {/* portrait panel */}
             <Panel fold={false} style={{ maxWidth: 420, justifySelf: 'center', width: '100%', padding: 0, animation: 'rise .9s cubic-bezier(.2,.7,.2,1) .18s both' }}>
               <div style={{ position: 'relative', overflow: 'hidden', borderBottom: `3px solid ${c.ink}` }}>
-                <img src={PROFILE.photo} alt="Mohamed Mehdi Zitouni" style={{ width: '100%', aspectRatio: '1086/1340', objectFit: 'cover', objectPosition: 'center top', display: 'block', filter: 'grayscale(1) contrast(1.3) brightness(1.04)' }} />
+                <img src={PROFILE.photo} draggable={false} alt="Mohamed Mehdi Zitouni" style={{ width: '100%', aspectRatio: '1086/1340', objectFit: 'cover', objectPosition: 'center top', display: 'block', filter: 'grayscale(1) contrast(1.3) brightness(1.04)' }} />
                 {/* screentone — cut out around the face so it stays clean */}
                 <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', backgroundImage: 'radial-gradient(#0B0B0A 1px, transparent 1.5px)', backgroundSize: '5px 5px', opacity: 0.2, mixBlendMode: 'multiply', WebkitMaskImage: 'radial-gradient(64% 56% at 60% 35%, transparent 46%, #000 84%)', maskImage: 'radial-gradient(64% 56% at 60% 35%, transparent 46%, #000 84%)' }} />
                 {/* dramatic speed-lines radiating from behind the head, fully clear over the face */}

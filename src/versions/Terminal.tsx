@@ -126,7 +126,7 @@ export default function Terminal({ index, onChange }: VersionProps) {
           <div style={{ position: 'relative', justifySelf: 'center', animation: 'rise .9s cubic-bezier(.2,.7,.2,1) both' }}>
             <div style={{ position: 'absolute', inset: '-14px -14px 26px 26px', border: `1px solid ${c.line}`, borderRadius: 8, backgroundImage: 'radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px)', backgroundSize: '14px 14px', zIndex: 0, animation: 'floaty 7s ease-in-out infinite' }} />
             <div style={{ position: 'relative', zIndex: 1, width: 'min(360px,82vw)', aspectRatio: '3/4', border: `1px solid ${c.lineStrong}`, borderRadius: 6, overflow: 'hidden', background: '#0e1014', boxShadow: '0 24px 60px rgba(0,0,0,0.55)' }}>
-              <img src={PROFILE.photo} alt="Mohamed Mehdi Zitouni" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', filter: 'grayscale(.35) contrast(1.04)' }} />
+              <img src={PROFILE.photo} draggable={false} alt="Mohamed Mehdi Zitouni" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', filter: 'grayscale(.35) contrast(1.04)' }} />
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(8,9,12,0.85) 0%, transparent 42%)' }} />
               <div style={{ position: 'absolute', left: 16, right: 16, bottom: 14, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 10 }}>
                 <div>

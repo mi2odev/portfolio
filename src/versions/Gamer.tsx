@@ -225,7 +225,7 @@ export default function Gamer({ index, onChange }: VersionProps) {
                 <span style={{ color: col.ink2 }}>UID · MI2O</span>
               </div>
               <div style={{ position: 'relative', overflow: 'hidden' }}>
-                <img src={PROFILE.photo} alt="Mohamed Mehdi Zitouni" style={{ width: '100%', aspectRatio: '1086/1448', objectFit: 'cover', objectPosition: 'center top', display: 'block', filter: 'saturate(1.08) contrast(1.05)' }} />
+                <img src={PROFILE.photo} draggable={false} alt="Mohamed Mehdi Zitouni" style={{ width: '100%', aspectRatio: '1086/1448', objectFit: 'cover', objectPosition: 'center top', display: 'block', filter: 'saturate(1.08) contrast(1.05)' }} />
                 <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'linear-gradient(180deg, transparent 40%, rgba(11,15,24,0.82))' }} />
                 <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', mixBlendMode: 'overlay', background: 'linear-gradient(180deg, rgba(39,224,255,0.18), transparent 40%)' }} />
                 <div style={{ position: 'absolute', top: 12, right: 12, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, background: `linear-gradient(135deg,${col.lime},${col.cyan})`, color: '#070A11', padding: '8px 11px 7px', clipPath: 'polygon(0 0,100% 0,100% 76%,76% 100%,0 100%)', boxShadow: '0 0 18px rgba(182,255,60,0.5)' }}>

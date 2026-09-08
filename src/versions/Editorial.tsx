@@ -115,7 +115,7 @@ export default function Editorial({ index, onChange }: VersionProps) {
           <div className="edi-photo" style={{ position: 'relative', justifySelf: 'end', maxWidth: 360, width: '100%', animation: 'rise .95s cubic-bezier(.2,.7,.2,1) both' }}>
             <div style={{ position: 'absolute', inset: '14px -14px -14px 0', border: `1.5px solid ${c.ink}`, background: c.accent, zIndex: 0 }} />
             <div style={{ position: 'relative', zIndex: 1, border: `1.5px solid ${c.ink}`, background: c.ink, overflow: 'hidden' }}>
-              <img src={PROFILE.photo} alt="Mohamed Mehdi Zitouni" style={{ width: '100%', aspectRatio: '1086/1448', objectFit: 'cover', objectPosition: 'center top', display: 'block', filter: 'grayscale(1) contrast(1.06)', mixBlendMode: 'luminosity' }} />
+              <img src={PROFILE.photo} draggable={false} alt="Mohamed Mehdi Zitouni" style={{ width: '100%', aspectRatio: '1086/1448', objectFit: 'cover', objectPosition: 'center top', display: 'block', filter: 'grayscale(1) contrast(1.06)', mixBlendMode: 'luminosity' }} />
               <div style={{ position: 'absolute', top: 11, right: 11, fontFamily: mono, fontSize: 10, color: c.ink, background: c.accent, border: `1.5px solid ${c.ink}`, padding: '4px 8px', textTransform: 'uppercase', letterSpacing: '.05em' }}>◉ Online</div>
             </div>
             <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', border: `1.5px solid ${c.ink}`, borderTop: 'none', background: c.paper, padding: '9px 12px', fontFamily: mono, fontSize: 11 }}>
