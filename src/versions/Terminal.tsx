@@ -92,6 +92,8 @@ export default function Terminal({ index, onChange }: VersionProps) {
       </nav>
 
       {/* hero */}
+      {/* main landmark: everything between the navbar and the footer */}
+      <main id="main">
       <header id="top" style={{ position: 'relative', zIndex: 1, maxWidth: 1180, margin: '0 auto', padding: '148px 28px 64px', scrollMarginTop: 90 }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(330px,1fr))', gap: 54, alignItems: 'center' }}>
           <div>
@@ -294,6 +296,7 @@ export default function Terminal({ index, onChange }: VersionProps) {
         </Reveal>
       </section>
 
+      </main>
       <footer style={{ position: 'relative', zIndex: 1, borderTop: `1px solid ${c.line}` }}>
         <div style={{ maxWidth: 1180, margin: '0 auto', padding: '26px 28px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 14 }}>
           <div style={{ fontFamily: mono, fontSize: 12, color: c.faint }}>© {PROFILE.year} · {t.footer.built}</div>

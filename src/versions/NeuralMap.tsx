@@ -190,7 +190,7 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
 
   private rootRef = React.createRef<HTMLDivElement>();
   private worldRef = React.createRef<HTMLDivElement>();
-  private viewportRef = React.createRef<HTMLDivElement>();
+  private viewportRef = React.createRef<HTMLElement>();
   private edgesRef = React.createRef<SVGSVGElement>();
   private nodesRef = React.createRef<HTMLDivElement>();
   private ambRef = React.createRef<HTMLDivElement>();
@@ -610,13 +610,13 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
         <div ref={this.ambRef} style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', boxShadow: 'inset 0 0 240px rgba(0,0,0,.72)' }} />
 
-        {/* viewport / world */}
-        <div ref={this.viewportRef} style={{ position: 'absolute', inset: 0, cursor: 'grab', touchAction: 'none', zIndex: 2 }}>
+        {/* viewport / world — the main landmark for this version */}
+        <main id="main" ref={this.viewportRef} aria-label="Interactive skills graph" style={{ position: 'absolute', inset: 0, cursor: 'grab', touchAction: 'none', zIndex: 2 }}>
           <div ref={this.worldRef} style={{ position: 'absolute', left: 0, top: 0, transformOrigin: '0 0', willChange: 'transform' }}>
             <svg ref={this.edgesRef} width={5000} height={5000} style={{ position: 'absolute', left: '-2500px', top: '-2500px', overflow: 'visible', pointerEvents: 'none' }} />
             <div ref={this.nodesRef} style={{ position: 'absolute', left: 0, top: 0 }} />
           </div>
-        </div>
+        </main>
 
         {/* brand */}
         <div style={{ position: 'absolute', top: 20, insetInlineStart: 22, zIndex: 10, display: 'flex', alignItems: 'center', gap: 12, pointerEvents: 'none' }}>

@@ -72,6 +72,8 @@ export default function Serif({ index, onChange }: VersionProps) {
         <div ref={progressRef} style={{ position: 'absolute', left: 0, bottom: -1, height: 2, width: 0, background: `linear-gradient(90deg,${c.accent},${c.accent2})`, transition: 'width .12s linear' }} />
       </nav>
 
+      {/* main landmark: everything between the navbar and the footer */}
+      <main id="main">
       <header id="top" style={{ position: 'relative', zIndex: 1, maxWidth: 1200, margin: '0 auto', padding: '138px 28px 0', scrollMarginTop: 90 }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))', gap: '52px 60px', alignItems: 'center', paddingBottom: 18 }}>
           <div style={{ animation: 'rise .8s cubic-bezier(.2,.7,.2,1) both' }}>
@@ -262,6 +264,7 @@ export default function Serif({ index, onChange }: VersionProps) {
         </Reveal>
       </section>
 
+      </main>
       <footer style={{ position: 'relative', zIndex: 1, borderTop: `1px solid ${c.line}` }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '26px 28px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 14 }}>
           <div style={{ fontSize: 13, color: c.ink2 }}>© {PROFILE.year} · {t.footer.built}</div>

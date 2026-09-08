@@ -126,6 +126,8 @@ export default function Reactive({ index, onChange }: VersionProps) {
         <div data-progress style={{ position: 'absolute', left: 0, bottom: -1, height: 2, width: 0, background: `linear-gradient(90deg,${col.v},${col.m},${col.c})`, transition: 'width .12s linear' }} />
       </nav>
 
+      {/* main landmark: everything between the navbar and the footer */}
+      <main id="main">
       <header id="top" style={{ position: 'relative', zIndex: 2, minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '130px 30px 70px', scrollMarginTop: 90 }}>
         <div data-hero style={{ maxWidth: 1280, margin: '0 auto', width: '100%', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: '52px 70px', alignItems: 'center' }}>
           <div data-depth="22" style={{ animation: 'rise .9s cubic-bezier(.2,.7,.2,1) both', willChange: 'transform' }}>
@@ -322,6 +324,7 @@ export default function Reactive({ index, onChange }: VersionProps) {
         </Reveal>
       </section>
 
+      </main>
       <footer style={{ position: 'relative', zIndex: 2, borderTop: `1px solid ${col.line}` }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', padding: '26px 30px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 14, fontFamily: mono }}>
           <div style={{ fontSize: 12, color: col.ink2 }}>© {PROFILE.year} · {t.footer.built}</div>

@@ -73,8 +73,8 @@ function InlineSwitcher({ index, onChange }: { index: number; onChange: (i: numb
       menu.style.top = Math.round(r.bottom + 8) + 'px';
     };
     place();
-    window.addEventListener('resize', place);
-    window.addEventListener('scroll', place, true);
+    window.addEventListener('resize', place, { passive: true });
+    window.addEventListener('scroll', place, { capture: true, passive: true });
     return () => {
       window.removeEventListener('resize', place);
       window.removeEventListener('scroll', place, true);

@@ -192,6 +192,8 @@ export default function Gamer({ index, onChange }: VersionProps) {
         </div>
       </nav>
 
+      {/* main landmark: everything between the navbar and the footer */}
+      <main id="main">
       <header id="top" className="gm-hero" style={{ position: 'relative', zIndex: 2, minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '138px 26px 70px', scrollMarginTop: 96 }}>
         <div data-hero style={{ maxWidth: 1300, margin: '0 auto', width: '100%', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(310px,1fr))', gap: '54px 64px', alignItems: 'center' }}>
           <div data-depth="20" style={{ animation: 'rise .9s cubic-bezier(.2,.7,.2,1) both', willChange: 'transform' }}>
@@ -431,6 +433,7 @@ export default function Gamer({ index, onChange }: VersionProps) {
         </div>
       </section>
 
+      </main>
       <footer style={{ position: 'relative', zIndex: 2, borderTop: `1px solid ${col.line}` }}>
         <div style={{ maxWidth: 1300, margin: '0 auto', padding: '24px 26px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 13, fontFamily: mono, fontSize: 11.5 }}>
           <div style={{ color: col.ink2 }}>// {g.footer.end} · © {PROFILE.year} {t.hero.name.n1} {t.hero.name.n3}</div>
