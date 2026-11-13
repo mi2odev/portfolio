@@ -80,7 +80,7 @@ describe('projects', () => {
 
   it('ships a cover picture for every project', () => {
     for (const item of CONTENT.fr.work.items) {
-      expect(item.image).toBe(`/projects/${item.id}.webp`);
+      expect(item.image.split('?')[0]).toBe(`/projects/${item.id}.webp`);
       expect(
         existsSync(resolve(__dirname, '../../public', `.${item.image}`)),
         `${item.image} is missing`,

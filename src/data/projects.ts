@@ -95,6 +95,7 @@ const BASE: BaseProject[] = [
   { id: 'sentiment', tags: ['Python', 'PySpark', 'Hadoop', 'Docker', 'NLP'] },
   {
     id: 'iot-security',
+    shots: 1,
     tags: ['ESP32', 'MQTT', 'AWS IoT Core', 'Lambda', 'DynamoDB', 'SNS', 'CloudWatch', 'Grafana', 'Wokwi'],
   },
   { id: 'qa-assistant', tags: ['PyTorch', 'Deep Learning', 'NLP', 'Q&A'] },
@@ -592,13 +593,20 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
   },
 };
 
+/**
+ * Bump this whenever a picture in public/projects/ is replaced under the same
+ * name: the files keep stable names, so the query string is what tells a
+ * browser that already cached the old one to fetch the new one.
+ */
+export const PICTURES_REV = 3;
+
 /** Where a project's cover lives in public/. */
-export const projectImage = (id: string) => `/projects/${id}.webp`;
+export const projectImage = (id: string) => `/projects/${id}.webp?v=${PICTURES_REV}`;
 
 /** Cover first, then the numbered screens. */
 export const projectGallery = (id: string, shots = 0) => [
   projectImage(id),
-  ...Array.from({ length: shots }, (_, n) => `/projects/${id}/${n + 1}.webp`),
+  ...Array.from({ length: shots }, (_, n) => `/projects/${id}/${n + 1}.webp?v=${PICTURES_REV}`),
 ];
 
 /** The project ids, in display order. */

@@ -40,7 +40,8 @@
 [[headers]]
   for = "/projects/*"
   [headers.values]
-    Cache-Control = "public, max-age=86400, must-revalidate"
+    # Pictures get replaced under the same name, so always revalidate (a cheap 304).
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
   for = "/*.pdf"
