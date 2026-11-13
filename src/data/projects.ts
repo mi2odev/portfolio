@@ -38,7 +38,7 @@ const gh = (repo: string): BaseLink => ({ label: CODE, url: `https://github.com/
 const BASE: BaseProject[] = [
   {
     id: 'siara',
-    shots: 8,
+    shots: 13,
     tags: [
       'React',
       'React Native',
@@ -54,13 +54,13 @@ const BASE: BaseProject[] = [
   },
   {
     id: 'gaming-center',
-    shots: 4,
+    shots: 5,
     tags: ['C#', '.NET 10', 'WPF', 'MVVM', 'EF Core', 'SQLite'],
     links: [gh('Gaming-Center-Management')],
   },
   {
     id: 'tutoring-center',
-    shots: 6,
+    shots: 7,
     tags: ['C#', '.NET 10', 'WPF', 'EF Core', 'SQLite', 'Excel export'],
     links: [gh('ecoleprive')],
   },
@@ -101,13 +101,13 @@ const BASE: BaseProject[] = [
   { id: 'qa-assistant', tags: ['PyTorch', 'Deep Learning', 'NLP', 'Q&A'] },
   {
     id: 'last-signal',
-    shots: 2,
+    shots: 3,
     tags: ['React', 'Vite', 'Canvas', 'Node.js', 'Express', 'PostgreSQL'],
     links: [{ label: LIVE, url: 'https://the-last-signal.netlify.app/' }, gh('the-last-signal')],
   },
   {
     id: 'client-portfolio',
-    shots: 3,
+    shots: 4,
     tags: ['React', 'Vite', 'Prerendering', 'SEO', 'WebP'],
     links: [{ label: LIVE, url: 'https://mohcene-meradji.netlify.app/' }, gh('mohsenportfolio')],
   },
@@ -120,13 +120,13 @@ const BASE: BaseProject[] = [
   { id: 'delivery', tags: ['Web', 'Mobile', 'Full Stack', 'UML'] },
   {
     id: 'hotel',
-    shots: 3,
+    shots: 4,
     tags: ['React', 'Tailwind', 'i18n', 'RTL', 'PDF'],
     links: [gh('reservation')],
   },
   {
     id: 'school',
-    shots: 2,
+    shots: 3,
     tags: ['React', 'React Router', 'Material UI', 'Tailwind'],
     links: [gh('schoolsystem')],
   },
@@ -598,7 +598,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
  * name: the files keep stable names, so the query string is what tells a
  * browser that already cached the old one to fetch the new one.
  */
-export const PICTURES_REV = 4;
+export const PICTURES_REV = 5;
 
 /** Where a project's cover lives in public/. */
 export const projectImage = (id: string) => `/projects/${id}.webp?v=${PICTURES_REV}`;
