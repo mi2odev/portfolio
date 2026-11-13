@@ -107,7 +107,7 @@ const BASE: BaseProject[] = [
   },
   {
     id: 'client-portfolio',
-    shots: 4,
+    shots: 10,
     tags: ['React', 'Vite', 'Prerendering', 'SEO', 'WebP'],
     links: [{ label: LIVE, url: 'https://mohcene-meradji.netlify.app/' }, gh('mohsenportfolio')],
   },
@@ -598,7 +598,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
  * name: the files keep stable names, so the query string is what tells a
  * browser that already cached the old one to fetch the new one.
  */
-export const PICTURES_REV = 5;
+export const PICTURES_REV = 6;
 
 /** Where a project's cover lives in public/. */
 export const projectImage = (id: string) => `/projects/${id}.webp?v=${PICTURES_REV}`;
