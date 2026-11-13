@@ -78,13 +78,18 @@ describe('projects', () => {
     expect(new Set(numbers).size).toBe(numbers.length);
   });
 
-  it('ships a cover picture for every project', () => {
+  it('ships every picture of every project', () => {
     for (const item of CONTENT.fr.work.items) {
-      expect(item.image.split('?')[0]).toBe(`/projects/${item.id}.webp`);
-      expect(
-        existsSync(resolve(__dirname, '../../public', `.${item.image}`)),
-        `${item.image} is missing`,
-      ).toBe(true);
+      // Picture URLs carry a ?v= revision for cache-busting; the file is what precedes it.
+      const file = (url: string) => url.split('?')[0];
+      expect(file(item.image)).toBe(`/projects/${item.id}.webp`);
+      expect(item.gallery[0]).toBe(item.image);
+      for (const shot of item.gallery) {
+        expect(
+          existsSync(resolve(__dirname, '../../public', `.${file(shot)}`)),
+          `${file(shot)} is missing`,
+        ).toBe(true);
+      }
     }
   });
 
