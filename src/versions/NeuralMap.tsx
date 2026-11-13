@@ -16,6 +16,7 @@ import type { VersionProps } from './types';
 import { CONTENT, PROFILE, SKILL_CHIPS, type Lang } from '../data/content';
 import { useLanguage } from '../context/useLanguage';
 import { VersionSwitcher } from '../components/VersionSwitcher';
+import { ProjectShot } from '../components/ProjectShot';
 
 /* ------------------------------------------------------------------ */
 /* Types                                                               */
@@ -81,6 +82,7 @@ interface GraphEdge {
 interface Detail {
   tag: string;
   title: string;
+  image?: string;
   subtitle?: string;
   photo?: boolean;
   body?: string;
@@ -142,16 +144,26 @@ const COL: Record<string, string> = {
 const SKILLS: Record<string, readonly string[]> = SKILL_CHIPS;
 
 // Project → skills mapping for the association edges (language-independent).
-const PROJSK: string[][] = [
-  ['Python', 'Hadoop', 'Spark', 'Docker'],
-  ['JavaScript', 'UML'],
-  ['JavaScript', 'React'],
-  ['React', 'Python', 'Deep Learning'],
-  ['Python', 'Deep Learning'],
-  ['JavaScript', 'MySQL'],
-  ['JavaScript', 'MySQL'],
-  ['ESP32', 'MQTT', 'AWS IoT Core', 'AWS Lambda', 'DynamoDB', 'SNS', 'CloudWatch', 'Grafana'],
-];
+const PROJSK_BY_ID: Record<string, string[]> = {
+  siara: ['React', 'React Native', 'Node.js', 'PostgreSQL', 'Python'],
+  sentiment: ['Python', 'Hadoop', 'Spark', 'Docker'],
+  'iot-security': ['ESP32', 'MQTT', 'AWS IoT Core', 'AWS Lambda', 'DynamoDB', 'SNS', 'CloudWatch', 'Grafana'],
+  'qa-assistant': ['Python', 'PyTorch', 'Deep Learning'],
+  'personality-tests': ['React', 'TypeScript', 'Tailwind'],
+  'subscription-watch': ['React Native', 'Expo', 'TypeScript'],
+  'gaming-center': ['C# / .NET'],
+  'tutoring-center': ['C# / .NET'],
+  weighpoint: ['React Native', 'Expo', 'TypeScript'],
+  'e-card': ['React Native', 'Expo', 'TypeScript'],
+  imposter: ['React Native', 'Expo', 'JavaScript'],
+  'last-signal': ['React', 'JavaScript'],
+  'client-portfolio': ['React', 'JavaScript'],
+  delivery: ['JavaScript', 'UML'],
+  hotel: ['React', 'Tailwind'],
+  school: ['React', 'Tailwind'],
+};
+/** Skills per project, in the same order as the work items. */
+const PROJSK: string[][] = CONTENT.en.work.items.map((e) => PROJSK_BY_ID[e.id] || []);
 
 const UI: Record<Lang, Record<string, string>> = {
   fr: { hint: 'Glissez pour explorer · molette pour zoomer · cliquez un nœud', reset: 'Recentrer', tour: 'Visite guidée', stopTour: 'Arrêter', legendSkills: 'Compétences', legendProjects: 'Projets', legendEdu: 'Formation', usedIn: 'Présent dans', projectsWord: 'projets', toolsWord: 'outils', distribution: 'Répartition des compétences', languages: 'Langues', map: 'Carte neuronale', stack: 'Stack', connections: 'connexions' },
@@ -252,7 +264,7 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
     if (id.charAt(0) === 'p') {
       const i = +id.slice(1); const e = T.work.items[i];
       const sids = (PROJSK[i] || []).map((n) => this.skillIdByName[n]).filter(Boolean);
-      return { tag: e.role, badge: e.period, title: e.title, bullets: e.bullets, tags: e.tags, links: e.links || [], chips: sids.map((sid) => ({ label: this.skillName[sid], go: () => this.select(sid) })), chipsTitle: ui.stack };
+      return { tag: e.role, badge: e.period, title: e.title, image: e.image, bullets: e.bullets, tags: e.tags, links: e.links || [], chips: sids.map((sid) => ({ label: this.skillName[sid], go: () => this.select(sid) })), chipsTitle: ui.stack };
     }
     return { tag: '', title: '' };
   }
@@ -304,9 +316,9 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
 
     const pj = CONTENT.en.work.items; const phub = byId['projects'];
     pj.forEach((e, i) => {
-      const m = pj.length; const aa = phub._a! + (i - (m - 1) / 2) * 0.3; const rr = 132; const id = 'p' + i;
+      const m = pj.length; const aa = phub._a! + (i - (m - 1) / 2) * Math.min(0.3, 2.7 / Math.max(1, m - 1)); const rr = 118 + (i % 2) * 64; const id = 'p' + i; // two staggered rings so many projects fan out instead of piling up
       add({ id, type: 'project', x: phub.x + Math.cos(aa) * rr, y: phub.y + Math.sin(aa) * rr, vx: 0, vy: 0, r: 13, color: COL.projects, labels: { fr: e.i, en: e.i, ar: e.i } });
-      edges.push({ a: 'projects', b: id, rest: 124, k: 0.03, kind: 'proj', color: COL.projects });
+      edges.push({ a: 'projects', b: id, rest: 112 + (i % 2) * 64, k: 0.03, kind: 'proj', color: COL.projects });
       (PROJSK[i] || []).forEach((nm) => { const sid = this.skillIdByName[nm]; if (sid) { edges.push({ a: id, b: sid, rest: 210, k: 0.006, kind: 'assoc' }); (this.skillToProjects[sid] = this.skillToProjects[sid] || []).push(i); } });
     });
 
@@ -695,6 +707,8 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
                   ))}
                 </div>
               )}
+
+              {d.image && <ProjectShot src={d.image} title={d.title} style={{ maxWidth: '100%', width: '100%', marginTop: 18 }} frame={{ borderRadius: 12, border: '1px solid rgba(130,144,180,.28)', boxShadow: '0 16px 40px -18px rgba(53,232,224,.45)' }} />}
 
               {d.bullets && d.bullets.length > 0 && (
                 <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 11, marginTop: 18, padding: 0 }}>

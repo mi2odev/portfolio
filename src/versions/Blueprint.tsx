@@ -5,6 +5,8 @@ import { useLanguage } from '../context/useLanguage';
 import { useBlueprintFX } from '../hooks/useBlueprintFX';
 import { PROFILE, TECH_MARQUEE, SKILL_CHIPS, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
+import { ProjectShot } from '../components/ProjectShot';
+import { shotRow, shotText } from '../components/shotLayout';
 import { VersionSwitcher } from '../components/VersionSwitcher';
 import { GitHubIcon, InstagramIcon, FacebookIcon, PhoneIcon } from '../components/icons';
 
@@ -66,9 +68,9 @@ const BP: Record<Lang, BPVocab> = {
   },
 };
 
-const REV_COLORS = [col.cyan, col.cyan, col.red, col.red, col.red, col.ink2, col.ink2, col.cyan];
-const REV_LABELS = ['REV A', 'REV A', 'REV B', 'REV C', 'REV B', 'REV A', 'REV A', 'REV B'];
-const SCALES = ['1:50', '1:75', '1:25', '1:10', '1:40', '1:100', '1:100', '1:60'];
+const REV_COLORS = [col.red, col.cyan, col.cyan, col.red, col.red, col.cyan, col.cyan, col.cyan, col.red, col.red, col.ink2, col.ink2, col.cyan, col.ink2, col.ink2, col.ink2];
+const REV_LABELS = ['REV C', 'REV A', 'REV B', 'REV B', 'REV B', 'REV A', 'REV B', 'REV A', 'REV C', 'REV B', 'REV A', 'REV A', 'REV B', 'REV A', 'REV A', 'REV A'];
+const SCALES = ['1:10', '1:50', '1:60', '1:40', '1:25', '1:30', '1:20', '1:35', '1:30', '1:45', '1:80', '1:70', '1:55', '1:75', '1:100', '1:100'];
 const EDU_REVS = ['C', 'B', 'A'];
 const SKILL_QTY = [SKILL_CHIPS.fe, SKILL_CHIPS.be, SKILL_CHIPS.data, SKILL_CHIPS.ops, SKILL_CHIPS.cloud].map((a) => String(a.length).padStart(2, '0'));
 
@@ -331,7 +333,8 @@ export default function Blueprint({ index, onChange }: VersionProps) {
                 <span className="bp-sheet-spacer" style={{ flex: 1 }} />
                 <span className="bp-sheet-cell bp-sheet-rev" style={{ padding: '11px 16px', fontSize: 10, letterSpacing: '.08em', display: 'flex', alignItems: 'center', gap: 8, color: q.revColor }}><span style={{ width: 7, height: 7, background: q.revColor }} />{q.rev}</span>
               </div>
-              <div style={{ padding: phone ? '20px 16px' : '26px 28px' }}>
+              <div style={{ padding: phone ? '20px 16px' : '26px 28px', ...shotRow }}>
+              <div style={shotText}>
                 <h3 style={{ fontFamily: sans, fontSize: 'clamp(19px,2.3vw,26px)', fontWeight: 700, letterSpacing: '-.012em', lineHeight: 1.15, maxWidth: 780, textWrap: 'balance' }}>{q.title}</h3>
                 <div style={{ fontFamily: mono, fontSize: 11, color: col.cyan, textTransform: 'uppercase', letterSpacing: '.05em', marginTop: 9, marginBottom: 18 }}>{q.role}</div>
                 <div style={{ fontFamily: mono, fontSize: 9.5, color: col.faint, letterSpacing: '.12em', textTransform: 'uppercase', marginBottom: 10 }}>{b.work.notes}</div>
@@ -353,6 +356,8 @@ export default function Blueprint({ index, onChange }: VersionProps) {
                     ))}
                   </div>
                 )}
+              </div>
+              <ProjectShot src={q.image} title={q.title} frame={{ border: `1px solid ${col.line2}`, padding: 6, background: 'rgba(255,255,255,0.02)' }} img={{ filter: 'saturate(.85)' }} imgHover={{ filter: 'none' }} />
               </div>
             </Hover>
           ))}

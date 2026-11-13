@@ -4,6 +4,8 @@ import { useLanguage } from '../context/useLanguage';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
+import { ProjectShot } from '../components/ProjectShot';
+import { shotRow, shotText } from '../components/shotLayout';
 import { Reveal } from '../components/Reveal';
 import { VersionSwitcher } from '../components/VersionSwitcher';
 import { GitHubIcon, InstagramIcon, FacebookIcon, PhoneIcon } from '../components/icons';
@@ -511,7 +513,8 @@ export default function Manga({ index, onChange }: VersionProps) {
                   {/* corner speed-burst */}
                   <div style={{ position: 'absolute', top: 0, [rtl ? 'left' : 'right']: 0, width: 170, height: 170, pointerEvents: 'none', opacity: 0.42, background: `repeating-conic-gradient(from 0deg at ${rtl ? '0%' : '100%'} 0%, #0B0B0A 0deg .5deg, transparent .5deg 3.4deg)`, WebkitMaskImage: `radial-gradient(closest-side at ${rtl ? '0%' : '100%'} 0%, #000, transparent 78%)`, maskImage: `radial-gradient(closest-side at ${rtl ? '0%' : '100%'} 0%, #000, transparent 78%)` }} />
                   <div style={{ position: 'absolute', top: 14, [rtl ? 'left' : 'right']: 26, fontFamily: display, fontSize: 'clamp(40px,5vw,68px)', color: 'transparent', WebkitTextStroke: `1.5px rgba(11,11,10,0.28)`, lineHeight: 0.8, pointerEvents: 'none' }}>{e.i}</div>
-                  <div style={{ position: 'relative', maxWidth: 840 }}>
+                  <div style={{ position: 'relative', ...shotRow }}>
+                  <div style={shotText}>
                     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 10, marginBottom: 12 }}>
                       <span style={{ fontFamily: mono, fontSize: 10.5, fontWeight: 700, color: c.page, background: c.ink, padding: '5px 11px', textTransform: 'uppercase', letterSpacing: '.06em' }}>{e.role}</span>
                       <span style={{ fontFamily: mono, fontSize: 11, fontWeight: 600, color: c.ink, border: `2px solid ${c.ink}`, padding: '4px 11px' }}>{e.period}</span>
@@ -534,6 +537,8 @@ export default function Manga({ index, onChange }: VersionProps) {
                         ))}
                       </div>
                     )}
+                  </div>
+                  <ProjectShot src={e.image} title={e.title} frame={{ border: `3px solid ${c.ink}`, boxShadow: `5px 5px 0 ${c.ink}`, background: c.page, marginTop: 34 }} img={{ filter: 'grayscale(1) contrast(1.12)' }} imgHover={{ filter: 'none' }} />
                   </div>
                 </Panel>
               </Reveal>

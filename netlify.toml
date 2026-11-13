@@ -38,6 +38,11 @@
     Cache-Control = "public, max-age=86400, must-revalidate"
 
 [[headers]]
+  for = "/projects/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"
+
+[[headers]]
   for = "/*.pdf"
   [headers.values]
     Cache-Control = "public, max-age=86400, must-revalidate"

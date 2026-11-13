@@ -5,6 +5,8 @@ import { useLanguage } from '../context/useLanguage';
 import { useGamerFX } from '../hooks/useGamerFX';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
+import { ProjectShot } from '../components/ProjectShot';
+import { shotRow, shotText } from '../components/shotLayout';
 import { VersionSwitcher } from '../components/VersionSwitcher';
 import { TargetRange } from '../components/TargetRange';
 import { GitHubIcon, InstagramIcon, FacebookIcon, PhoneIcon } from '../components/icons';
@@ -84,16 +86,24 @@ const GAMER: Record<Lang, GamerVocab> = {
   },
 };
 
-const QUEST_META = [
-  { rarity: 'epic', status: 'done', xp: 1200 },
-  { rarity: 'epic', status: 'done', xp: 1500 },
-  { rarity: 'rare', status: 'active', xp: 800 },
-  { rarity: 'legendary', status: 'active', xp: 2500 },
-  { rarity: 'rare', status: 'active', xp: 900 },
-  { rarity: 'common', status: 'done', xp: 400 },
-  { rarity: 'common', status: 'done', xp: 350 },
-  { rarity: 'epic', status: 'done', xp: 1300 },
-];
+const QUEST_META: Record<string, { rarity: string; status: string; xp: number }> = {
+  siara: { rarity: 'legendary', status: 'active', xp: 2500 },
+  sentiment: { rarity: 'epic', status: 'done', xp: 1200 },
+  'iot-security': { rarity: 'epic', status: 'done', xp: 1300 },
+  'qa-assistant': { rarity: 'rare', status: 'done', xp: 900 },
+  'personality-tests': { rarity: 'rare', status: 'active', xp: 800 },
+  'subscription-watch': { rarity: 'epic', status: 'done', xp: 1100 },
+  'gaming-center': { rarity: 'epic', status: 'done', xp: 1400 },
+  'tutoring-center': { rarity: 'epic', status: 'done', xp: 1400 },
+  weighpoint: { rarity: 'epic', status: 'done', xp: 1200 },
+  'e-card': { rarity: 'epic', status: 'done', xp: 1300 },
+  imposter: { rarity: 'rare', status: 'done', xp: 700 },
+  'last-signal': { rarity: 'rare', status: 'done', xp: 750 },
+  'client-portfolio': { rarity: 'rare', status: 'done', xp: 850 },
+  delivery: { rarity: 'epic', status: 'done', xp: 1500 },
+  hotel: { rarity: 'common', status: 'done', xp: 400 },
+  school: { rarity: 'common', status: 'done', xp: 350 },
+};
 const RC: Record<string, string> = { legendary: col.gold, epic: col.epic, rare: col.rare, common: col.ink2 };
 const SC: Record<string, string> = { done: col.lime, active: col.gold };
 
@@ -113,8 +123,8 @@ export default function Gamer({ index, onChange }: VersionProps) {
     color: lang === l ? '#070A11' : col.ink2,
   });
 
-  const quests = t.work.items.map((it, idx) => {
-    const m = QUEST_META[idx] || { rarity: 'common', status: 'done', xp: 300 };
+  const quests = t.work.items.map((it) => {
+    const m = QUEST_META[it.id] || { rarity: 'common', status: 'done', xp: 300 };
     return { ...it, color: RC[m.rarity], rarityLabel: g.rarity[m.rarity], statusLabel: g.status[m.status], statusColor: SC[m.status], xp: m.xp.toLocaleString('en-US') };
   });
   const eduColors = [col.gold, col.epic, col.rare];
@@ -350,6 +360,8 @@ export default function Gamer({ index, onChange }: VersionProps) {
                 <span style={{ fontFamily: mono, fontSize: 11, color: col.ink2, whiteSpace: 'nowrap' }}>{q.period}</span>
                 <span style={{ fontFamily: orbit, fontSize: 11, fontWeight: 700, color: col.gold, whiteSpace: 'nowrap' }}>+{q.xp} XP</span>
               </div>
+              <div style={shotRow}>
+              <div style={{ ...shotText, display: 'grid', gap: 14 }}>
               <div>
                 <h3 style={{ fontFamily: display, fontSize: 'clamp(19px,2.3vw,27px)', fontWeight: 700, letterSpacing: '-.01em', lineHeight: 1.14, maxWidth: 780, textWrap: 'balance' }}>{q.title}</h3>
                 <div style={{ fontFamily: mono, fontSize: 11.5, color: col.cyan, textTransform: 'uppercase', letterSpacing: '.04em', marginTop: 9 }}>{q.role}</div>
@@ -372,6 +384,9 @@ export default function Gamer({ index, onChange }: VersionProps) {
                   ))}
                 </div>
               )}
+              </div>
+              <ProjectShot src={q.image} title={q.title} frame={{ border: `1px solid ${q.color}`, boxShadow: `0 0 26px -8px ${q.color}`, background: '#070A11' }} />
+              </div>
             </Hover>
           ))}
         </div>

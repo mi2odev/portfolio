@@ -4,6 +4,8 @@ import { useLanguage } from '../context/useLanguage';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
+import { ProjectShot } from '../components/ProjectShot';
+import { shotRow, shotText } from '../components/shotLayout';
 import { VersionSwitcher } from '../components/VersionSwitcher';
 import { Reveal } from '../components/Reveal';
 import { GitHubIcon, InstagramIcon, FacebookIcon, PhoneIcon } from '../components/icons';
@@ -225,7 +227,8 @@ export default function Terminal({ index, onChange }: VersionProps) {
             <Reveal key={e.i}>
               <Hover base={{ display: 'grid', gridTemplateColumns: '58px 1fr', gap: 18, padding: 26, border: `1px solid ${c.line}`, borderRadius: 12, background: c.panel, transition: 'border-color .25s, transform .25s, background .25s' }} hover={{ borderColor: c.lineStrong, transform: 'translateY(-3px)', background: 'rgba(255,255,255,0.03)' }}>
                 <div style={{ fontFamily: mono, fontSize: 30, fontWeight: 600, color: c.accent, opacity: 0.85, lineHeight: 1 }}>{e.i}</div>
-                <div>
+                <div style={{ ...shotRow }}>
+                <div style={shotText}>
                   <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', justifyContent: 'space-between', gap: 8, marginBottom: 6 }}>
                     <h3 style={{ fontSize: 'clamp(18px,2.1vw,22px)', fontWeight: 600, letterSpacing: '-.01em', color: c.txt }}>{e.title}</h3>
                     <span style={{ fontFamily: mono, fontSize: 12, color: c.faint, whiteSpace: 'nowrap' }}>{e.period}</span>
@@ -248,6 +251,8 @@ export default function Terminal({ index, onChange }: VersionProps) {
                       ))}
                     </div>
                   )}
+                </div>
+                <ProjectShot src={e.image} title={e.title} frame={{ border: `1px solid ${c.lineStrong}`, borderRadius: 10, background: '#0b0d10' }} img={{ filter: 'saturate(.92)' }} imgHover={{ filter: 'none' }} />
                 </div>
               </Hover>
             </Reveal>

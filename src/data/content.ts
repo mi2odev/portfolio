@@ -1,8 +1,11 @@
 // ─────────────────────────────────────────────────────────────────────────
-// Shared content for every portfolio version (V1–V6).
-// All six designs render from this single source of truth.
+// Shared content for every portfolio version (V1–V8).
+// All eight designs render from this single source of truth.
+// The projects themselves live next door in ./projects.ts.
 // FR / EN / AR. (V1 Terminal only exposes FR + EN; the others add AR + RTL.)
 // ─────────────────────────────────────────────────────────────────────────
+
+import { buildProjects } from './projects';
 
 export type Lang = 'fr' | 'en' | 'ar';
 
@@ -11,7 +14,12 @@ export interface Link {
   url: string;
 }
 export interface Experience {
+  /** Two-digit display number, "01"… */
   i: string;
+  /** Stable slug, independent of language and order. */
+  id: string;
+  /** Cover picture, served from public/projects/. */
+  image: string;
   title: string;
   role: string;
   period: string;
@@ -81,9 +89,9 @@ export const PROFILE = {
 
 // ── Skill chips (language-independent) ────────────────────────────────────
 export const SKILL_CHIPS = {
-  fe: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'Vue.js', 'Tailwind'],
-  be: ['PHP', 'Laravel', 'Django', 'Spring Boot', 'MySQL', 'NoSQL'],
-  data: ['Python', 'Pandas', 'Scikit-learn', 'Hadoop', 'Spark', 'Deep Learning'],
+  fe: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'React Native', 'Expo', 'Vue.js', 'Tailwind'],
+  be: ['Node.js', 'PHP', 'Laravel', 'Django', 'Spring Boot', 'C# / .NET', 'PostgreSQL', 'MySQL', 'NoSQL'],
+  data: ['Python', 'Pandas', 'Scikit-learn', 'PyTorch', 'Hadoop', 'Spark', 'Deep Learning'],
   ops: ['Docker', 'Linux', 'Git', 'GitHub', 'UML'],
   cloud: ['AWS IoT Core', 'AWS Lambda', 'DynamoDB', 'SNS', 'CloudWatch', 'EC2', 'MQTT', 'ESP32', 'Grafana'],
 } as const;
@@ -154,130 +162,7 @@ export const CONTENT: Record<Lang, Content> = {
     work: {
       label: 'Expérience',
       heading: 'Projets & expériences sélectionnés.',
-      items: [
-        {
-          i: '01',
-          title: 'Analyse de sentiments — Avis Amazon',
-          role: 'Projet Machine Learning · Big Data & NoSQL',
-          period: 'Mars – Mai 2025',
-          bullets: [
-            'Développement d’un modèle capable d’analyser et de classifier les sentiments exprimés dans les avis clients Amazon.',
-            'Traitement de données massives avec PySpark et Hadoop, le tout conteneurisé sous Docker pour la portabilité.',
-          ],
-          tags: ['Python', 'PySpark', 'Hadoop', 'Docker', 'NLP'],
-        },
-        {
-          i: '02',
-          title: 'Plateforme de gestion de livraison',
-          role: 'Projet de fin d’études · Licence',
-          period: '2024',
-          bullets: [
-            'Conception et développement d’une application web et mobile dédiée à la gestion de la livraison des commandes.',
-            'Suivi en temps réel des commandes et de leur acheminement jusqu’au client final.',
-          ],
-          tags: ['Web', 'Mobile', 'Full Stack', 'UML'],
-        },
-        {
-          i: '03',
-          title: 'Sites de tests de personnalité',
-          role: 'Développeur Web Full Stack · Freelance',
-          period: '2023 – Présent',
-          bullets: [
-            'Conception de sites de tests de personnalité : interface utilisateur et logique de calcul des résultats.',
-            'Intégration d’interfaces modernes et responsives pour optimiser l’expérience utilisateur.',
-          ],
-          tags: ['JavaScript', 'React', 'UI/UX', 'Responsive'],
-          hasLinks: true,
-          links: [
-            { label: 'JoJo Test', url: 'https://jojomi2o.netlify.app/' },
-            { label: 'One Piece Test', url: 'https://onepiecemi2o.netlify.app/' },
-          ],
-        },
-        {
-          i: '04',
-          title: 'SIARA — Évaluation intelligente du risque d’accidents',
-          role: 'Projet de mémoire de Master',
-          period: '2025 – 2026',
-          bullets: [
-            'Plateforme temps réel d’aide à la décision pour la sécurité routière, intégrant machine learning, SIG, signalement citoyen et IA explicable.',
-            'Architecture multiplateforme : applications web/mobile React, services backend Node.js, bases PostgreSQL/PostGIS et services ML prédictifs d’estimation du risque d’accident.',
-            'Modules de prédiction du risque, validation des signalements, gestion des alertes, visualisation géospatiale et IA explicable pour appuyer citoyens et forces de l’ordre.',
-          ],
-          tags: [
-            'React',
-            'React Native',
-            'Node.js',
-            'PostgreSQL',
-            'PostGIS',
-            'Machine Learning',
-            'LightGBM',
-            'SHAP',
-            'SIG',
-            'REST APIs',
-            'OpenStreetMap',
-            'Git',
-          ],
-          hasLinks: true,
-          links: [{ label: 'Siara Live', url: 'https://siaraalgeria.vercel.app/' }],
-        },
-        {
-          i: '05',
-          title: 'Assistant Q&R multilingue pour supports de cours',
-          role: 'Projet Deep Learning',
-          period: '2025',
-          bullets: [
-            'Conception et implémentation d’un assistant de questions-réponses multilingue pour les supports de cours universitaires, basé sur PyTorch et le deep learning.',
-          ],
-          tags: ['PyTorch', 'Deep Learning', 'NLP', 'Q&R', 'Multilingue'],
-        },
-        {
-          i: '06',
-          title: 'Système de réservation d’hôtel',
-          role: 'Application web · Projet',
-          period: '2024',
-          bullets: [
-            'Application web de réservation d’hôtel : gestion des chambres, des disponibilités et des réservations.',
-          ],
-          tags: ['JavaScript', 'Web', 'Hôtel', 'Réservation'],
-          hasLinks: true,
-          links: [{ label: 'Voir le code', url: 'https://github.com/mi2odev/reservation' }],
-        },
-        {
-          i: '07',
-          title: 'Système de gestion scolaire',
-          role: 'Application web · Projet',
-          period: '2024',
-          bullets: ['Application web pour la gestion des élèves, des classes et des données scolaires.'],
-          tags: ['JavaScript', 'Web', 'Gestion'],
-          hasLinks: true,
-          links: [{ label: 'Voir le code', url: 'https://github.com/mi2odev/schoolsystem' }],
-        },
-        {
-          i: '08',
-          title: 'Système de sécurité domotique basé sur l’IoT',
-          role: 'Mini-projet Cloud & IoT',
-          period: '2025',
-          bullets: [
-            'Conception et implémentation d’un système de détection d’intrusion pour maison connectée avec ESP32, capteurs PIR, MQTT et services AWS Cloud.',
-            'Construction d’un pipeline événementiel complet avec AWS IoT Core, Lambda, SNS, DynamoDB, CloudWatch et Grafana.',
-            'Développement de la surveillance d’intrusion en temps réel, des alertes automatisées, du stockage des événements et de la visualisation par dashboard.',
-            'Simulation des dispositifs IoT et de l’infrastructure réseau avec Wokwi et Cisco Packet Tracer.',
-          ],
-          tags: [
-            'ESP32',
-            'MQTT',
-            'AWS IoT Core',
-            'Lambda',
-            'DynamoDB',
-            'SNS',
-            'CloudWatch',
-            'EC2',
-            'Grafana',
-            'Cisco Packet Tracer',
-            'Wokwi',
-          ],
-        },
-      ],
+      items: buildProjects('fr'),
     },
     edu: {
       label: 'Formation',
@@ -366,128 +251,7 @@ export const CONTENT: Record<Lang, Content> = {
     work: {
       label: 'Work',
       heading: 'Selected projects & experience.',
-      items: [
-        {
-          i: '01',
-          title: 'Sentiment Analysis — Amazon Reviews',
-          role: 'Machine Learning Project · Big Data & NoSQL',
-          period: 'Mar – May 2025',
-          bullets: [
-            'Built a model to analyze and classify the sentiment expressed in Amazon customer reviews.',
-            'Processed large-scale data with PySpark and Hadoop, fully containerized with Docker for portability.',
-          ],
-          tags: ['Python', 'PySpark', 'Hadoop', 'Docker', 'NLP'],
-        },
-        {
-          i: '02',
-          title: 'Delivery Management Platform',
-          role: 'Final-Year Project · Bachelor',
-          period: '2024',
-          bullets: [
-            'Designed and built a web and mobile app dedicated to managing order deliveries.',
-            'Real-time tracking of orders and their routing all the way to the end customer.',
-          ],
-          tags: ['Web', 'Mobile', 'Full Stack', 'UML'],
-        },
-        {
-          i: '03',
-          title: 'Personality Test Websites',
-          role: 'Full Stack Web Developer · Freelance',
-          period: '2023 – Present',
-          bullets: [
-            'Built personality-test websites: the user interface and the result-scoring logic.',
-            'Integrated modern, responsive interfaces to optimize the overall user experience.',
-          ],
-          tags: ['JavaScript', 'React', 'UI/UX', 'Responsive'],
-          hasLinks: true,
-          links: [
-            { label: 'JoJo Test', url: 'https://jojomi2o.netlify.app/' },
-            { label: 'One Piece Test', url: 'https://onepiecemi2o.netlify.app/' },
-          ],
-        },
-        {
-          i: '04',
-          title: 'SIARA — Smart Incident & Accident Risk Assessment',
-          role: "Master's Thesis Project",
-          period: '2025 – 2026',
-          bullets: [
-            'A real-time road-safety decision-support platform integrating machine learning, GIS, citizen reporting, and explainable AI.',
-            'Cross-platform architecture: React web/mobile apps, Node.js backend services, PostgreSQL/PostGIS databases, and predictive ML services for accident-risk estimation.',
-            'Risk prediction, report validation, alert management, geospatial visualization, and explainable-AI modules supporting citizens and law-enforcement agencies.',
-          ],
-          tags: [
-            'React',
-            'React Native',
-            'Node.js',
-            'PostgreSQL',
-            'PostGIS',
-            'Machine Learning',
-            'LightGBM',
-            'SHAP',
-            'GIS',
-            'REST APIs',
-            'OpenStreetMap',
-            'Git',
-          ],
-          hasLinks: true,
-          links: [{ label: 'Siara Live', url: 'https://siaraalgeria.vercel.app/' }],
-        },
-        {
-          i: '05',
-          title: 'Multilingual Q&A Assistant for Course Materials',
-          role: 'Deep Learning Project',
-          period: '2025',
-          bullets: [
-            'Designing and implementing a multilingual question-answering assistant for university course materials, built with PyTorch and deep learning.',
-          ],
-          tags: ['PyTorch', 'Deep Learning', 'NLP', 'Q&A', 'Multilingual'],
-        },
-        {
-          i: '06',
-          title: 'Hotel Reservation System',
-          role: 'Web Application · Project',
-          period: '2024',
-          bullets: ['A hotel booking web application: room management, availability and reservations.'],
-          tags: ['JavaScript', 'Web', 'Hotel', 'Booking'],
-          hasLinks: true,
-          links: [{ label: 'View Code', url: 'https://github.com/mi2odev/reservation' }],
-        },
-        {
-          i: '07',
-          title: 'School Management System',
-          role: 'Web Application · Project',
-          period: '2024',
-          bullets: ['A web application for managing students, classes and school records.'],
-          tags: ['JavaScript', 'Web', 'Management'],
-          hasLinks: true,
-          links: [{ label: 'View Code', url: 'https://github.com/mi2odev/schoolsystem' }],
-        },
-        {
-          i: '08',
-          title: 'IoT-Based Smart Home Security System',
-          role: 'Cloud & IoT Mini Project',
-          period: '2025',
-          bullets: [
-            'Designed and implemented a smart home intrusion detection system using ESP32, PIR sensors, MQTT, and AWS Cloud services.',
-            'Built a complete event-driven pipeline with AWS IoT Core, Lambda, SNS, DynamoDB, CloudWatch, and Grafana.',
-            'Developed real-time intrusion monitoring, automated alerting, event storage, and dashboard visualization.',
-            'Simulated IoT devices and network infrastructure using Wokwi and Cisco Packet Tracer.',
-          ],
-          tags: [
-            'ESP32',
-            'MQTT',
-            'AWS IoT Core',
-            'Lambda',
-            'DynamoDB',
-            'SNS',
-            'CloudWatch',
-            'EC2',
-            'Grafana',
-            'Cisco Packet Tracer',
-            'Wokwi',
-          ],
-        },
-      ],
+      items: buildProjects('en'),
     },
     edu: {
       label: 'Education',
@@ -576,128 +340,7 @@ export const CONTENT: Record<Lang, Content> = {
     work: {
       label: 'الخبرة',
       heading: 'مشاريع وخبرات مختارة.',
-      items: [
-        {
-          i: '01',
-          title: 'تحليل المشاعر — مراجعات أمازون',
-          role: 'مشروع تعلّم آلي · البيانات الضخمة و NoSQL',
-          period: 'مارس – ماي 2025',
-          bullets: [
-            'تطوير نموذج قادر على تحليل وتصنيف المشاعر المعبّر عنها في مراجعات عملاء أمازون.',
-            'معالجة بيانات ضخمة باستخدام PySpark و Hadoop، مع حاويات Docker لضمان قابلية النقل.',
-          ],
-          tags: ['Python', 'PySpark', 'Hadoop', 'Docker', 'NLP'],
-        },
-        {
-          i: '02',
-          title: 'منصة إدارة التوصيل',
-          role: 'مشروع نهاية الدراسة · ليسانس',
-          period: '2024',
-          bullets: [
-            'تصميم وتطوير تطبيق ويب وموبايل مخصّص لإدارة توصيل الطلبات.',
-            'تتبّع الطلبات في الوقت الحقيقي حتى وصولها إلى العميل النهائي.',
-          ],
-          tags: ['Web', 'Mobile', 'Full Stack', 'UML'],
-        },
-        {
-          i: '03',
-          title: 'مواقع اختبارات الشخصية',
-          role: 'مطوّر ويب Full Stack · عمل حر',
-          period: '2023 – حتى الآن',
-          bullets: [
-            'تصميم مواقع اختبارات الشخصية: واجهة المستخدم ومنطق حساب النتائج.',
-            'دمج واجهات حديثة ومتجاوبة لتحسين تجربة المستخدم.',
-          ],
-          tags: ['JavaScript', 'React', 'UI/UX', 'Responsive'],
-          hasLinks: true,
-          links: [
-            { label: 'JoJo Test', url: 'https://jojomi2o.netlify.app/' },
-            { label: 'One Piece Test', url: 'https://onepiecemi2o.netlify.app/' },
-          ],
-        },
-        {
-          i: '04',
-          title: 'SIARA — التقييم الذكي لمخاطر الحوادث',
-          role: 'مشروع مذكرة الماستر',
-          period: '2025 – 2026',
-          bullets: [
-            'منصة دعم قرار في الوقت الحقيقي للسلامة المرورية، تدمج تعلّم الآلة ونظم المعلومات الجغرافية والإبلاغ من المواطنين والذكاء الاصطناعي القابل للتفسير.',
-            'بنية متعددة المنصات: تطبيقات ويب/موبايل بـ React، خدمات خلفية بـ Node.js، قواعد بيانات PostgreSQL/PostGIS وخدمات ML تنبؤية لتقدير مخاطر الحوادث.',
-            'وحدات للتنبؤ بالمخاطر، التحقق من البلاغات، إدارة التنبيهات، التصوّر الجغرافي والذكاء الاصطناعي القابل للتفسير لدعم المواطنين والجهات الأمنية.',
-          ],
-          tags: [
-            'React',
-            'React Native',
-            'Node.js',
-            'PostgreSQL',
-            'PostGIS',
-            'Machine Learning',
-            'LightGBM',
-            'SHAP',
-            'GIS',
-            'REST APIs',
-            'OpenStreetMap',
-            'Git',
-          ],
-          hasLinks: true,
-          links: [{ label: 'Siara Live', url: 'https://siaraalgeria.vercel.app/' }],
-        },
-        {
-          i: '05',
-          title: 'مساعد أسئلة وأجوبة متعدد اللغات للمقررات الدراسية',
-          role: 'مشروع تعلّم عميق',
-          period: '2025',
-          bullets: [
-            'تصميم وتنفيذ مساعد أسئلة وأجوبة متعدد اللغات لمقررات الجامعة، مبني على PyTorch والتعلّم العميق.',
-          ],
-          tags: ['PyTorch', 'Deep Learning', 'NLP', 'Q&A', 'Multilingual'],
-        },
-        {
-          i: '06',
-          title: 'نظام حجز فندقي',
-          role: 'تطبيق ويب · مشروع',
-          period: '2024',
-          bullets: ['تطبيق ويب لحجز الفنادق: إدارة الغرف والتوفّر والحجوزات.'],
-          tags: ['JavaScript', 'Web', 'Hotel', 'Booking'],
-          hasLinks: true,
-          links: [{ label: 'عرض الكود', url: 'https://github.com/mi2odev/reservation' }],
-        },
-        {
-          i: '07',
-          title: 'نظام إدارة مدرسية',
-          role: 'تطبيق ويب · مشروع',
-          period: '2024',
-          bullets: ['تطبيق ويب لإدارة التلاميذ والأقسام والبيانات المدرسية.'],
-          tags: ['JavaScript', 'Web', 'Management'],
-          hasLinks: true,
-          links: [{ label: 'عرض الكود', url: 'https://github.com/mi2odev/schoolsystem' }],
-        },
-        {
-          i: '08',
-          title: 'نظام أمن منزلي ذكي قائم على إنترنت الأشياء',
-          role: 'مشروع مصغّر · الحوسبة السحابية و IoT',
-          period: '2025',
-          bullets: [
-            'تصميم وتنفيذ نظام كشف تسلّل للمنزل الذكي باستخدام ESP32 وحسّاسات PIR و MQTT وخدمات AWS السحابية.',
-            'بناء خط معالجة كامل قائم على الأحداث باستخدام AWS IoT Core و Lambda و SNS و DynamoDB و CloudWatch و Grafana.',
-            'تطوير مراقبة التسلّل في الوقت الحقيقي، التنبيهات الآلية، تخزين الأحداث والتصوّر عبر لوحات المعلومات.',
-            'محاكاة أجهزة إنترنت الأشياء والبنية الشبكية باستخدام Wokwi و Cisco Packet Tracer.',
-          ],
-          tags: [
-            'ESP32',
-            'MQTT',
-            'AWS IoT Core',
-            'Lambda',
-            'DynamoDB',
-            'SNS',
-            'CloudWatch',
-            'EC2',
-            'Grafana',
-            'Cisco Packet Tracer',
-            'Wokwi',
-          ],
-        },
-      ],
+      items: buildProjects('ar'),
     },
     edu: {
       label: 'التعليم',

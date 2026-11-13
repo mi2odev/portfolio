@@ -1,5 +1,8 @@
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { CONTENT, PROFILE, SKILL_CHIPS, TECH_MARQUEE, type Lang } from '../data/content';
+import { PROJECT_IDS } from '../data/projects';
 
 const LANGS: Lang[] = ['fr', 'en', 'ar'];
 
@@ -63,6 +66,34 @@ describe('content bundles', () => {
       for (const spoken of CONTENT[lang].spoken) {
         expect(spoken.pct).toBeGreaterThan(0);
         expect(spoken.pct).toBeLessThanOrEqual(100);
+      }
+    }
+  });
+});
+
+describe('projects', () => {
+  it('gives every project a unique id and number', () => {
+    expect(new Set(PROJECT_IDS).size).toBe(PROJECT_IDS.length);
+    const numbers = CONTENT.fr.work.items.map((w) => w.i);
+    expect(new Set(numbers).size).toBe(numbers.length);
+  });
+
+  it('ships a cover picture for every project', () => {
+    for (const item of CONTENT.fr.work.items) {
+      expect(item.image).toBe(`/projects/${item.id}.webp`);
+      expect(
+        existsSync(resolve(__dirname, '../../public', `.${item.image}`)),
+        `${item.image} is missing`,
+      ).toBe(true);
+    }
+  });
+
+  it('describes every project in every language', () => {
+    for (const lang of LANGS) {
+      for (const item of CONTENT[lang].work.items) {
+        expect(item.title, `${lang} · ${item.id}`).toBeTruthy();
+        expect(item.bullets.length, `${lang} · ${item.id}`).toBeGreaterThan(0);
+        expect(item.tags.length, `${lang} · ${item.id}`).toBeGreaterThan(0);
       }
     }
   });

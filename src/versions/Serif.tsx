@@ -4,6 +4,8 @@ import { useLanguage } from '../context/useLanguage';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
+import { ProjectShot } from '../components/ProjectShot';
+import { shotRow, shotText } from '../components/shotLayout';
 import { Reveal } from '../components/Reveal';
 import { VersionSwitcher } from '../components/VersionSwitcher';
 import { GitHubIcon, InstagramIcon, FacebookIcon, PhoneIcon } from '../components/icons';
@@ -187,7 +189,8 @@ export default function Serif({ index, onChange }: VersionProps) {
             <Reveal key={e.i}>
               <Hover base={{ display: 'grid', gridTemplateColumns: '84px 1fr', gap: 24, background: c.surface, border: `1px solid ${c.line}`, borderRadius: 22, padding: '28px 30px', boxShadow: c.shadow, transition: 'transform .22s, box-shadow .22s' }} hover={{ transform: 'translateY(-3px)', boxShadow: '0 1px 2px rgba(28,27,24,0.04), 0 26px 50px -26px rgba(28,27,24,0.3)' }}>
                 <div style={{ fontFamily: serif, fontSize: 'clamp(42px,5vw,62px)', fontWeight: 400, color: c.accent, lineHeight: 0.85 }}>{e.i}</div>
-                <div>
+                <div style={{ ...shotRow }}>
+                <div style={shotText}>
                   <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', justifyContent: 'space-between', gap: 10, marginBottom: 8 }}>
                     <h3 style={{ fontSize: 'clamp(20px,2.3vw,27px)', fontWeight: 700, letterSpacing: '-.018em', lineHeight: 1.15, maxWidth: 760, textWrap: 'balance' }}>{e.title}</h3>
                     <span style={{ fontSize: 12, fontWeight: 500, color: c.ink2, whiteSpace: 'nowrap', background: c.bg, border: `1px solid ${c.line}`, borderRadius: 999, padding: '5px 12px' }}>{e.period}</span>
@@ -210,6 +213,8 @@ export default function Serif({ index, onChange }: VersionProps) {
                       ))}
                     </div>
                   )}
+                </div>
+                <ProjectShot src={e.image} title={e.title} frame={{ borderRadius: 14, border: `1px solid ${c.line}`, boxShadow: '0 14px 34px -18px rgba(28,27,24,0.35)' }} />
                 </div>
               </Hover>
             </Reveal>

@@ -4,6 +4,8 @@ import { useLanguage } from '../context/useLanguage';
 import { useReactiveFX } from '../hooks/useReactiveFX';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
+import { ProjectShot } from '../components/ProjectShot';
+import { shotRow, shotText } from '../components/shotLayout';
 import { Reveal } from '../components/Reveal';
 import { VersionSwitcher } from '../components/VersionSwitcher';
 import { GitHubIcon, InstagramIcon, FacebookIcon, PhoneIcon } from '../components/icons';
@@ -248,7 +250,8 @@ export default function Reactive({ index, onChange }: VersionProps) {
               <Hover data-tilt="1" data-tilt-soft="1" base={{ position: 'relative', background: col.glass, border: `1px solid ${col.line}`, borderRadius: 22, padding: '30px 30px', backdropFilter: 'blur(12px)', display: 'grid', gridTemplateColumns: '64px 1fr', gap: 24, overflow: 'hidden', transition: 'transform .2s cubic-bezier(.2,.7,.2,1), border-color .25s, background .25s', transformStyle: 'preserve-3d' }} hover={{ borderColor: col.line2, background: col.glass2 }}>
                 <div data-glow style={{ position: 'absolute', inset: 0, pointerEvents: 'none', opacity: 0, transition: 'opacity .25s', background: 'radial-gradient(360px circle at var(--gx,50%) var(--gy,50%), rgba(139,92,246,0.14), transparent 55%)' }} />
                 <div style={{ position: 'relative', fontFamily: display, fontSize: 30, fontWeight: 800, lineHeight: 1, background: `linear-gradient(160deg,${col.v},${col.m})`, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>{e.i}</div>
-                <div style={{ position: 'relative' }}>
+                <div style={{ position: 'relative', ...shotRow }}>
+                <div style={shotText}>
                   <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', justifyContent: 'space-between', gap: 10, marginBottom: 10 }}>
                     <h3 style={{ fontFamily: display, fontSize: 'clamp(20px,2.4vw,28px)', fontWeight: 700, letterSpacing: '-.02em', lineHeight: 1.16, maxWidth: 760, textWrap: 'balance' }}>{e.title}</h3>
                     <span style={{ fontFamily: mono, fontSize: 11.5, fontWeight: 500, color: col.ink2, whiteSpace: 'nowrap', border: `1px solid ${col.line2}`, borderRadius: 999, padding: '6px 13px' }}>{e.period}</span>
@@ -271,6 +274,8 @@ export default function Reactive({ index, onChange }: VersionProps) {
                       ))}
                     </div>
                   )}
+                </div>
+                <ProjectShot src={e.image} title={e.title} frame={{ position: 'relative', borderRadius: 16, border: `1px solid ${col.line2}`, boxShadow: '0 18px 50px -20px rgba(139,92,246,0.55)' }} />
                 </div>
               </Hover>
             </Reveal>

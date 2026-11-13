@@ -72,6 +72,7 @@ portfolio/
 ├─ .github/workflows/ci.yml           # type-check · lint · format · test · build
 ├─ public/
 │  ├─ photo.webp                      # portrait used by every version
+│  ├─ projects/                       # one cover per project (<id>.webp, 1280×800)
 │  ├─ og-image.jpg                    # social link preview
 │  ├─ CV_Mohamed_Mehdi_ZITOUNI.pdf    # CV (the “Download CV” buttons)
 │  ├─ site.webmanifest                # installable-app metadata
@@ -81,7 +82,8 @@ portfolio/
 │  ├─ App.tsx                         # version state, lazy loading, keyboard nav
 │  ├─ index.css                       # Tailwind directives, resets, keyframes, focus styles
 │  ├─ data/
-│  │  └─ content.ts                   # ALL copy (FR/EN/AR) + profile + skills — one source of truth
+│  │  ├─ content.ts                   # copy (FR/EN/AR) + profile + skills — one source of truth
+│  │  └─ projects.ts                  # the projects: stack, links, covers and their three translations
 │  ├─ context/
 │  │  ├─ LanguageContext.tsx          # provider: language state, persistence, document dir
 │  │  ├─ languageContextValue.ts      # the context object + its types
@@ -98,6 +100,7 @@ portfolio/
 │  ├─ components/
 │  │  ├─ Hover.tsx                    # polymorphic element with a hover style
 │  │  ├─ Reveal.tsx                   # scroll-into-view entrance animation
+│  │  ├─ ProjectShot.tsx              # project cover: lazy-loaded, click to enlarge
 │  │  ├─ ErrorBoundary.tsx            # keeps a crashing version off the whole page
 │  │  ├─ SkipLink.tsx                 # first tab stop, jumps past the navbar
 │  │  ├─ DocumentMeta.tsx             # tab title + description per language and design
@@ -126,6 +129,21 @@ file.
 `npm test` guards this file: it fails if a translation drifts out of shape,
 if a string is left empty, if a project link is not `https`, or if the `mailto:`
 and `tel:` links stop matching the displayed email and phone number.
+
+### Adding a project
+
+Projects live in **`src/data/projects.ts`**:
+
+1. add an entry to `BASE` (an `id`, the stack tags, the links) — its position in
+   the array is its position on the page;
+2. add its title, role, period and bullets under the same `id` in each of the
+   three `TEXT` blocks;
+3. drop a 1280×800 cover at `public/projects/<id>.webp`.
+
+The covers are real captures of each project — browser screenshots for the web
+apps, three-phone layouts for the mobile apps — plus pipeline diagrams for the
+projects with no interface. `npm test` fails if a project has no cover or is
+missing from a language.
 
 ### A note on styling
 

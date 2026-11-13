@@ -4,6 +4,8 @@ import { useLanguage } from '../context/useLanguage';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
+import { ProjectShot } from '../components/ProjectShot';
+import { shotRow, shotText } from '../components/shotLayout';
 import { Reveal } from '../components/Reveal';
 import { VersionSwitcher } from '../components/VersionSwitcher';
 import { GitHubIcon, InstagramIcon, FacebookIcon, PhoneIcon } from '../components/icons';
@@ -197,7 +199,8 @@ export default function Editorial({ index, onChange }: VersionProps) {
             <Reveal key={e.i}>
               <Hover base={{ display: 'grid', gridTemplateColumns: '90px 1fr', gap: 24, padding: '32px 6px', borderBottom: `1.5px solid ${c.ink}`, transition: 'background .25s, padding .25s' }} hover={{ background: c.panel, paddingLeft: 18, paddingRight: 18 }}>
                 <div style={{ fontFamily: mono, fontSize: 'clamp(38px,5vw,60px)', fontWeight: 700, color: c.accent, lineHeight: 0.9, WebkitTextStroke: `1.5px ${c.ink}` }}>{e.i}</div>
-                <div>
+                <div style={{ ...shotRow }}>
+                <div style={shotText}>
                   <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', justifyContent: 'space-between', gap: 10, marginBottom: 8 }}>
                     <h3 style={{ fontSize: 'clamp(20px,2.4vw,28px)', fontWeight: 700, letterSpacing: '-.02em', lineHeight: 1.1, maxWidth: 760, textWrap: 'balance' }}>{e.title}</h3>
                     <span style={{ fontFamily: mono, fontSize: 12, color: c.faint, whiteSpace: 'nowrap', border: `1.5px solid ${c.hair}`, padding: '4px 9px' }}>{e.period}</span>
@@ -220,6 +223,8 @@ export default function Editorial({ index, onChange }: VersionProps) {
                       ))}
                     </div>
                   )}
+                </div>
+                <ProjectShot src={e.image} title={e.title} frame={{ border: `1.5px solid ${c.ink}`, boxShadow: `5px 5px 0 ${c.ink}`, background: c.paper }} />
                 </div>
               </Hover>
             </Reveal>
