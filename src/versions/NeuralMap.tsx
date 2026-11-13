@@ -83,6 +83,7 @@ interface Detail {
   tag: string;
   title: string;
   image?: string;
+  gallery?: string[];
   subtitle?: string;
   photo?: boolean;
   body?: string;
@@ -156,7 +157,7 @@ const PROJSK_BY_ID: Record<string, string[]> = {
   weighpoint: ['React Native', 'Expo', 'TypeScript'],
   'e-card': ['React Native', 'Expo', 'TypeScript'],
   imposter: ['React Native', 'Expo', 'JavaScript'],
-  'last-signal': ['React', 'JavaScript'],
+  'last-signal': ['React', 'JavaScript', 'Node.js', 'PostgreSQL'],
   'client-portfolio': ['React', 'JavaScript'],
   delivery: ['JavaScript', 'UML'],
   hotel: ['React', 'Tailwind'],
@@ -264,7 +265,7 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
     if (id.charAt(0) === 'p') {
       const i = +id.slice(1); const e = T.work.items[i];
       const sids = (PROJSK[i] || []).map((n) => this.skillIdByName[n]).filter(Boolean);
-      return { tag: e.role, badge: e.period, title: e.title, image: e.image, bullets: e.bullets, tags: e.tags, links: e.links || [], chips: sids.map((sid) => ({ label: this.skillName[sid], go: () => this.select(sid) })), chipsTitle: ui.stack };
+      return { tag: e.role, badge: e.period, title: e.title, image: e.image, gallery: e.gallery, bullets: e.bullets, tags: e.tags, links: e.links || [], chips: sids.map((sid) => ({ label: this.skillName[sid], go: () => this.select(sid) })), chipsTitle: ui.stack };
     }
     return { tag: '', title: '' };
   }
@@ -708,7 +709,7 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
                 </div>
               )}
 
-              {d.image && <ProjectShot src={d.image} title={d.title} style={{ maxWidth: '100%', width: '100%', marginTop: 18 }} frame={{ borderRadius: 12, border: '1px solid rgba(130,144,180,.28)', boxShadow: '0 16px 40px -18px rgba(53,232,224,.45)' }} />}
+              {d.image && <ProjectShot src={d.image} gallery={d.gallery} title={d.title} style={{ maxWidth: '100%', width: '100%', marginTop: 18 }} frame={{ borderRadius: 12, border: '1px solid rgba(130,144,180,.28)', boxShadow: '0 16px 40px -18px rgba(53,232,224,.45)' }} />}
 
               {d.bullets && d.bullets.length > 0 && (
                 <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 11, marginTop: 18, padding: 0 }}>

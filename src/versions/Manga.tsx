@@ -538,7 +538,7 @@ export default function Manga({ index, onChange }: VersionProps) {
                       </div>
                     )}
                   </div>
-                  <ProjectShot src={e.image} title={e.title} frame={{ border: `3px solid ${c.ink}`, boxShadow: `5px 5px 0 ${c.ink}`, background: c.page, marginTop: 34 }} img={{ filter: 'grayscale(1) contrast(1.12)' }} imgHover={{ filter: 'none' }} />
+                  <ProjectShot src={e.image} gallery={e.gallery} title={e.title} frame={{ border: `3px solid ${c.ink}`, boxShadow: `5px 5px 0 ${c.ink}`, background: c.page, marginTop: 34 }} img={{ filter: 'grayscale(1) contrast(1.12)' }} imgHover={{ filter: 'none' }} />
                   </div>
                 </Panel>
               </Reveal>

@@ -1,9 +1,12 @@
-import { useEffect, useState, type CSSProperties } from 'react';
+import { useCallback, useEffect, useState, type CSSProperties } from 'react';
 import { createPortal } from 'react-dom';
 
 interface ProjectShotProps {
+  /** The cover picture. */
   src: string;
-  /** Project title; the alt text and the enlarged view's label are built from it. */
+  /** Every screen of the project, cover first. Falls back to the cover alone. */
+  gallery?: string[];
+  /** Project title; the alt text and the viewer's label are built from it. */
   title: string;
   /** Per-design frame: border, radius, shadow… */
   frame?: CSSProperties;
@@ -16,26 +19,16 @@ interface ProjectShotProps {
 }
 
 /**
- * A project's cover picture. Lazy-loaded with fixed dimensions so the page does
- * not jump, and enlargeable: click (or Enter) opens it full size, Escape closes.
+ * A project's cover picture. A shimmering skeleton holds its place until it has
+ * loaded, so a slow connection never shows a hole or makes the page jump.
+ * Clicking it opens a viewer with every screen of the project.
  */
-export function ProjectShot({ src, title, frame, img, imgHover, style }: ProjectShotProps) {
+export function ProjectShot({ src, gallery, title, frame, img, imgHover, style }: ProjectShotProps) {
   const [open, setOpen] = useState(false);
   const [hot, setHot] = useState(false);
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
-    };
-    window.addEventListener('keydown', onKey);
-    const overflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      document.body.style.overflow = overflow;
-    };
-  }, [open]);
+  const [loaded, setLoaded] = useState(false);
+  const shots = gallery && gallery.length > 0 ? gallery : [src];
+  const close = useCallback(() => setOpen(false), []);
 
   return (
     <>
@@ -46,21 +39,26 @@ export function ProjectShot({ src, title, frame, img, imgHover, style }: Project
         onMouseLeave={() => setHot(false)}
         onFocus={() => setHot(true)}
         onBlur={() => setHot(false)}
-        aria-label={`${title} — screenshot`}
+        aria-label={`${title} — ${shots.length > 1 ? `${shots.length} screenshots` : 'screenshot'}`}
+        className={loaded ? undefined : 'skeleton'}
         style={{
+          position: 'relative',
           flex: '1 1 300px',
           maxWidth: 470,
           minWidth: 0,
           padding: 0,
           margin: 0,
           border: 0,
-          background: 'none',
           cursor: 'zoom-in',
           display: 'block',
           overflow: 'hidden',
           lineHeight: 0,
           ...frame,
           ...style,
+          // While loading, the frame's own background would paint over the shimmer.
+          ...(loaded
+            ? { background: frame?.background ?? style?.background ?? 'none' }
+            : { background: undefined }),
         }}
       >
         <img
@@ -71,78 +69,312 @@ export function ProjectShot({ src, title, frame, img, imgHover, style }: Project
           loading="lazy"
           decoding="async"
           draggable={false}
+          onLoad={() => setLoaded(true)}
+          onError={() => setLoaded(true)}
+          // An image served from cache can finish before React attaches onLoad.
+          ref={(el) => {
+            if (el?.complete && el.naturalWidth > 0 && !loaded) setLoaded(true);
+          }}
           style={{
             display: 'block',
             width: '100%',
             height: 'auto',
             aspectRatio: '16 / 10',
             objectFit: 'cover',
-            transition: 'filter .3s, transform .5s cubic-bezier(.2,.7,.2,1)',
+            objectPosition: 'top',
+            opacity: loaded ? 1 : 0,
+            transition: 'opacity .4s, filter .3s, transform .5s cubic-bezier(.2,.7,.2,1)',
             ...img,
             ...(hot ? { transform: 'scale(1.03)', ...imgHover } : null),
           }}
         />
-      </button>
-      {open &&
-        // Portalled to <body>: several designs put a transform on the card, which
-        // would otherwise trap a fixed overlay inside it.
-        createPortal(
-          // The backdrop closes on click; Escape is handled above and the close button is focusable.
-          // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label={title}
-            onClick={() => setOpen(false)}
+        {shots.length > 1 && loaded && (
+          <span
+            aria-hidden="true"
             style={{
-              position: 'fixed',
-              inset: 0,
-              zIndex: 10000,
-              background: 'rgba(5,7,12,0.88)',
-              backdropFilter: 'blur(6px)',
-              display: 'flex',
+              position: 'absolute',
+              bottom: 8,
+              insetInlineEnd: 8,
+              display: 'inline-flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              padding: 'min(4vw, 40px)',
-              cursor: 'zoom-out',
+              gap: 5,
+              padding: '4px 9px',
+              borderRadius: 999,
+              background: 'rgba(8,10,16,.78)',
+              color: '#fff',
+              font: "600 11px/1.3 'JetBrains Mono', ui-monospace, monospace",
+              letterSpacing: '.03em',
             }}
           >
-            <img
-              src={src}
-              alt={title}
-              style={{
-                maxWidth: '100%',
-                maxHeight: '100%',
-                borderRadius: 10,
-                boxShadow: '0 30px 90px rgba(0,0,0,.6)',
-              }}
-            />
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+            >
+              <rect x="1.5" y="4.5" width="10" height="9" rx="1.5" />
+              <path d="M5 2.5h8a1.5 1.5 0 0 1 1.5 1.5v7" />
+            </svg>
+            {shots.length}
+          </span>
+        )}
+      </button>
+      {open && <Viewer shots={shots} title={title} onClose={close} />}
+    </>
+  );
+}
+
+const navButton: CSSProperties = {
+  position: 'absolute',
+  top: '50%',
+  transform: 'translateY(-50%)',
+  width: 46,
+  height: 46,
+  borderRadius: '50%',
+  border: '1px solid rgba(255,255,255,.28)',
+  background: 'rgba(0,0,0,.55)',
+  color: '#fff',
+  fontSize: 22,
+  lineHeight: 1,
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
+
+/** Full-screen viewer: arrows, swipe, thumbnails; Escape or the backdrop closes it. */
+function Viewer({ shots, title, onClose }: { shots: string[]; title: string; onClose: () => void }) {
+  const [at, setAt] = useState(0);
+  const [loaded, setLoaded] = useState(false);
+  const [touchX, setTouchX] = useState<number | null>(null);
+  const many = shots.length > 1;
+
+  const go = useCallback(
+    (step: number) => {
+      setLoaded(false);
+      setAt((i) => (i + step + shots.length) % shots.length);
+    },
+    [shots.length],
+  );
+  const pick = (i: number) => {
+    if (i === at) return;
+    setLoaded(false);
+    setAt(i);
+  };
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+      else if (e.key === 'ArrowRight') go(1);
+      else if (e.key === 'ArrowLeft') go(-1);
+    };
+    window.addEventListener('keydown', onKey);
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = overflow;
+    };
+  }, [go, onClose]);
+
+  const stop = (e: { stopPropagation: () => void }) => e.stopPropagation();
+
+  // Portalled to <body>: several designs put a transform on the card, which
+  // would otherwise trap a fixed overlay inside it.
+  return createPortal(
+    // The backdrop closes on click; Escape is handled above and the close button is focusable.
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={title}
+      onClick={onClose}
+      onTouchStart={(e) => setTouchX(e.touches[0].clientX)}
+      onTouchEnd={(e) => {
+        if (touchX === null) return;
+        const dx = e.changedTouches[0].clientX - touchX;
+        if (many && Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+        setTouchX(null);
+      }}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 10000,
+        background: 'rgba(5,7,12,0.94)',
+        backdropFilter: 'blur(8px)',
+        display: 'flex',
+        flexDirection: 'column',
+        color: '#fff',
+        fontFamily: "'Inter', system-ui, sans-serif",
+        // The strip always reads left to right, so the arrows keep their meaning in Arabic.
+        direction: 'ltr',
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 18px', flexShrink: 0 }}>
+        <div
+          dir="auto"
+          style={{
+            flex: 1,
+            minWidth: 0,
+            fontSize: 15,
+            fontWeight: 600,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
+          {title}
+        </div>
+        {many && (
+          <div
+            aria-live="polite"
+            style={{
+              font: "500 13px 'JetBrains Mono', ui-monospace, monospace",
+              opacity: 0.75,
+              flexShrink: 0,
+            }}
+          >
+            {at + 1} / {shots.length}
+          </div>
+        )}
+        <button
+          type="button"
+          // eslint-disable-next-line jsx-a11y/no-autofocus
+          autoFocus
+          onClick={onClose}
+          aria-label="Close"
+          style={{
+            ...navButton,
+            position: 'static',
+            transform: 'none',
+            width: 40,
+            height: 40,
+            flexShrink: 0,
+          }}
+        >
+          ×
+        </button>
+      </div>
+
+      <div
+        style={{
+          position: 'relative',
+          flex: 1,
+          minHeight: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '0 min(5vw, 76px)',
+        }}
+      >
+        {!loaded && (
+          <div
+            className="skeleton"
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              width: 'min(70vw, 900px)',
+              aspectRatio: '16 / 10',
+              borderRadius: 10,
+            }}
+          />
+        )}
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
+        <img
+          key={shots[at]}
+          src={shots[at]}
+          alt={many ? `${title} — ${at + 1} / ${shots.length}` : title}
+          onLoad={() => setLoaded(true)}
+          onError={() => setLoaded(true)}
+          onClick={stop}
+          draggable={false}
+          style={{
+            position: 'relative',
+            maxWidth: '100%',
+            maxHeight: '100%',
+            objectFit: 'contain',
+            borderRadius: 10,
+            boxShadow: '0 30px 90px rgba(0,0,0,.6)',
+            opacity: loaded ? 1 : 0,
+            transition: 'opacity .25s',
+            cursor: 'default',
+          }}
+        />
+        {many && (
+          <>
             <button
               type="button"
-              // eslint-disable-next-line jsx-a11y/no-autofocus
-              autoFocus
-              onClick={() => setOpen(false)}
-              aria-label="Close"
+              aria-label="Previous screenshot"
+              onClick={(e) => {
+                stop(e);
+                go(-1);
+              }}
+              style={{ ...navButton, left: 10 }}
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              aria-label="Next screenshot"
+              onClick={(e) => {
+                stop(e);
+                go(1);
+              }}
+              style={{ ...navButton, right: 10 }}
+            >
+              ›
+            </button>
+          </>
+        )}
+      </div>
+
+      {many && (
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+        <div
+          onClick={stop}
+          style={{
+            display: 'flex',
+            gap: 8,
+            padding: '14px 18px 18px',
+            overflowX: 'auto',
+            flexShrink: 0,
+            justifyContent: 'safe center',
+          }}
+        >
+          {shots.map((s, i) => (
+            <button
+              key={s}
+              type="button"
+              onClick={() => pick(i)}
+              aria-label={`Screenshot ${i + 1}`}
+              aria-current={i === at}
+              className="skeleton"
               style={{
-                position: 'absolute',
-                top: 16,
-                insetInlineEnd: 16,
-                width: 42,
-                height: 42,
-                borderRadius: '50%',
-                border: '1px solid rgba(255,255,255,.3)',
-                background: 'rgba(0,0,0,.5)',
-                color: '#fff',
-                fontSize: 22,
-                lineHeight: 1,
+                flex: '0 0 auto',
+                height: 58,
+                padding: 0,
+                borderRadius: 7,
+                overflow: 'hidden',
                 cursor: 'pointer',
+                border: i === at ? '2px solid #fff' : '2px solid transparent',
+                opacity: i === at ? 1 : 0.55,
+                transition: 'opacity .2s, border-color .2s',
               }}
             >
-              ×
+              <img
+                src={s}
+                alt=""
+                loading="lazy"
+                draggable={false}
+                style={{ display: 'block', height: '100%', width: 'auto', minWidth: 30 }}
+              />
             </button>
-          </div>,
-          document.body,
-        )}
-    </>
+          ))}
+        </div>
+      )}
+    </div>,
+    document.body,
   );
 }

@@ -224,7 +224,7 @@ export default function Editorial({ index, onChange }: VersionProps) {
                     </div>
                   )}
                 </div>
-                <ProjectShot src={e.image} title={e.title} frame={{ border: `1.5px solid ${c.ink}`, boxShadow: `5px 5px 0 ${c.ink}`, background: c.paper }} />
+                <ProjectShot src={e.image} gallery={e.gallery} title={e.title} frame={{ border: `1.5px solid ${c.ink}`, boxShadow: `5px 5px 0 ${c.ink}`, background: c.paper }} />
                 </div>
               </Hover>
             </Reveal>

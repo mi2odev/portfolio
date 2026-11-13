@@ -275,7 +275,7 @@ export default function Reactive({ index, onChange }: VersionProps) {
                     </div>
                   )}
                 </div>
-                <ProjectShot src={e.image} title={e.title} frame={{ position: 'relative', borderRadius: 16, border: `1px solid ${col.line2}`, boxShadow: '0 18px 50px -20px rgba(139,92,246,0.55)' }} />
+                <ProjectShot src={e.image} gallery={e.gallery} title={e.title} frame={{ position: 'relative', borderRadius: 16, border: `1px solid ${col.line2}`, boxShadow: '0 18px 50px -20px rgba(139,92,246,0.55)' }} />
                 </div>
               </Hover>
             </Reveal>

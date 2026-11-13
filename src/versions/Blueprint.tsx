@@ -357,7 +357,7 @@ export default function Blueprint({ index, onChange }: VersionProps) {
                   </div>
                 )}
               </div>
-              <ProjectShot src={q.image} title={q.title} frame={{ border: `1px solid ${col.line2}`, padding: 6, background: 'rgba(255,255,255,0.02)' }} img={{ filter: 'saturate(.85)' }} imgHover={{ filter: 'none' }} />
+              <ProjectShot src={q.image} gallery={q.gallery} title={q.title} frame={{ border: `1px solid ${col.line2}`, padding: 6, background: 'rgba(255,255,255,0.02)' }} img={{ filter: 'saturate(.85)' }} imgHover={{ filter: 'none' }} />
               </div>
             </Hover>
           ))}

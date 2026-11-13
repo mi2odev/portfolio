@@ -307,3 +307,33 @@ img,
     scroll-behavior: auto !important;
   }
 }
+
+/* ── Skeletons ─────────────────────────────────────────────────────────────
+   Placeholder blocks shown while a picture or a design is still downloading.
+   `.skeleton` suits dark pages; add `.skeleton-light` on light ones. */
+@keyframes skeletonSweep {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+.skeleton {
+  background-color: rgba(148, 163, 184, 0.22);
+  background-image: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.16) 50%, transparent 70%);
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  animation: skeletonSweep 1.5s linear infinite;
+}
+.skeleton-light {
+  background-color: rgba(28, 27, 24, 0.09);
+  background-image: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.7) 50%, transparent 70%);
+}
+/* The portrait gets the same treatment: the shimmer shows through until it paints. */
+img[src$="/photo.webp"] {
+  background-color: rgba(148, 163, 184, 0.16);
+  background-image: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.18) 50%, transparent 70%);
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  animation: skeletonSweep 1.5s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton, img[src$="/photo.webp"] { animation: none; }
+}

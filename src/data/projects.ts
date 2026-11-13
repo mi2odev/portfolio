@@ -15,6 +15,8 @@ interface BaseLink {
 interface BaseProject {
   /** Stable id: names the cover file and keys the translations. */
   id: string;
+  /** Extra screens beyond the cover; omitted when the cover is all there is. */
+  shots?: number;
   tags: string[];
   links?: BaseLink[];
 }
@@ -25,13 +27,18 @@ interface ProjectText {
   bullets: string[];
 }
 
+const LIVE: Localised = { fr: 'Voir le site', en: 'Live site', ar: 'زيارة الموقع' };
 const CODE: Localised = { fr: 'Voir le code', en: 'View code', ar: 'عرض الكود' };
 const gh = (repo: string): BaseLink => ({ label: CODE, url: `https://github.com/mi2odev/${repo}` });
 
-/** Display order = array order. */
+/**
+ * Display order = array order: most important first.
+ * `shots` is how many extra screens sit in public/projects/<id>/ (1.webp, 2.webp…).
+ */
 const BASE: BaseProject[] = [
   {
     id: 'siara',
+    shots: 3,
     tags: [
       'React',
       'React Native',
@@ -45,14 +52,39 @@ const BASE: BaseProject[] = [
     ],
     links: [{ label: 'Siara Live', url: 'https://siaraalgeria.vercel.app/' }, gh('siara')],
   },
-  { id: 'sentiment', tags: ['Python', 'PySpark', 'Hadoop', 'Docker', 'NLP'] },
   {
-    id: 'iot-security',
-    tags: ['ESP32', 'MQTT', 'AWS IoT Core', 'Lambda', 'DynamoDB', 'SNS', 'CloudWatch', 'Grafana', 'Wokwi'],
+    id: 'gaming-center',
+    shots: 4,
+    tags: ['C#', '.NET 10', 'WPF', 'MVVM', 'EF Core', 'SQLite'],
+    links: [gh('Gaming-Center-Management')],
   },
-  { id: 'qa-assistant', tags: ['PyTorch', 'Deep Learning', 'NLP', 'Q&A'] },
+  {
+    id: 'tutoring-center',
+    shots: 6,
+    tags: ['C#', '.NET 10', 'WPF', 'EF Core', 'SQLite', 'Excel export'],
+    links: [gh('ecoleprive')],
+  },
+  {
+    id: 'subscription-watch',
+    shots: 3,
+    tags: ['React Native', 'Expo', 'TypeScript', 'Zustand', 'Notifications'],
+    links: [gh('subscription-watch-')],
+  },
+  {
+    id: 'weighpoint',
+    shots: 4,
+    tags: ['React Native', 'Expo', 'TypeScript', 'AsyncStorage', 'Charts'],
+    links: [gh('weight-tracker')],
+  },
+  {
+    id: 'e-card',
+    shots: 4,
+    tags: ['React Native', 'Expo', 'TypeScript', 'Reanimated', 'Zustand', 'Wi-Fi'],
+    links: [gh('e-card')],
+  },
   {
     id: 'personality-tests',
+    shots: 6,
     tags: ['React', 'TypeScript', 'Tailwind', 'Framer Motion', 'GSAP', 'Recharts'],
     links: [
       { label: 'JoJo Test', url: 'https://jojomi2o.netlify.app/' },
@@ -60,54 +92,40 @@ const BASE: BaseProject[] = [
       gh('jojo'),
     ],
   },
+  { id: 'sentiment', tags: ['Python', 'PySpark', 'Hadoop', 'Docker', 'NLP'] },
   {
-    id: 'subscription-watch',
-    tags: ['React Native', 'Expo', 'TypeScript', 'Zustand', 'Notifications'],
-    links: [gh('subscription-watch-')],
+    id: 'iot-security',
+    tags: ['ESP32', 'MQTT', 'AWS IoT Core', 'Lambda', 'DynamoDB', 'SNS', 'CloudWatch', 'Grafana', 'Wokwi'],
   },
-  {
-    id: 'gaming-center',
-    tags: ['C#', '.NET 10', 'WPF', 'MVVM', 'EF Core', 'SQLite'],
-    links: [gh('Gaming-Center-Management')],
-  },
-  {
-    id: 'tutoring-center',
-    tags: ['C#', '.NET', 'Desktop', 'SQLite', 'Excel export'],
-    links: [gh('ecoleprive')],
-  },
-  {
-    id: 'weighpoint',
-    tags: ['React Native', 'Expo', 'TypeScript', 'AsyncStorage', 'Charts'],
-    links: [gh('weight-tracker')],
-  },
-  {
-    id: 'e-card',
-    tags: ['React Native', 'Expo', 'TypeScript', 'Reanimated', 'Zustand', 'Wi-Fi'],
-    links: [gh('e-card')],
-  },
-  {
-    id: 'imposter',
-    tags: ['React Native', 'Expo', 'JavaScript', 'Offline'],
-    links: [gh('the-imposter')],
-  },
+  { id: 'qa-assistant', tags: ['PyTorch', 'Deep Learning', 'NLP', 'Q&A'] },
   {
     id: 'last-signal',
-    tags: ['React', 'Vite', 'Canvas', 'JavaScript'],
-    links: [gh('the-last-signal')],
+    shots: 2,
+    tags: ['React', 'Vite', 'Canvas', 'Node.js', 'Express', 'PostgreSQL'],
+    links: [{ label: LIVE, url: 'https://the-last-signal.netlify.app/' }, gh('the-last-signal')],
   },
   {
     id: 'client-portfolio',
+    shots: 3,
     tags: ['React', 'Vite', 'Prerendering', 'SEO', 'WebP'],
-    links: [gh('mohsenportfolio')],
+    links: [{ label: LIVE, url: 'https://mohcene-meradji.netlify.app/' }, gh('mohsenportfolio')],
+  },
+  {
+    id: 'imposter',
+    shots: 4,
+    tags: ['React Native', 'Expo', 'JavaScript', 'Offline'],
+    links: [gh('the-imposter')],
   },
   { id: 'delivery', tags: ['Web', 'Mobile', 'Full Stack', 'UML'] },
   {
     id: 'hotel',
+    shots: 3,
     tags: ['React', 'Tailwind', 'i18n', 'RTL', 'PDF'],
     links: [gh('reservation')],
   },
   {
     id: 'school',
+    shots: 2,
     tags: ['React', 'React Router', 'Material UI', 'Tailwind'],
     links: [gh('schoolsystem')],
   },
@@ -226,7 +244,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       period: '2026',
       bullets: [
         'Jeu de frappe narratif : retaper les transmissions pour rétablir le signal, avec vitesse, précision et combo mesurés en direct.',
-        'Missions scénarisées à difficulté croissante, classement et statistiques, fond étoilé et globe animés sur canvas.',
+        'Missions scénarisées à difficulté croissante, classement et statistiques servis par une API Express + PostgreSQL, fond étoilé et globe animés sur canvas.',
       ],
     },
     'client-portfolio': {
@@ -379,7 +397,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       period: '2026',
       bullets: [
         'A story-driven typing game: retype the transmissions to restore the signal, with speed, accuracy and combo measured live.',
-        'Story missions of rising difficulty, leaderboard and statistics, with a starfield and globe animated on canvas.',
+        'Story missions of rising difficulty, a leaderboard and statistics served by an Express + PostgreSQL API, and a starfield and globe animated on canvas.',
       ],
     },
     'client-portfolio': {
@@ -532,7 +550,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       period: '2026',
       bullets: [
         'لعبة كتابة سريعة بقصة: أعد كتابة الرسائل لاستعادة الإشارة، مع قياس مباشر للسرعة والدقة والتتابع.',
-        'مهمات قصصية بصعوبة متصاعدة، لوحة متصدرين وإحصائيات، مع سماء نجوم وكرة أرضية متحركتين على canvas.',
+        'مهمات قصصية بصعوبة متصاعدة، لوحة متصدرين وإحصائيات عبر واجهة Express + PostgreSQL، مع سماء نجوم وكرة أرضية متحركتين على canvas.',
       ],
     },
     'client-portfolio': {
@@ -577,6 +595,12 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
 /** Where a project's cover lives in public/. */
 export const projectImage = (id: string) => `/projects/${id}.webp`;
 
+/** Cover first, then the numbered screens. */
+export const projectGallery = (id: string, shots = 0) => [
+  projectImage(id),
+  ...Array.from({ length: shots }, (_, n) => `/projects/${id}/${n + 1}.webp`),
+];
+
 /** The project ids, in display order. */
 export const PROJECT_IDS = BASE.map((p) => p.id);
 
@@ -590,6 +614,7 @@ export function buildProjects(lang: Lang): Experience[] {
       i: String(idx + 1).padStart(2, '0'),
       id: p.id,
       image: projectImage(p.id),
+      gallery: projectGallery(p.id, p.shots),
       ...TEXT[lang][p.id],
       tags: p.tags,
       hasLinks: links.length > 0,

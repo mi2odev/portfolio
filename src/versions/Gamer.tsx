@@ -385,7 +385,7 @@ export default function Gamer({ index, onChange }: VersionProps) {
                 </div>
               )}
               </div>
-              <ProjectShot src={q.image} title={q.title} frame={{ border: `1px solid ${q.color}`, boxShadow: `0 0 26px -8px ${q.color}`, background: '#070A11' }} />
+              <ProjectShot src={q.image} gallery={q.gallery} title={q.title} frame={{ border: `1px solid ${q.color}`, boxShadow: `0 0 26px -8px ${q.color}`, background: '#070A11' }} />
               </div>
             </Hover>
           ))}

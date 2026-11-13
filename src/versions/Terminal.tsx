@@ -252,7 +252,7 @@ export default function Terminal({ index, onChange }: VersionProps) {
                     </div>
                   )}
                 </div>
-                <ProjectShot src={e.image} title={e.title} frame={{ border: `1px solid ${c.lineStrong}`, borderRadius: 10, background: '#0b0d10' }} img={{ filter: 'saturate(.92)' }} imgHover={{ filter: 'none' }} />
+                <ProjectShot src={e.image} gallery={e.gallery} title={e.title} frame={{ border: `1px solid ${c.lineStrong}`, borderRadius: 10, background: '#0b0d10' }} img={{ filter: 'saturate(.92)' }} imgHover={{ filter: 'none' }} />
                 </div>
               </Hover>
             </Reveal>

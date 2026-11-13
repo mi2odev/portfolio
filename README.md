@@ -72,7 +72,7 @@ portfolio/
 ├─ .github/workflows/ci.yml           # type-check · lint · format · test · build
 ├─ public/
 │  ├─ photo.webp                      # portrait used by every version
-│  ├─ projects/                       # one cover per project (<id>.webp, 1280×800)
+│  ├─ projects/                       # <id>.webp cover + <id>/1.webp… extra screens
 │  ├─ og-image.jpg                    # social link preview
 │  ├─ CV_Mohamed_Mehdi_ZITOUNI.pdf    # CV (the “Download CV” buttons)
 │  ├─ site.webmanifest                # installable-app metadata
@@ -100,7 +100,8 @@ portfolio/
 │  ├─ components/
 │  │  ├─ Hover.tsx                    # polymorphic element with a hover style
 │  │  ├─ Reveal.tsx                   # scroll-into-view entrance animation
-│  │  ├─ ProjectShot.tsx              # project cover: lazy-loaded, click to enlarge
+│  │  ├─ ProjectShot.tsx              # project cover + screenshot viewer, skeleton while loading
+│  │  ├─ PageSkeleton.tsx             # page outline shown while a design downloads
 │  │  ├─ ErrorBoundary.tsx            # keeps a crashing version off the whole page
 │  │  ├─ SkipLink.tsx                 # first tab stop, jumps past the navbar
 │  │  ├─ DocumentMeta.tsx             # tab title + description per language and design
@@ -138,12 +139,22 @@ Projects live in **`src/data/projects.ts`**:
    the array is its position on the page;
 2. add its title, role, period and bullets under the same `id` in each of the
    three `TEXT` blocks;
-3. drop a 1280×800 cover at `public/projects/<id>.webp`.
+3. drop a 1280×800 cover at `public/projects/<id>.webp`;
+4. for more screens, add `public/projects/<id>/1.webp`, `2.webp`… and set
+   `shots` to how many there are — clicking the cover opens a viewer that steps
+   through them (arrow keys, swipe, thumbnails).
 
-The covers are real captures of each project — browser screenshots for the web
-apps, three-phone layouts for the mobile apps — plus pipeline diagrams for the
-projects with no interface. `npm test` fails if a project has no cover or is
-missing from a language.
+The pictures are real captures of each project — browser screenshots for the web
+apps, three-phone layouts for the mobile apps, the two Windows apps running with
+their demo data — plus pipeline diagrams for the projects with no interface.
+`npm test` fails if a project is missing a picture or a translation.
+
+### Skeletons
+
+Nothing appears as a blank hole on a slow connection. While a design's code
+downloads, `PageSkeleton` draws the outline of the page in that design's colour;
+each cover and the portrait shimmer in place (the `.skeleton` class in
+`src/index.css`) until the picture has arrived, and so does the viewer.
 
 ### A note on styling
 

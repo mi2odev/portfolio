@@ -20,6 +20,8 @@ export interface Experience {
   id: string;
   /** Cover picture, served from public/projects/. */
   image: string;
+  /** Every screen of the project, cover first — what the viewer steps through. */
+  gallery: string[];
   title: string;
   role: string;
   period: string;

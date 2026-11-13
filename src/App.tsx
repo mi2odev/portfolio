@@ -1,6 +1,7 @@
 import { Suspense, lazy, useCallback, useEffect, useState, type ComponentType } from 'react';
 import { LanguageProvider } from './context/LanguageContext';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { PageSkeleton } from './components/PageSkeleton';
 import { SkipLink } from './components/SkipLink';
 import { DocumentMeta } from './components/DocumentMeta';
 import { VersionAnnouncer } from './components/VersionAnnouncer';
@@ -115,35 +116,11 @@ export default function App() {
       <VersionAnnouncer index={index} />
       <SkipLink />
       <ErrorBoundary key={`boundary-${index}`} onReset={() => change(0)}>
-        <Suspense fallback={<VersionFallback />}>
+        <Suspense fallback={<PageSkeleton index={index} />}>
           {/* `key` remounts the active version so its scroll-driven effects re-init cleanly */}
           <Active key={index} index={index} onChange={change} />
         </Suspense>
       </ErrorBoundary>
     </LanguageProvider>
-  );
-}
-
-/** Neutral, theme-agnostic placeholder shown while a version chunk downloads. */
-function VersionFallback() {
-  return (
-    <div
-      role="status"
-      aria-live="polite"
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: '#05050b',
-        color: 'rgba(255,255,255,0.5)',
-        fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-        fontSize: 12,
-        letterSpacing: '.2em',
-        textTransform: 'uppercase',
-      }}
-    >
-      <span style={{ animation: 'pulseSoft 1.4s ease-in-out infinite' }}>Loading…</span>
-    </div>
   );
 }

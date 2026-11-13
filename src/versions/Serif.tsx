@@ -214,7 +214,7 @@ export default function Serif({ index, onChange }: VersionProps) {
                     </div>
                   )}
                 </div>
-                <ProjectShot src={e.image} title={e.title} frame={{ borderRadius: 14, border: `1px solid ${c.line}`, boxShadow: '0 14px 34px -18px rgba(28,27,24,0.35)' }} />
+                <ProjectShot src={e.image} gallery={e.gallery} title={e.title} frame={{ borderRadius: 14, border: `1px solid ${c.line}`, boxShadow: '0 14px 34px -18px rgba(28,27,24,0.35)' }} />
                 </div>
               </Hover>
             </Reveal>
