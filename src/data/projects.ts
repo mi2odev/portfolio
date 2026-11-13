@@ -38,7 +38,7 @@ const gh = (repo: string): BaseLink => ({ label: CODE, url: `https://github.com/
 const BASE: BaseProject[] = [
   {
     id: 'siara',
-    shots: 3,
+    shots: 8,
     tags: [
       'React',
       'React Native',
@@ -141,7 +141,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       bullets: [
         'Plateforme temps réel d’aide à la décision pour la sécurité routière : signalement citoyen, cartes de zones dangereuses, modèles de risque et IA explicable.',
         'Applications web et mobile React, API Node.js / Express, PostgreSQL + PostGIS, alertes temps réel avec Socket.IO, interface en français, anglais et arabe (RTL).',
-        'Module police : zone de travail par wilaya et commune, incidents à moins de 500 m, vérification, affectation et historique des opérations.',
+        'Modules police et services d’urgence : zone de travail par wilaya et commune, incidents à moins de 500 m, vérification, affectation, missions et historique des opérations.',
       ],
     },
     sentiment: {
@@ -294,7 +294,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       bullets: [
         'A real-time road-safety decision-support platform: citizen accident reports, danger-zone maps, risk models and explainable AI.',
         'React web and mobile apps, a Node.js / Express API, PostgreSQL + PostGIS, real-time alerts over Socket.IO, and an English, French and Arabic (RTL) interface.',
-        'Police module: work zone by wilaya and commune, incidents within 500 m, verification, assignment and a full operation history.',
+        'Police and emergency-service modules: work zone by wilaya and commune, incidents within 500 m, verification, assignment, missions and a full operation history.',
       ],
     },
     sentiment: {
@@ -447,7 +447,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       bullets: [
         'منصة دعم قرار في الوقت الحقيقي للسلامة المرورية: بلاغات المواطنين، خرائط المناطق الخطرة، نماذج تقدير المخاطر وذكاء اصطناعي قابل للتفسير.',
         'تطبيقات ويب وموبايل بـ React، واجهة برمجية بـ Node.js / Express، قاعدة PostgreSQL + PostGIS، تنبيهات فورية عبر Socket.IO، وواجهة بالعربية والفرنسية والإنجليزية.',
-        'وحدة الشرطة: منطقة العمل حسب الولاية والبلدية، الحوادث ضمن 500 متر، التحقق والإسناد وسجل كامل للعمليات.',
+        'وحدتا الشرطة وخدمات الطوارئ: منطقة العمل حسب الولاية والبلدية، الحوادث ضمن 500 متر، التحقق والإسناد، المهام وسجل كامل للعمليات.',
       ],
     },
     sentiment: {
@@ -598,7 +598,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
  * name: the files keep stable names, so the query string is what tells a
  * browser that already cached the old one to fetch the new one.
  */
-export const PICTURES_REV = 3;
+export const PICTURES_REV = 4;
 
 /** Where a project's cover lives in public/. */
 export const projectImage = (id: string) => `/projects/${id}.webp?v=${PICTURES_REV}`;
