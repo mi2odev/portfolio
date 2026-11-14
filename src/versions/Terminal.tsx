@@ -4,6 +4,8 @@ import { useLanguage } from '../context/useLanguage';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
+import { ProjectFilter } from '../components/ProjectFilter';
+import { useProjectFilter } from '../hooks/useProjectFilter';
 import { ProjectShot } from '../components/ProjectShot';
 import { shotRow, shotText } from '../components/shotLayout';
 import { VersionSwitcher } from '../components/VersionSwitcher';
@@ -33,6 +35,7 @@ const sectionLabel = (n: string, label: string) => (
 
 export default function Terminal({ index, onChange }: VersionProps) {
   const { lang, setLang, t } = useLanguage();
+  const work = useProjectFilter(t.work.items);
   const progressRef = useScrollProgress();
 
   const langBtn = (l: Lang): CSSProperties => ({
@@ -222,10 +225,11 @@ export default function Terminal({ index, onChange }: VersionProps) {
       <section id="work" style={{ position: 'relative', zIndex: 1, maxWidth: 1180, margin: '0 auto', padding: '40px 28px 96px', scrollMarginTop: 80 }}>
         {sectionLabel('03', t.work.label)}
         <Reveal delay={0.08} as="h2" style={{ ...heading2, marginBottom: 34 }}>{t.work.heading}</Reveal>
+        <ProjectFilter labels={t.work.filters} groupLabel={t.work.label} counts={work.counts} value={work.value} onChange={work.setValue} tone={{ fg: c.muted, border: c.line, activeBg: c.accent, activeFg: '#0b0d10', radius: 8, font: mono }} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          {t.work.items.map((e) => (
+          {work.shown.map((e) => (
             <Reveal key={e.i}>
-              <Hover base={{ display: 'grid', gridTemplateColumns: '58px 1fr', gap: 18, padding: 26, border: `1px solid ${c.line}`, borderRadius: 12, background: c.panel, transition: 'border-color .25s, transform .25s, background .25s' }} hover={{ borderColor: c.lineStrong, transform: 'translateY(-3px)', background: 'rgba(255,255,255,0.03)' }}>
+              <Hover className="proj-card" base={{ display: 'grid', gridTemplateColumns: '58px 1fr', gap: 18, padding: 26, border: `1px solid ${c.line}`, borderRadius: 12, background: c.panel, transition: 'border-color .25s, transform .25s, background .25s' }} hover={{ borderColor: c.lineStrong, transform: 'translateY(-3px)', background: 'rgba(255,255,255,0.03)' }}>
                 <div style={{ fontFamily: mono, fontSize: 30, fontWeight: 600, color: c.accent, opacity: 0.85, lineHeight: 1 }}>{e.i}</div>
                 <div style={{ ...shotRow }}>
                 <div style={shotText}>

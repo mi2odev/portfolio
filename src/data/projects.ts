@@ -4,7 +4,7 @@
 // the words live in TEXT, one block per language. buildProjects() joins them.
 // Covers are real captures of each project, stored in public/projects/.
 // ─────────────────────────────────────────────────────────────────────────
-import type { Experience, Lang } from './content';
+import type { Experience, Lang, ProjectCategory } from './content';
 
 type Localised = Record<Lang, string>;
 
@@ -15,6 +15,7 @@ interface BaseLink {
 interface BaseProject {
   /** Stable id: names the cover file and keys the translations. */
   id: string;
+  category: ProjectCategory;
   /** Extra screens beyond the cover; omitted when the cover is all there is. */
   shots?: number;
   tags: string[];
@@ -38,6 +39,7 @@ const gh = (repo: string): BaseLink => ({ label: CODE, url: `https://github.com/
 const BASE: BaseProject[] = [
   {
     id: 'siara',
+    category: 'web',
     shots: 13,
     tags: [
       'React',
@@ -54,36 +56,42 @@ const BASE: BaseProject[] = [
   },
   {
     id: 'gaming-center',
+    category: 'desktop',
     shots: 5,
     tags: ['C#', '.NET 10', 'WPF', 'MVVM', 'EF Core', 'SQLite'],
     links: [gh('Gaming-Center-Management')],
   },
   {
     id: 'tutoring-center',
+    category: 'desktop',
     shots: 7,
     tags: ['C#', '.NET 10', 'WPF', 'EF Core', 'SQLite', 'Excel export'],
     links: [gh('ecoleprive')],
   },
   {
     id: 'subscription-watch',
+    category: 'mobile',
     shots: 3,
     tags: ['React Native', 'Expo', 'TypeScript', 'Zustand', 'Notifications'],
     links: [gh('subscription-watch-')],
   },
   {
     id: 'weighpoint',
+    category: 'mobile',
     shots: 4,
     tags: ['React Native', 'Expo', 'TypeScript', 'AsyncStorage', 'Charts'],
     links: [gh('weight-tracker')],
   },
   {
     id: 'e-card',
+    category: 'mobile',
     shots: 4,
     tags: ['React Native', 'Expo', 'TypeScript', 'Reanimated', 'Zustand', 'Wi-Fi'],
     links: [gh('e-card')],
   },
   {
     id: 'personality-tests',
+    category: 'web',
     shots: 6,
     tags: ['React', 'TypeScript', 'Tailwind', 'Framer Motion', 'GSAP', 'Recharts'],
     links: [
@@ -92,40 +100,46 @@ const BASE: BaseProject[] = [
       gh('jojo'),
     ],
   },
-  { id: 'sentiment', tags: ['Python', 'PySpark', 'Hadoop', 'Docker', 'NLP'] },
+  { id: 'sentiment', category: 'data', tags: ['Python', 'PySpark', 'Hadoop', 'Docker', 'NLP'] },
   {
     id: 'iot-security',
+    category: 'data',
     shots: 1,
     tags: ['ESP32', 'MQTT', 'AWS IoT Core', 'Lambda', 'DynamoDB', 'SNS', 'CloudWatch', 'Grafana', 'Wokwi'],
   },
-  { id: 'qa-assistant', tags: ['PyTorch', 'Deep Learning', 'NLP', 'Q&A'] },
+  { id: 'qa-assistant', category: 'data', tags: ['PyTorch', 'Deep Learning', 'NLP', 'Q&A'] },
   {
     id: 'last-signal',
+    category: 'web',
     shots: 3,
     tags: ['React', 'Vite', 'Canvas', 'Node.js', 'Express', 'PostgreSQL'],
     links: [{ label: LIVE, url: 'https://the-last-signal.netlify.app/' }, gh('the-last-signal')],
   },
   {
     id: 'client-portfolio',
+    category: 'web',
     shots: 10,
     tags: ['React', 'Vite', 'Prerendering', 'SEO', 'WebP'],
     links: [{ label: LIVE, url: 'https://mohcene-meradji.netlify.app/' }, gh('mohsenportfolio')],
   },
   {
     id: 'imposter',
+    category: 'mobile',
     shots: 4,
     tags: ['React Native', 'Expo', 'JavaScript', 'Offline'],
     links: [gh('the-imposter')],
   },
-  { id: 'delivery', tags: ['Web', 'Mobile', 'Full Stack', 'UML'] },
+  { id: 'delivery', category: 'web', tags: ['Web', 'Mobile', 'Full Stack', 'UML'] },
   {
     id: 'hotel',
+    category: 'web',
     shots: 4,
     tags: ['React', 'Tailwind', 'i18n', 'RTL', 'PDF'],
     links: [gh('reservation')],
   },
   {
     id: 'school',
+    category: 'web',
     shots: 3,
     tags: ['React', 'React Router', 'Material UI', 'Tailwind'],
     links: [gh('schoolsystem')],
@@ -598,7 +612,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
  * name: the files keep stable names, so the query string is what tells a
  * browser that already cached the old one to fetch the new one.
  */
-export const PICTURES_REV = 6;
+export const PICTURES_REV = 7;
 
 /** Where a project's cover lives in public/. */
 export const projectImage = (id: string) => `/projects/${id}.webp?v=${PICTURES_REV}`;
@@ -621,6 +635,7 @@ export function buildProjects(lang: Lang): Experience[] {
     return {
       i: String(idx + 1).padStart(2, '0'),
       id: p.id,
+      category: p.category,
       image: projectImage(p.id),
       gallery: projectGallery(p.id, p.shots),
       ...TEXT[lang][p.id],

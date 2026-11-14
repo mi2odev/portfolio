@@ -4,6 +4,8 @@ import { useLanguage } from '../context/useLanguage';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
+import { ProjectFilter } from '../components/ProjectFilter';
+import { useProjectFilter } from '../hooks/useProjectFilter';
 import { ProjectShot } from '../components/ProjectShot';
 import { shotRow, shotText } from '../components/shotLayout';
 import { Reveal } from '../components/Reveal';
@@ -121,6 +123,7 @@ function Bubble({ children, style }: { children: ReactNode; style?: CSSPropertie
 
 export default function Manga({ index, onChange }: VersionProps) {
   const { lang, setLang, t, dir } = useLanguage();
+  const work = useProjectFilter(t.work.items);
   const progressRef = useScrollProgress();
   const rootRef = useRef<HTMLDivElement>(null);
   const dotRef = useRef<HTMLDivElement>(null);
@@ -506,8 +509,9 @@ export default function Manga({ index, onChange }: VersionProps) {
       <section id="work" style={sectionWrap}>
         <div style={pageFrame}>
           <ChapterBar n={3} label={t.work.label} sub="THE ARC" kanji={KANJI.work} />
+          <ProjectFilter labels={t.work.filters} groupLabel={t.work.label} counts={work.counts} value={work.value} onChange={work.setValue} tone={{ fg: c.ink, border: c.ink, activeBg: c.ink, activeFg: c.page, radius: 0, font: mono, uppercase: true, borderWidth: 2 }} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-            {t.work.items.map((e) => (
+            {work.shown.map((e) => (
               <Reveal key={e.i}>
                 <Panel style={{ padding: '28px 28px' }}>
                   {/* corner speed-burst */}

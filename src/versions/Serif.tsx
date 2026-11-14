@@ -4,6 +4,8 @@ import { useLanguage } from '../context/useLanguage';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
+import { ProjectFilter } from '../components/ProjectFilter';
+import { useProjectFilter } from '../hooks/useProjectFilter';
 import { ProjectShot } from '../components/ProjectShot';
 import { shotRow, shotText } from '../components/shotLayout';
 import { Reveal } from '../components/Reveal';
@@ -28,6 +30,7 @@ const serif = "'Instrument Serif','IBM Plex Sans Arabic',serif";
 
 export default function Serif({ index, onChange }: VersionProps) {
   const { lang, setLang, t, dir } = useLanguage();
+  const work = useProjectFilter(t.work.items);
   const progressRef = useScrollProgress();
 
   const langBtn = (l: Lang): CSSProperties => ({
@@ -184,10 +187,11 @@ export default function Serif({ index, onChange }: VersionProps) {
       <section id="work" style={{ position: 'relative', zIndex: 1, maxWidth: 1200, margin: '0 auto', padding: '0 28px 96px', scrollMarginTop: 80 }}>
         {eyebrow('03', t.work.label)}
         <Reveal delay={0.06} as="h2" style={{ ...h2serif, marginBottom: 30 }}>{t.work.heading}</Reveal>
+        <ProjectFilter labels={t.work.filters} groupLabel={t.work.label} counts={work.counts} value={work.value} onChange={work.setValue} tone={{ fg: c.ink2, border: c.line, activeBg: c.accent, activeFg: '#fff', radius: 999 }} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-          {t.work.items.map((e) => (
+          {work.shown.map((e) => (
             <Reveal key={e.i}>
-              <Hover base={{ display: 'grid', gridTemplateColumns: '84px 1fr', gap: 24, background: c.surface, border: `1px solid ${c.line}`, borderRadius: 22, padding: '28px 30px', boxShadow: c.shadow, transition: 'transform .22s, box-shadow .22s' }} hover={{ transform: 'translateY(-3px)', boxShadow: '0 1px 2px rgba(28,27,24,0.04), 0 26px 50px -26px rgba(28,27,24,0.3)' }}>
+              <Hover className="proj-card" base={{ display: 'grid', gridTemplateColumns: '84px 1fr', gap: 24, background: c.surface, border: `1px solid ${c.line}`, borderRadius: 22, padding: '28px 30px', boxShadow: c.shadow, transition: 'transform .22s, box-shadow .22s' }} hover={{ transform: 'translateY(-3px)', boxShadow: '0 1px 2px rgba(28,27,24,0.04), 0 26px 50px -26px rgba(28,27,24,0.3)' }}>
                 <div style={{ fontFamily: serif, fontSize: 'clamp(42px,5vw,62px)', fontWeight: 400, color: c.accent, lineHeight: 0.85 }}>{e.i}</div>
                 <div style={{ ...shotRow }}>
                 <div style={shotText}>

@@ -4,6 +4,8 @@ import { useLanguage } from '../context/useLanguage';
 import { useReactiveFX } from '../hooks/useReactiveFX';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
+import { ProjectFilter } from '../components/ProjectFilter';
+import { useProjectFilter } from '../hooks/useProjectFilter';
 import { ProjectShot } from '../components/ProjectShot';
 import { shotRow, shotText } from '../components/shotLayout';
 import { Reveal } from '../components/Reveal';
@@ -23,6 +25,7 @@ const mono = "'JetBrains Mono',monospace";
 export default function Reactive({ index, onChange }: VersionProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const { lang, setLang, t, dir } = useLanguage();
+  const work = useProjectFilter(t.work.items);
   useReactiveFX(rootRef);
 
   // Live extras: ticking local clock, rotating specialty, scroll-to-top.
@@ -242,12 +245,13 @@ export default function Reactive({ index, onChange }: VersionProps) {
 
       {/* work */}
       <section id="work" style={{ position: 'relative', zIndex: 2, maxWidth: 1280, margin: '0 auto', padding: '0 30px 114px', scrollMarginTop: 70 }}>
-        {eyebrow('[03]', t.work.label, `${t.work.items.length} roles`)}
+        {eyebrow('[03]', t.work.label, `${t.work.items.length} ${t.work.countWord}`)}
         <Reveal as="h2" style={{ ...h2, marginBottom: 34 }}>{t.work.heading}</Reveal>
+        <ProjectFilter labels={t.work.filters} groupLabel={t.work.label} counts={work.counts} value={work.value} onChange={work.setValue} tone={{ fg: col.ink2, border: col.line2, activeBg: `linear-gradient(120deg,${col.v},${col.m})`, activeFg: '#fff', radius: 999, font: mono }} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-          {t.work.items.map((e) => (
+          {work.shown.map((e) => (
             <Reveal key={e.i}>
-              <Hover data-tilt="1" data-tilt-soft="1" base={{ position: 'relative', background: col.glass, border: `1px solid ${col.line}`, borderRadius: 22, padding: '30px 30px', backdropFilter: 'blur(12px)', display: 'grid', gridTemplateColumns: '64px 1fr', gap: 24, overflow: 'hidden', transition: 'transform .2s cubic-bezier(.2,.7,.2,1), border-color .25s, background .25s', transformStyle: 'preserve-3d' }} hover={{ borderColor: col.line2, background: col.glass2 }}>
+              <Hover className="proj-card" data-tilt="1" data-tilt-soft="1" base={{ position: 'relative', background: col.glass, border: `1px solid ${col.line}`, borderRadius: 22, padding: '30px 30px', backdropFilter: 'blur(12px)', display: 'grid', gridTemplateColumns: '64px 1fr', gap: 24, overflow: 'hidden', transition: 'transform .2s cubic-bezier(.2,.7,.2,1), border-color .25s, background .25s', transformStyle: 'preserve-3d' }} hover={{ borderColor: col.line2, background: col.glass2 }}>
                 <div data-glow style={{ position: 'absolute', inset: 0, pointerEvents: 'none', opacity: 0, transition: 'opacity .25s', background: 'radial-gradient(360px circle at var(--gx,50%) var(--gy,50%), rgba(139,92,246,0.14), transparent 55%)' }} />
                 <div style={{ position: 'relative', fontFamily: display, fontSize: 30, fontWeight: 800, lineHeight: 1, background: `linear-gradient(160deg,${col.v},${col.m})`, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>{e.i}</div>
                 <div style={{ position: 'relative', ...shotRow }}>

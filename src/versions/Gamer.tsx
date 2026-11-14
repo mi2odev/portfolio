@@ -5,6 +5,8 @@ import { useLanguage } from '../context/useLanguage';
 import { useGamerFX } from '../hooks/useGamerFX';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
+import { ProjectFilter } from '../components/ProjectFilter';
+import { useProjectFilter } from '../hooks/useProjectFilter';
 import { Reveal } from '../components/Reveal';
 import { ProjectShot } from '../components/ProjectShot';
 import { shotRow, shotText } from '../components/shotLayout';
@@ -128,6 +130,7 @@ export default function Gamer({ index, onChange }: VersionProps) {
     const m = QUEST_META[it.id] || { rarity: 'common', status: 'done', xp: 300 };
     return { ...it, color: RC[m.rarity], rarityLabel: g.rarity[m.rarity], statusLabel: g.status[m.status], statusColor: SC[m.status], xp: m.xp.toLocaleString('en-US') };
   });
+  const work = useProjectFilter(quests);
   const eduColors = [col.gold, col.epic, col.rare];
   const education = t.edu.items.map((e, idx) => ({ ...e, color: eduColors[idx] || col.ink2 }));
   const attrColors = [col.cyan, col.lime, col.pink, col.gold];
@@ -349,8 +352,9 @@ export default function Gamer({ index, onChange }: VersionProps) {
       <section id="work" className="gm-section" style={{ position: 'relative', zIndex: 2, maxWidth: 1300, margin: '0 auto', padding: '0 26px 110px', scrollMarginTop: 84 }}>
         {secHead('03', g.work.label)}
         <h2 style={{ ...h2, marginBottom: 30 }}>{g.work.heading}</h2>
+        <ProjectFilter labels={t.work.filters} groupLabel={t.work.label} counts={work.counts} value={work.value} onChange={work.setValue} tone={{ fg: col.ink2, border: col.line2, activeBg: col.lime, activeFg: '#070A11', radius: 0, font: mono, uppercase: true }} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: 15 }}>
-          {quests.map((q) => (
+          {work.shown.map((q) => (
             <Reveal key={q.i}>
             <Hover data-tilt data-tilt-soft base={{ '--qc': q.color, position: 'relative', background: col.panel, border: `1px solid ${col.line}`, borderLeft: `3px solid ${q.color}`, padding: phone ? '20px 18px' : '26px 28px', display: 'grid', gridTemplateColumns: '1fr', gap: 14, overflow: 'hidden', transition: 'transform .2s cubic-bezier(.2,.7,.2,1), border-color .25s, background .25s', transformStyle: 'preserve-3d' }} hover={{ background: col.panel2 }}>
               <span style={{ position: 'absolute', top: -1, right: -1, width: 15, height: 15, borderTop: `2px solid ${q.color}`, borderRight: `2px solid ${q.color}` }} />

@@ -84,6 +84,11 @@ describe('projects', () => {
       const file = (url: string) => url.split('?')[0];
       expect(file(item.image)).toBe(`/projects/${item.id}.webp`);
       expect(item.gallery[0]).toBe(item.image);
+      // the 640px variant the cover's srcset points at
+      expect(
+        existsSync(resolve(__dirname, '../../public', `./projects/${item.id}-640.webp`)),
+        `${item.id}-640.webp is missing`,
+      ).toBe(true);
       for (const shot of item.gallery) {
         expect(
           existsSync(resolve(__dirname, '../../public', `.${file(shot)}`)),

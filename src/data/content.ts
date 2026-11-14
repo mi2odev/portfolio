@@ -13,12 +13,16 @@ export interface Link {
   label: string;
   url: string;
 }
+/** What kind of thing a project is — drives the filter above the list. */
+export type ProjectCategory = 'web' | 'mobile' | 'desktop' | 'data';
+
 export interface Experience {
   /** Two-digit display number, "01"… */
   i: string;
   /** Stable slug, independent of language and order. */
   id: string;
   /** Cover picture, served from public/projects/. */
+  category: ProjectCategory;
   image: string;
   /** Every screen of the project, cover first — what the viewer steps through. */
   gallery: string[];
@@ -66,7 +70,15 @@ export interface Content {
     heading: string;
     cats: { fe: string; be: string; data: string; ops: string; cloud: string };
   };
-  work: { label: string; heading: string; items: Experience[] };
+  work: {
+    label: string;
+    heading: string;
+    /** Labels of the category filter. */
+    filters: { all: string; web: string; mobile: string; desktop: string; data: string };
+    /** The word after the count, as in “16 projects”. */
+    countWord: string;
+    items: Experience[];
+  };
   edu: { label: string; heading: string; items: Education[] };
   contact: { label: string; heading: string; body: string; cta: string };
   footer: { built: string; top: string };
@@ -164,6 +176,8 @@ export const CONTENT: Record<Lang, Content> = {
     work: {
       label: 'Expérience',
       heading: 'Projets & expériences sélectionnés.',
+      filters: { all: 'Tous', web: 'Web', mobile: 'Mobile', desktop: 'Bureau', data: 'Data · IA · IoT' },
+      countWord: 'projets',
       items: buildProjects('fr'),
     },
     edu: {
@@ -253,6 +267,8 @@ export const CONTENT: Record<Lang, Content> = {
     work: {
       label: 'Work',
       heading: 'Selected projects & experience.',
+      filters: { all: 'All', web: 'Web', mobile: 'Mobile', desktop: 'Desktop', data: 'Data · AI · IoT' },
+      countWord: 'projects',
       items: buildProjects('en'),
     },
     edu: {
@@ -342,6 +358,14 @@ export const CONTENT: Record<Lang, Content> = {
     work: {
       label: 'الخبرة',
       heading: 'مشاريع وخبرات مختارة.',
+      filters: {
+        all: 'الكل',
+        web: 'ويب',
+        mobile: 'موبايل',
+        desktop: 'سطح المكتب',
+        data: 'بيانات · ذكاء · IoT',
+      },
+      countWord: 'مشروعاً',
       items: buildProjects('ar'),
     },
     edu: {

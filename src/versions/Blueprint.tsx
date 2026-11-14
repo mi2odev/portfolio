@@ -5,6 +5,8 @@ import { useLanguage } from '../context/useLanguage';
 import { useBlueprintFX } from '../hooks/useBlueprintFX';
 import { PROFILE, TECH_MARQUEE, SKILL_CHIPS, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
+import { ProjectFilter } from '../components/ProjectFilter';
+import { useProjectFilter } from '../hooks/useProjectFilter';
 import { Reveal } from '../components/Reveal';
 import { ProjectShot } from '../components/ProjectShot';
 import { shotRow, shotText } from '../components/shotLayout';
@@ -100,6 +102,7 @@ export default function Blueprint({ index, onChange }: VersionProps) {
     revColor: REV_COLORS[idx] || col.ink2,
     scale: SCALES[idx] || '1:50',
   }));
+  const work = useProjectFilter(sheets);
   const education = t.edu.items.map((e, idx) => ({ ...e, rev: EDU_REVS[idx] || '·' }));
   const groups = skillGroups(t).map((g, idx) => ({ ...g, qty: SKILL_QTY[idx] }));
   const spoken = t.spoken.map((l) => {
@@ -324,8 +327,9 @@ export default function Blueprint({ index, onChange }: VersionProps) {
       <section id="work" className="bp-section" style={{ position: 'relative', zIndex: 2, maxWidth: 1320, margin: '0 auto', padding: '0 40px 104px', scrollMarginTop: 90 }}>
         {secHead('03', b.work.label)}
         <h2 style={{ ...h2, marginBottom: 30 }}>{b.work.heading}</h2>
+        <ProjectFilter labels={t.work.filters} groupLabel={t.work.label} counts={work.counts} value={work.value} onChange={work.setValue} tone={{ fg: col.ink2, border: col.line2, activeBg: col.ink, activeFg: col.bg, radius: 0, font: mono, uppercase: true }} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-          {sheets.map((q) => (
+          {work.shown.map((q) => (
             <Reveal key={q.no}>
             <Hover base={{ position: 'relative', border: `1px solid ${col.line2}`, transition: 'border-color .22s' }} hover={{ borderColor: col.red }}>
               <div className="bp-sheet-head" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'stretch', borderBottom: `1px solid ${col.line2}`, fontFamily: mono }}>

@@ -803,6 +803,9 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
 export default function NeuralMap({ index, onChange }: VersionProps) {
   const { lang, setLang } = useLanguage();
   return (
+    <>
+      {/* The map is a canvas: give the page the heading it would otherwise lack. */}
+      <h1 className="sr-only">Mohamed Mehdi Zitouni — {CONTENT[lang].hero.eyebrow}</h1>
     <PortfolioV8
       index={index}
       onChange={onChange}
@@ -811,5 +814,6 @@ export default function NeuralMap({ index, onChange }: VersionProps) {
       photoSrc={PROFILE.photo}
       cvSrc={PROFILE.cvHref}
     />
+    </>
   );
 }

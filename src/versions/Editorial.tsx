@@ -4,6 +4,8 @@ import { useLanguage } from '../context/useLanguage';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
+import { ProjectFilter } from '../components/ProjectFilter';
+import { useProjectFilter } from '../hooks/useProjectFilter';
 import { ProjectShot } from '../components/ProjectShot';
 import { shotRow, shotText } from '../components/shotLayout';
 import { Reveal } from '../components/Reveal';
@@ -25,6 +27,7 @@ const mono = "'Space Mono','IBM Plex Sans Arabic',monospace";
 
 export default function Editorial({ index, onChange }: VersionProps) {
   const { lang, setLang, t, dir } = useLanguage();
+  const work = useProjectFilter(t.work.items);
   const progressRef = useScrollProgress();
 
   const langBtn = (l: Lang): CSSProperties => ({
@@ -194,10 +197,11 @@ export default function Editorial({ index, onChange }: VersionProps) {
       <section id="work" style={{ position: 'relative', zIndex: 1, maxWidth: 1240, margin: '0 auto', padding: '8px 26px 88px', scrollMarginTop: 80 }}>
         {sectionHead('(03)', t.work.label)}
         <Reveal delay={0.06} as="h2" style={{ ...heading2, marginBottom: 34 }}>{t.work.heading}</Reveal>
+        <ProjectFilter labels={t.work.filters} groupLabel={t.work.label} counts={work.counts} value={work.value} onChange={work.setValue} tone={{ fg: c.ink, border: c.ink, activeBg: c.ink, activeFg: c.paper, radius: 0, font: mono, uppercase: true, borderWidth: 1.5 }} />
         <div style={{ borderTop: `1.5px solid ${c.ink}` }}>
-          {t.work.items.map((e) => (
+          {work.shown.map((e) => (
             <Reveal key={e.i}>
-              <Hover base={{ display: 'grid', gridTemplateColumns: '90px 1fr', gap: 24, padding: '32px 6px', borderBottom: `1.5px solid ${c.ink}`, transition: 'background .25s, padding .25s' }} hover={{ background: c.panel, paddingLeft: 18, paddingRight: 18 }}>
+              <Hover className="proj-card" base={{ display: 'grid', gridTemplateColumns: '90px 1fr', gap: 24, padding: '32px 6px', borderBottom: `1.5px solid ${c.ink}`, transition: 'background .25s, padding .25s' }} hover={{ background: c.panel, paddingLeft: 18, paddingRight: 18 }}>
                 <div style={{ fontFamily: mono, fontSize: 'clamp(38px,5vw,60px)', fontWeight: 700, color: c.accent, lineHeight: 0.9, WebkitTextStroke: `1.5px ${c.ink}` }}>{e.i}</div>
                 <div style={{ ...shotRow }}>
                 <div style={shotText}>

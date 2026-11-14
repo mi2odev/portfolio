@@ -370,3 +370,31 @@ img[src$="/photo.webp"] {
 .viewer-shot-prev { animation: viewerPrev 0.38s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 .viewer button { transition: background 0.2s, transform 0.2s, border-color 0.2s; }
 .viewer button:hover { background: rgba(255, 255, 255, 0.16) !important; }
+
+/* Category chips above the project list. */
+.filter-chip { transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s; }
+.filter-chip:hover { transform: translateY(-1px); }
+.filter-chip:active { transform: translateY(0); }
+
+/* Phones: the project number sits above the text instead of taking a column of its own. */
+@media (max-width: 640px) {
+  .proj-card {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+}
+
+/* Read by assistive tech and search engines, not drawn. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

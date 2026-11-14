@@ -89,6 +89,9 @@ export function ProjectShot({ src, gallery, title, frame, img, imgHover, style }
       >
         <img
           src={src}
+          // Covers are drawn at most ~470px wide, so phones and most laptops take the 640px file.
+          srcSet={`${smallCover(src)} 640w, ${src} 1280w`}
+          sizes="(max-width: 700px) 92vw, 470px"
           alt={title}
           width={1280}
           height={800}
@@ -152,6 +155,11 @@ export function ProjectShot({ src, gallery, title, frame, img, imgHover, style }
   );
 }
 
+/** `/projects/x.webp?v=3` → `/projects/x-640.webp?v=3`. */
+function smallCover(src: string) {
+  return src.replace(/\.webp(\?|$)/, '-640.webp$1');
+}
+
 const navButton: CSSProperties = {
   position: 'absolute',
   top: '50%',
@@ -208,6 +216,15 @@ function Viewer({ shots, title, onClose }: { shots: string[]; title: string; onC
       document.body.style.overflow = overflow;
     };
   }, [go, onClose]);
+
+  // Fetch the neighbours ahead of time so stepping through never waits on the network.
+  useEffect(() => {
+    if (shots.length < 2) return;
+    for (const step of [1, -1]) {
+      const img = new Image();
+      img.src = shots[(at + step + shots.length) % shots.length];
+    }
+  }, [at, shots]);
 
   const stop = (e: { stopPropagation: () => void }) => e.stopPropagation();
 
