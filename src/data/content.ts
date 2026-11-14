@@ -156,7 +156,7 @@ export const CONTENT: Record<Lang, Content> = {
     about: {
       label: 'À propos',
       heading: 'Étudiant en Master 2, développeur full stack et passionné d’intelligence artificielle.',
-      body: 'Master 2 Sciences des Données & Systèmes Intelligents.',
+      body: 'Développeur full stack, en freelance depuis 2023 : je conçois et livre des sites et des applications de bout en bout — interfaces React, TypeScript et React Native, back-ends Node.js, Laravel, Django ou Spring Boot, et applications de bureau C# / .NET hors ligne quand une entreprise en a besoin. Côté data, je m’appuie sur des projets concrets de machine learning et de big data (scikit-learn, LightGBM, PySpark, Hadoop) menés pendant mon Master en Sciences des Données & Systèmes Intelligents. Je travaille en français, en anglais et en arabe.',
       facts: [
         { k: 'Localisation', v: 'Constantine, DZ' },
         { k: 'Formation', v: 'Master 2 — SDSI' },
@@ -257,7 +257,7 @@ export const CONTENT: Record<Lang, Content> = {
     about: {
       label: 'About',
       heading: "Master's student, full stack developer and AI enthusiast.",
-      body: "Master's in Data Science & Intelligent Systems.",
+      body: "Full stack developer, freelancing since 2023: I design and ship websites and apps end to end — React, TypeScript and React Native front ends, Node.js, Laravel, Django or Spring Boot back ends, and offline C# / .NET desktop apps when a business needs one. On the data side I draw on hands-on machine learning and big data projects (scikit-learn, LightGBM, PySpark, Hadoop) from my Master's in Data Science & Intelligent Systems. I work in French, English and Arabic.",
       facts: [
         { k: 'Location', v: 'Constantine, DZ' },
         { k: 'Studying', v: 'MSc — Data Science' },
@@ -346,7 +346,7 @@ export const CONTENT: Record<Lang, Content> = {
     about: {
       label: 'نبذة',
       heading: 'طالب ماستر 2، مطوّر full stack وشغوف بالذكاء الاصطناعي.',
-      body: 'ماستر علم البيانات والأنظمة الذكية.',
+      body: 'مطوّر full stack أعمل بشكل حر منذ 2023: أصمّم وأنجز المواقع والتطبيقات من البداية إلى النهاية — واجهات بـ React و TypeScript و React Native، وخوادم بـ Node.js أو Laravel أو Django أو Spring Boot، وتطبيقات سطح مكتب بـ C# / .NET تعمل دون إنترنت عندما تحتاجها المؤسسة. وفي جانب البيانات أعتمد على مشاريع فعلية في تعلّم الآلة والبيانات الضخمة (scikit-learn و LightGBM و PySpark و Hadoop) أنجزتها خلال ماستر علم البيانات والأنظمة الذكية. أعمل بالعربية والفرنسية والإنجليزية.',
       facts: [
         { k: 'الموقع', v: 'قسنطينة، الجزائر' },
         { k: 'التكوين', v: 'ماستر 2 — SDSI' },

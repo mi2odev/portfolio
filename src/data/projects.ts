@@ -154,6 +154,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       period: '2025 – 2026',
       bullets: [
         'Plateforme temps réel d’aide à la décision pour la sécurité routière : signalement citoyen, cartes de zones dangereuses, modèles de risque et IA explicable.',
+        'Trois familles de modèles entraînées et déployées : risque conducteur (RandomForest expliqué par SHAP), gravité des zones dangereuses (LightGBM) et détection de signalements anormaux ou spam ; un LLM traduit les résultats en explications claires.',
         'Applications web et mobile React, API Node.js / Express, PostgreSQL + PostGIS, alertes temps réel avec Socket.IO, interface en français, anglais et arabe (RTL).',
         'Modules police et services d’urgence : zone de travail par wilaya et commune, incidents à moins de 500 m, vérification, affectation, missions et historique des opérations.',
       ],
@@ -307,6 +308,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       period: '2025 – 2026',
       bullets: [
         'A real-time road-safety decision-support platform: citizen accident reports, danger-zone maps, risk models and explainable AI.',
+        'Three model families trained and deployed: driver risk (RandomForest explained with SHAP), danger-zone severity (LightGBM) and an anomaly / spam validator for crowdsourced reports; an LLM turns the output into plain-language explanations.',
         'React web and mobile apps, a Node.js / Express API, PostgreSQL + PostGIS, real-time alerts over Socket.IO, and an English, French and Arabic (RTL) interface.',
         'Police and emergency-service modules: work zone by wilaya and commune, incidents within 500 m, verification, assignment, missions and a full operation history.',
       ],
@@ -460,6 +462,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       period: '2025 – 2026',
       bullets: [
         'منصة دعم قرار في الوقت الحقيقي للسلامة المرورية: بلاغات المواطنين، خرائط المناطق الخطرة، نماذج تقدير المخاطر وذكاء اصطناعي قابل للتفسير.',
+        'ثلاث عائلات من النماذج دُرّبت ونُشرت: مخاطر السائق (RandomForest مع تفسير SHAP)، خطورة المناطق الخطرة (LightGBM)، وكاشف للبلاغات الشاذة أو المزعجة؛ ويحوّل نموذج لغوي النتائج إلى شروح مبسّطة.',
         'تطبيقات ويب وموبايل بـ React، واجهة برمجية بـ Node.js / Express، قاعدة PostgreSQL + PostGIS، تنبيهات فورية عبر Socket.IO، وواجهة بالعربية والفرنسية والإنجليزية.',
         'وحدتا الشرطة وخدمات الطوارئ: منطقة العمل حسب الولاية والبلدية، الحوادث ضمن 500 متر، التحقق والإسناد، المهام وسجل كامل للعمليات.',
       ],
