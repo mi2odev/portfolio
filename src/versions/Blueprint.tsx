@@ -5,6 +5,7 @@ import { useLanguage } from '../context/useLanguage';
 import { useBlueprintFX } from '../hooks/useBlueprintFX';
 import { PROFILE, TECH_MARQUEE, SKILL_CHIPS, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
+import { Reveal } from '../components/Reveal';
 import { ProjectShot } from '../components/ProjectShot';
 import { shotRow, shotText } from '../components/shotLayout';
 import { VersionSwitcher } from '../components/VersionSwitcher';
@@ -325,7 +326,8 @@ export default function Blueprint({ index, onChange }: VersionProps) {
         <h2 style={{ ...h2, marginBottom: 30 }}>{b.work.heading}</h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
           {sheets.map((q) => (
-            <Hover key={q.no} base={{ position: 'relative', border: `1px solid ${col.line2}`, transition: 'border-color .22s' }} hover={{ borderColor: col.red }}>
+            <Reveal key={q.no}>
+            <Hover base={{ position: 'relative', border: `1px solid ${col.line2}`, transition: 'border-color .22s' }} hover={{ borderColor: col.red }}>
               <div className="bp-sheet-head" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'stretch', borderBottom: `1px solid ${col.line2}`, fontFamily: mono }}>
                 <span className="bp-sheet-cell" style={{ padding: '11px 16px', borderRight: `1px solid ${col.line2}`, fontSize: 12, color: col.red, display: 'flex', alignItems: 'center' }}>{q.no}</span>
                 <span className="bp-sheet-cell" style={{ padding: '11px 16px', borderRight: `1px solid ${col.line}`, fontSize: 10, color: col.faint, letterSpacing: '.06em', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}><span style={{ opacity: 0.7 }}>DATE</span><span style={{ color: col.ink2, fontSize: 11 }}>{q.period}</span></span>
@@ -360,6 +362,7 @@ export default function Blueprint({ index, onChange }: VersionProps) {
               <ProjectShot src={q.image} gallery={q.gallery} title={q.title} frame={{ border: `1px solid ${col.line2}`, padding: 6, background: 'rgba(255,255,255,0.02)' }} img={{ filter: 'saturate(.85)' }} imgHover={{ filter: 'none' }} />
               </div>
             </Hover>
+            </Reveal>
           ))}
         </div>
       </section>

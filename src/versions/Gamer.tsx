@@ -5,6 +5,7 @@ import { useLanguage } from '../context/useLanguage';
 import { useGamerFX } from '../hooks/useGamerFX';
 import { PROFILE, TECH_MARQUEE, skillGroups, type Lang } from '../data/content';
 import { Hover } from '../components/Hover';
+import { Reveal } from '../components/Reveal';
 import { ProjectShot } from '../components/ProjectShot';
 import { shotRow, shotText } from '../components/shotLayout';
 import { VersionSwitcher } from '../components/VersionSwitcher';
@@ -350,7 +351,8 @@ export default function Gamer({ index, onChange }: VersionProps) {
         <h2 style={{ ...h2, marginBottom: 30 }}>{g.work.heading}</h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 15 }}>
           {quests.map((q) => (
-            <Hover key={q.i} data-tilt data-tilt-soft base={{ '--qc': q.color, position: 'relative', background: col.panel, border: `1px solid ${col.line}`, borderLeft: `3px solid ${q.color}`, padding: phone ? '20px 18px' : '26px 28px', display: 'grid', gridTemplateColumns: '1fr', gap: 14, overflow: 'hidden', transition: 'transform .2s cubic-bezier(.2,.7,.2,1), border-color .25s, background .25s', transformStyle: 'preserve-3d' }} hover={{ background: col.panel2 }}>
+            <Reveal key={q.i}>
+            <Hover data-tilt data-tilt-soft base={{ '--qc': q.color, position: 'relative', background: col.panel, border: `1px solid ${col.line}`, borderLeft: `3px solid ${q.color}`, padding: phone ? '20px 18px' : '26px 28px', display: 'grid', gridTemplateColumns: '1fr', gap: 14, overflow: 'hidden', transition: 'transform .2s cubic-bezier(.2,.7,.2,1), border-color .25s, background .25s', transformStyle: 'preserve-3d' }} hover={{ background: col.panel2 }}>
               <span style={{ position: 'absolute', top: -1, right: -1, width: 15, height: 15, borderTop: `2px solid ${q.color}`, borderRight: `2px solid ${q.color}` }} />
               <span style={{ position: 'absolute', bottom: -1, right: -1, width: 15, height: 15, borderBottom: `2px solid ${q.color}`, borderRight: `2px solid ${q.color}` }} />
               <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 9 }}>
@@ -388,6 +390,7 @@ export default function Gamer({ index, onChange }: VersionProps) {
               <ProjectShot src={q.image} gallery={q.gallery} title={q.title} frame={{ border: `1px solid ${q.color}`, boxShadow: `0 0 26px -8px ${q.color}`, background: '#070A11' }} />
               </div>
             </Hover>
+            </Reveal>
           ))}
         </div>
       </section>

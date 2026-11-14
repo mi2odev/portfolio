@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, type CSSProperties } from 'react';
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { createPortal } from 'react-dom';
 
 interface ProjectShotProps {
@@ -27,8 +27,30 @@ export function ProjectShot({ src, gallery, title, frame, img, imgHover, style }
   const [open, setOpen] = useState(false);
   const [hot, setHot] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [seen, setSeen] = useState(false);
+  const box = useRef<HTMLButtonElement>(null);
   const shots = gallery && gallery.length > 0 ? gallery : [src];
   const close = useCallback(() => setOpen(false), []);
+
+  // Slide the cover into place the first time it scrolls into view.
+  useEffect(() => {
+    const el = box.current;
+    if (!el || !('IntersectionObserver' in window)) {
+      setSeen(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setSeen(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -6% 0px' },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   return (
     <>
@@ -40,9 +62,13 @@ export function ProjectShot({ src, gallery, title, frame, img, imgHover, style }
         onFocus={() => setHot(true)}
         onBlur={() => setHot(false)}
         aria-label={`${title} — ${shots.length > 1 ? `${shots.length} screenshots` : 'screenshot'}`}
-        className={loaded ? undefined : 'skeleton'}
+        ref={box}
+        className={loaded ? 'shot' : 'shot skeleton'}
         style={{
           position: 'relative',
+          opacity: seen ? 1 : 0,
+          transform: seen ? (hot ? 'translateY(-5px)' : 'none') : 'translateY(30px) scale(.95)',
+          transition: `opacity .8s cubic-bezier(.2,.7,.2,1) .12s, transform ${seen ? '.35s' : '.8s'} cubic-bezier(.2,.7,.2,1) ${seen ? '0s' : '.12s'}`,
           flex: '1 1 300px',
           maxWidth: 470,
           minWidth: 0,
@@ -85,7 +111,7 @@ export function ProjectShot({ src, gallery, title, frame, img, imgHover, style }
             opacity: loaded ? 1 : 0,
             transition: 'opacity .4s, filter .3s, transform .5s cubic-bezier(.2,.7,.2,1)',
             ...img,
-            ...(hot ? { transform: 'scale(1.03)', ...imgHover } : null),
+            ...(hot ? { transform: 'scale(1.05)', ...imgHover } : null),
           }}
         />
         {shots.length > 1 && loaded && (
@@ -149,11 +175,14 @@ function Viewer({ shots, title, onClose }: { shots: string[]; title: string; onC
   const [at, setAt] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [touchX, setTouchX] = useState<number | null>(null);
+  /** Which way the last move went, so the next picture slides in from that side. */
+  const [dir, setDir] = useState<'open' | 'next' | 'prev'>('open');
   const many = shots.length > 1;
 
   const go = useCallback(
     (step: number) => {
       setLoaded(false);
+      setDir(step > 0 ? 'next' : 'prev');
       setAt((i) => (i + step + shots.length) % shots.length);
     },
     [shots.length],
@@ -161,6 +190,7 @@ function Viewer({ shots, title, onClose }: { shots: string[]; title: string; onC
   const pick = (i: number) => {
     if (i === at) return;
     setLoaded(false);
+    setDir(i > at ? 'next' : 'prev');
     setAt(i);
   };
 
@@ -188,6 +218,7 @@ function Viewer({ shots, title, onClose }: { shots: string[]; title: string; onC
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <div
       role="dialog"
+      className="viewer"
       aria-modal="true"
       aria-label={title}
       onClick={onClose}
@@ -212,7 +243,10 @@ function Viewer({ shots, title, onClose }: { shots: string[]; title: string; onC
         direction: 'ltr',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 18px', flexShrink: 0 }}>
+      <div
+        className="viewer-bar"
+        style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 18px', flexShrink: 0 }}
+      >
         <div
           dir="auto"
           style={{
@@ -284,6 +318,7 @@ function Viewer({ shots, title, onClose }: { shots: string[]; title: string; onC
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
         <img
           key={shots[at]}
+          className={`viewer-shot viewer-shot-${dir}`}
           src={shots[at]}
           alt={many ? `${title} — ${at + 1} / ${shots.length}` : title}
           onLoad={() => setLoaded(true)}
@@ -334,6 +369,7 @@ function Viewer({ shots, title, onClose }: { shots: string[]; title: string; onC
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <div
           onClick={stop}
+          className="viewer-strip"
           style={{
             display: 'flex',
             gap: 8,
@@ -360,7 +396,8 @@ function Viewer({ shots, title, onClose }: { shots: string[]; title: string; onC
                 cursor: 'pointer',
                 border: i === at ? '2px solid #fff' : '2px solid transparent',
                 opacity: i === at ? 1 : 0.55,
-                transition: 'opacity .2s, border-color .2s',
+                transform: i === at ? 'translateY(-3px)' : 'none',
+                transition: 'opacity .2s, border-color .2s, transform .25s cubic-bezier(.2,.7,.2,1)',
               }}
             >
               <img
