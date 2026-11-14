@@ -217,6 +217,25 @@ function Viewer({ shots, title, onClose }: { shots: string[]; title: string; onC
     };
   }, [go, onClose]);
 
+  // The phone's Back button (or gesture) should close the picture, not leave the
+  // page. Opening adds a history entry for the viewer; going back removes it and
+  // closes, and closing any other way takes that entry away again.
+  useEffect(() => {
+    window.history.pushState({ ...(window.history.state ?? {}), viewer: true }, '');
+    let wentBack = false;
+    const onPop = (e: PopStateEvent) => {
+      // Still on a viewer entry (React's development double-mount lands here): stay open.
+      if ((e.state as { viewer?: boolean } | null)?.viewer) return;
+      wentBack = true;
+      onClose();
+    };
+    window.addEventListener('popstate', onPop);
+    return () => {
+      window.removeEventListener('popstate', onPop);
+      if (!wentBack && (window.history.state as { viewer?: boolean } | null)?.viewer) window.history.back();
+    };
+  }, [onClose]);
+
   // Fetch the neighbours ahead of time so stepping through never waits on the network.
   useEffect(() => {
     if (shots.length < 2) return;
