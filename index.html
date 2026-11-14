@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mohamed Mehdi Zitouni — Portfolio</title>
+    <title>Mohamed Mehdi Zitouni — Full Stack Developer · Data Science &amp; AI</title>
     <meta
       name="description"
-      content="Mohamed Mehdi Zitouni — Full Stack Developer, Data Science &amp; AI. Sixteen projects with screenshots: web, mobile and desktop apps, machine learning and IoT. In French, English and Arabic."
+      content="Mohamed Mehdi Zitouni — full stack developer in Constantine, Algeria. 16 web, mobile and desktop projects, machine learning and IoT, with real screenshots."
     />
 
     <meta name="theme-color" content="#05050b" />
@@ -15,8 +17,14 @@
     <meta name="color-scheme" content="dark light" />
     <meta name="format-detection" content="telephone=no" />
     <link rel="canonical" href="%SITE_URL%/" />
+    <!-- The same page in each language, so a search engine offers the right one -->
+    <link rel="alternate" hreflang="fr" href="%SITE_URL%/?lang=fr" />
+    <link rel="alternate" hreflang="en" href="%SITE_URL%/?lang=en" />
+    <link rel="alternate" hreflang="ar" href="%SITE_URL%/?lang=ar" />
+    <link rel="alternate" hreflang="x-default" href="%SITE_URL%/" />
     <link rel="manifest" href="/site.webmanifest" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="MMZ Portfolio" />
     <!-- Identity verification (IndieWeb / Mastodon rel="me") -->
     <link rel="me" href="https://github.com/mi2odev" />
 
@@ -26,7 +34,7 @@
     <meta property="og:title" content="Mohamed Mehdi Zitouni — Full Stack Developer" />
     <meta
       property="og:description"
-      content="Full Stack Developer · Data Science &amp; AI. Building ideas for a better tomorrow."
+      content="Mohamed Mehdi Zitouni — full stack developer in Constantine, Algeria. 16 web, mobile and desktop projects, machine learning and IoT, with real screenshots."
     />
     <meta property="og:url" content="%SITE_URL%/" />
     <meta property="og:locale" content="fr_FR" />
@@ -42,7 +50,7 @@
     <meta name="twitter:title" content="Mohamed Mehdi Zitouni — Full Stack Developer" />
     <meta
       name="twitter:description"
-      content="Full Stack Developer · Data Science &amp; AI. Building ideas for a better tomorrow."
+      content="Mohamed Mehdi Zitouni — full stack developer in Constantine, Algeria. 16 web, mobile and desktop projects, machine learning and IoT, with real screenshots."
     />
     <meta name="twitter:image" content="%SITE_URL%/og-image.jpg" />
     <meta name="twitter:image:alt" content="Mohamed Mehdi Zitouni — Full Stack Developer portfolio" />
@@ -79,25 +87,253 @@
       />
     </noscript>
 
-    <!-- Structured data: helps search engines show the profile as a person, not a page -->
+    <!-- Structured data: who this is, what the site is, and the list of projects -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Mohamed Mehdi Zitouni",
-        "url": "%SITE_URL%/",
-        "image": "%SITE_URL%/photo.webp",
-        "jobTitle": "Full Stack Developer",
-        "description": "Full Stack Developer and Master 2 student in Data Science & Intelligent Systems.",
-        "email": "mailto:mohamedmehdi.zitouni@univ-constantine2.dz",
-        "address": { "@type": "PostalAddress", "addressLocality": "Constantine", "addressCountry": "DZ" },
-        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Université Constantine 2 — Abdelhamid Mehri" },
-        "knowsLanguage": ["fr", "en", "ar"],
-        "knowsAbout": ["Web Development", "React", "TypeScript", "Data Science", "Machine Learning"],
-        "sameAs": [
-          "https://github.com/mi2odev",
-          "https://www.instagram.com/_.mi2o/",
-          "https://www.facebook.com/Mohamed.mehdi.zitouni"
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "%SITE_URL%/#person",
+            "name": "Mohamed Mehdi Zitouni",
+            "url": "%SITE_URL%/",
+            "image": "%SITE_URL%/photo.webp",
+            "jobTitle": "Full Stack Developer",
+            "description": "Full Stack Developer and Master 2 student in Data Science & Intelligent Systems.",
+            "email": "mailto:mohamedmehdi.zitouni@univ-constantine2.dz",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Constantine",
+              "addressCountry": "DZ"
+            },
+            "alumniOf": {
+              "@type": "CollegeOrUniversity",
+              "name": "Université Constantine 2 — Abdelhamid Mehri"
+            },
+            "knowsLanguage": ["fr", "en", "ar"],
+            "knowsAbout": [
+              "Web Development",
+              "React",
+              "React Native",
+              "TypeScript",
+              "Node.js",
+              "C# / .NET",
+              "Data Science",
+              "Machine Learning",
+              "IoT"
+            ],
+            "sameAs": [
+              "https://github.com/mi2odev",
+              "https://www.instagram.com/_.mi2o/",
+              "https://www.facebook.com/Mohamed.mehdi.zitouni"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "%SITE_URL%/#website",
+            "url": "%SITE_URL%/",
+            "name": "Mohamed Mehdi Zitouni — Portfolio",
+            "inLanguage": ["fr", "en", "ar"],
+            "author": {
+              "@id": "%SITE_URL%/#person"
+            }
+          },
+          {
+            "@type": "ItemList",
+            "@id": "%SITE_URL%/#projects",
+            "name": "Projects",
+            "numberOfItems": 16,
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                  "@type": "WebApplication",
+                  "name": "SIARA — Smart Incident & Accident Risk Assessment",
+                  "author": {
+                    "@id": "%SITE_URL%/#person"
+                  },
+                  "url": "https://siaraalgeria.vercel.app/"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                  "@type": "SoftwareApplication",
+                  "name": "mi2o Gaming Center — Management & POS",
+                  "author": {
+                    "@id": "%SITE_URL%/#person"
+                  },
+                  "url": "https://github.com/mi2odev/Gaming-Center-Management"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                  "@type": "SoftwareApplication",
+                  "name": "Tutoring Center — Private School Management",
+                  "author": {
+                    "@id": "%SITE_URL%/#person"
+                  },
+                  "url": "https://github.com/mi2odev/ecoleprive"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "item": {
+                  "@type": "MobileApplication",
+                  "name": "Subscription Watch — Subscription Tracker",
+                  "author": {
+                    "@id": "%SITE_URL%/#person"
+                  },
+                  "url": "https://github.com/mi2odev/subscription-watch-"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 5,
+                "item": {
+                  "@type": "MobileApplication",
+                  "name": "Weighpoint — Weight-Loss Tracker",
+                  "author": {
+                    "@id": "%SITE_URL%/#person"
+                  },
+                  "url": "https://github.com/mi2odev/weight-tracker"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 6,
+                "item": {
+                  "@type": "MobileApplication",
+                  "name": "E-Card — Two-Player Bluffing Card Game",
+                  "author": {
+                    "@id": "%SITE_URL%/#person"
+                  },
+                  "url": "https://github.com/mi2odev/e-card"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 7,
+                "item": {
+                  "@type": "WebApplication",
+                  "name": "JoJo & One Piece Personality Tests",
+                  "author": {
+                    "@id": "%SITE_URL%/#person"
+                  },
+                  "url": "https://jojomi2o.netlify.app/"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 8,
+                "item": {
+                  "@type": "CreativeWork",
+                  "name": "Sentiment Analysis — Amazon Reviews",
+                  "author": {
+                    "@id": "%SITE_URL%/#person"
+                  }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 9,
+                "item": {
+                  "@type": "CreativeWork",
+                  "name": "IoT-Based Smart Home Security System",
+                  "author": {
+                    "@id": "%SITE_URL%/#person"
+                  }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 10,
+                "item": {
+                  "@type": "CreativeWork",
+                  "name": "Multilingual Q&A Assistant for Course Materials",
+                  "author": {
+                    "@id": "%SITE_URL%/#person"
+                  }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 11,
+                "item": {
+                  "@type": "WebApplication",
+                  "name": "The Last Signal — Sci-Fi Typing Game",
+                  "author": {
+                    "@id": "%SITE_URL%/#person"
+                  },
+                  "url": "https://the-last-signal.netlify.app/"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 12,
+                "item": {
+                  "@type": "WebSite",
+                  "name": "Portfolio for a Bioprocess Engineer",
+                  "author": {
+                    "@id": "%SITE_URL%/#person"
+                  },
+                  "url": "https://mohcene-meradji.netlify.app/"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 13,
+                "item": {
+                  "@type": "MobileApplication",
+                  "name": "Imposter — Pass-the-Phone Party Game",
+                  "author": {
+                    "@id": "%SITE_URL%/#person"
+                  },
+                  "url": "https://github.com/mi2odev/the-imposter"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 14,
+                "item": {
+                  "@type": "CreativeWork",
+                  "name": "Delivery Management Platform",
+                  "author": {
+                    "@id": "%SITE_URL%/#person"
+                  }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 15,
+                "item": {
+                  "@type": "WebApplication",
+                  "name": "Hotel Reservation System",
+                  "author": {
+                    "@id": "%SITE_URL%/#person"
+                  },
+                  "url": "https://github.com/mi2odev/reservation"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 16,
+                "item": {
+                  "@type": "WebApplication",
+                  "name": "School Management System",
+                  "author": {
+                    "@id": "%SITE_URL%/#person"
+                  },
+                  "url": "https://github.com/mi2odev/schoolsystem"
+                }
+              }
+            ]
+          }
         ]
       }
     </script>

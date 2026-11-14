@@ -1,4 +1,4 @@
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { CONTENT, PROFILE, SKILL_CHIPS, TECH_MARQUEE, type Lang } from '../data/content';
@@ -105,6 +105,42 @@ describe('projects', () => {
         expect(item.bullets.length, `${lang} · ${item.id}`).toBeGreaterThan(0);
         expect(item.tags.length, `${lang} · ${item.id}`).toBeGreaterThan(0);
       }
+    }
+  });
+});
+
+describe('search and sharing', () => {
+  const html = readFileSync(resolve(__dirname, '../../index.html'), 'utf8');
+
+  it.each(LANGS)('keeps the %s description within what a search result shows', (lang) => {
+    const { length } = CONTENT[lang].seo.description;
+    expect(length).toBeGreaterThanOrEqual(150);
+    expect(length).toBeLessThanOrEqual(160);
+  });
+
+  it('lists every project in the structured data', () => {
+    const json = html.slice(
+      html.indexOf('{', html.indexOf('application/ld+json')),
+      html.indexOf('</script>', html.indexOf('application/ld+json')),
+    );
+    const graph = JSON.parse(json)['@graph'] as { '@type': string; itemListElement?: unknown[] }[];
+    expect(graph.map((node) => node['@type'])).toEqual(['Person', 'WebSite', 'ItemList']);
+    expect(graph[2].itemListElement).toHaveLength(PROJECT_IDS.length);
+  });
+
+  it('ships the icons the page and the manifest point at', () => {
+    const manifest = JSON.parse(
+      readFileSync(resolve(__dirname, '../../public/site.webmanifest'), 'utf8'),
+    ) as { icons: { src: string }[] };
+    const files = [
+      ...manifest.icons.map((icon) => icon.src),
+      '/apple-touch-icon.png',
+      '/favicon-32.png',
+      '/robots.txt',
+      '/sitemap.xml',
+    ];
+    for (const file of files) {
+      expect(existsSync(resolve(__dirname, '../../public', `.${file}`)), `${file} is missing`).toBe(true);
     }
   });
 });
