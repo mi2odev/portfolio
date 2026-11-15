@@ -47,7 +47,7 @@ const GAMER: Record<Lang, GamerVocab> = {
     hero: { kicker: 'JOUEUR 01 — PRÊT', start: 'Démarrer la quête', loadout: 'Loadout (CV)', regionLabel: 'Serveur', guildLabel: 'Guilde', statusLabel: 'Statut', statusVal: 'En ligne · Dispo' },
     playerCard: { class: 'Full-Stack Dev · Mage de la Data', lvlLabel: 'NIVEAU', rank: 'Légendaire', online: 'en ligne', statsLabel: 'Attributs' },
     aboutLabel: 'Dossier Joueur',
-    aboutBody: 'Master 2 Sciences des Données & Systèmes Intelligents. Je transforme des idées en produits — du pixel jusqu’au modèle.',
+    aboutBody: 'Master en Sciences des Données & Systèmes Intelligents. Je transforme des idées en produits — du pixel jusqu’au modèle.',
     skills: { label: 'Arbre de compétences', heading: 'Compétences débloquées & équipement.', unlocked: 'débloquées', comms: 'Communication / Langues' },
     work: { label: 'Journal de quêtes', heading: 'Quêtes accomplies & en cours.', loot: 'Butin', enter: 'Entrer' },
     edu: { label: 'Succès débloqués', heading: 'Progression de la campagne.', unlocked: 'Succès débloqué' },

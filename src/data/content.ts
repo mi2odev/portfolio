@@ -148,18 +148,19 @@ export const CONTENT: Record<Lang, Content> = {
       ctaContact: 'Me contacter',
       ctaCV: 'Télécharger le CV',
       loc: 'Constantine, Algérie',
-      role2: 'Master 2 · SDSI',
+      role2: 'Master · SDSI',
       name: { n1: 'Mohamed', n2: 'Mehdi', n3: 'Zitouni' },
       locLabel: 'Localisation',
       progLabel: 'Programme',
     },
     about: {
       label: 'À propos',
-      heading: 'Étudiant en Master 2, développeur full stack et passionné d’intelligence artificielle.',
+      heading:
+        'Développeur full stack, diplômé d’un Master en science des données et passionné d’intelligence artificielle.',
       body: 'Développeur full stack, en freelance depuis 2023 : je conçois et livre des sites et des applications de bout en bout — interfaces React, TypeScript et React Native, back-ends Node.js, Laravel, Django ou Spring Boot, et applications de bureau C# / .NET hors ligne quand une entreprise en a besoin. Côté data, je m’appuie sur des projets concrets de machine learning et de big data (scikit-learn, LightGBM, PySpark, Hadoop) menés pendant mon Master en Sciences des Données & Systèmes Intelligents. Je travaille en français, en anglais et en arabe.',
       facts: [
         { k: 'Localisation', v: 'Constantine, DZ' },
-        { k: 'Formation', v: 'Master 2 — SDSI' },
+        { k: 'Diplôme', v: 'Master — SDSI' },
         { k: 'Focus', v: 'Web · IA / ML' },
         { k: 'Statut', v: 'Freelance · Stage' },
       ],
@@ -187,7 +188,7 @@ export const CONTENT: Record<Lang, Content> = {
       heading: 'Parcours académique.',
       items: [
         {
-          period: '2024 – Présent',
+          period: '2024 – 2026',
           degree: 'Master — Sciences des Données & Systèmes Intelligents',
           school: 'Université Constantine 2 · Abdelhamid Mehri',
           modules: [
@@ -256,11 +257,11 @@ export const CONTENT: Record<Lang, Content> = {
     },
     about: {
       label: 'About',
-      heading: "Master's student, full stack developer and AI enthusiast.",
+      heading: "Full stack developer with a Master's in data science, and an AI enthusiast.",
       body: "Full stack developer, freelancing since 2023: I design and ship websites and apps end to end — React, TypeScript and React Native front ends, Node.js, Laravel, Django or Spring Boot back ends, and offline C# / .NET desktop apps when a business needs one. On the data side I draw on hands-on machine learning and big data projects (scikit-learn, LightGBM, PySpark, Hadoop) from my Master's in Data Science & Intelligent Systems. I work in French, English and Arabic.",
       facts: [
         { k: 'Location', v: 'Constantine, DZ' },
-        { k: 'Studying', v: 'MSc — Data Science' },
+        { k: 'Degree', v: 'MSc — Data Science' },
         { k: 'Focus', v: 'Web · AI / ML' },
         { k: 'Status', v: 'Freelance · Intern' },
       ],
@@ -282,7 +283,7 @@ export const CONTENT: Record<Lang, Content> = {
       heading: 'Academic background.',
       items: [
         {
-          period: '2024 – Present',
+          period: '2024 – 2026',
           degree: "Master's — Data Science & Intelligent Systems",
           school: 'Constantine 2 University · Abdelhamid Mehri',
           modules: [
@@ -338,18 +339,18 @@ export const CONTENT: Record<Lang, Content> = {
       ctaContact: 'تواصل معي',
       ctaCV: 'تحميل السيرة الذاتية',
       loc: 'قسنطينة، الجزائر',
-      role2: 'ماستر 2 · SDSI',
+      role2: 'ماستر · SDSI',
       name: { n1: 'محمد', n2: 'مهدي', n3: 'زيتوني' },
       locLabel: 'الموقع',
       progLabel: 'البرنامج',
     },
     about: {
       label: 'نبذة',
-      heading: 'طالب ماستر 2، مطوّر full stack وشغوف بالذكاء الاصطناعي.',
+      heading: 'مطوّر full stack حاصل على ماستر في علم البيانات، وشغوف بالذكاء الاصطناعي.',
       body: 'مطوّر full stack أعمل بشكل حر منذ 2023: أصمّم وأنجز المواقع والتطبيقات من البداية إلى النهاية — واجهات بـ React و TypeScript و React Native، وخوادم بـ Node.js أو Laravel أو Django أو Spring Boot، وتطبيقات سطح مكتب بـ C# / .NET تعمل دون إنترنت عندما تحتاجها المؤسسة. وفي جانب البيانات أعتمد على مشاريع فعلية في تعلّم الآلة والبيانات الضخمة (scikit-learn و LightGBM و PySpark و Hadoop) أنجزتها خلال ماستر علم البيانات والأنظمة الذكية. أعمل بالعربية والفرنسية والإنجليزية.',
       facts: [
         { k: 'الموقع', v: 'قسنطينة، الجزائر' },
-        { k: 'التكوين', v: 'ماستر 2 — SDSI' },
+        { k: 'الشهادة', v: 'ماستر — SDSI' },
         { k: 'التخصص', v: 'ويب · ذكاء اصطناعي / ML' },
         { k: 'الحالة', v: 'عمل حر · تربّص' },
       ],
@@ -383,7 +384,7 @@ export const CONTENT: Record<Lang, Content> = {
       heading: 'المسار الأكاديمي.',
       items: [
         {
-          period: '2024 – حتى الآن',
+          period: '2024 – 2026',
           degree: 'ماستر — علم البيانات والأنظمة الذكية',
           school: 'جامعة قسنطينة 2 · عبد الحميد مهري',
           modules: [

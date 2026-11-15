@@ -40,7 +40,7 @@ const BP: Record<Lang, BPVocab> = {
     nav: { about: 'Aperçu', skills: 'Spécifs', work: 'Plans', edu: 'Révisions', contact: 'Validation' },
     hero: { stamp: 'Bon pour réalisation', discipline: 'DISCIPLINE — DÉV. WEB & IA', start: 'Demander un devis', cv: 'Télécharger le CV', subject: 'sujet' },
     aboutLabel: 'Aperçu',
-    aboutBody: 'Master 2 Sciences des Données & Systèmes Intelligents. Je transforme des idées en produits — du pixel jusqu’au modèle, avec rigueur et précision.',
+    aboutBody: 'Master en Sciences des Données & Systèmes Intelligents. Je transforme des idées en produits — du pixel jusqu’au modèle, avec rigueur et précision.',
     skills: { label: 'Spécifications', heading: 'Nomenclature technique.', colItem: 'Réf', colQty: 'Qté', colCat: 'Catégorie', colDesc: 'Composants', comms: 'Langues / Communication' },
     work: { label: 'Plans', heading: 'Plans & projets sélectionnés.', notes: 'Notes', spec: 'Spéc' },
     edu: { label: 'Révisions', heading: 'Historique des révisions.', colRev: 'Rév', colDate: 'Date', colDesc: 'Description' },
