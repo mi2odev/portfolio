@@ -89,7 +89,7 @@ export default function Editorial({ index, onChange }: VersionProps) {
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: c.accent, boxShadow: '0 0 0 3px rgba(229,66,30,0.2)' }} />{t.status}
           </span>
           <span style={{ flex: 1, height: 1.5, background: c.hair2 }} />
-          <span style={{ fontFamily: mono, fontSize: 11.5, color: c.faint, whiteSpace: 'nowrap' }}>CONSTANTINE · DZ — 36.36°N</span>
+          <span style={{ fontFamily: mono, fontSize: 11.5, color: c.faint, whiteSpace: 'nowrap' }}>CONSTANTINE · DZ · 36.36°N</span>
         </div>
 
         <div className="edi-hero" style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) 360px', gap: '40px 54px', alignItems: 'start', marginTop: 34, paddingBottom: 64 }}>
@@ -265,7 +265,7 @@ export default function Editorial({ index, onChange }: VersionProps) {
         <Reveal style={{ position: 'relative', border: `1.5px solid ${c.ink}`, background: c.ink, color: c.paper, padding: 'clamp(40px,6vw,76px) clamp(26px,5vw,64px)', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: -40, right: -40, width: 200, height: 200, border: '1.5px solid rgba(242,237,227,0.18)', borderRadius: '50%', pointerEvents: 'none' }} />
           <div style={{ position: 'absolute', top: 24, right: 30, fontFamily: mono, fontSize: 34, color: c.accent, animation: 'spin 14s linear infinite', transformOrigin: 'center' }}>✱</div>
-          <div style={{ fontFamily: mono, fontSize: 13, color: c.accent, marginBottom: 22, textTransform: 'uppercase', letterSpacing: '.06em' }}>(05) — {t.contact.label}</div>
+          <div style={{ fontFamily: mono, fontSize: 13, color: c.accent, marginBottom: 22, textTransform: 'uppercase', letterSpacing: '.06em' }}>(05) · {t.contact.label}</div>
           <h2 style={{ fontSize: 'clamp(36px,6.4vw,82px)', fontWeight: 800, letterSpacing: '-.035em', lineHeight: 0.94, textTransform: 'uppercase', marginBottom: 24, textWrap: 'balance' }}>{t.contact.heading}</h2>
           <p style={{ fontSize: 17, lineHeight: 1.7, color: 'rgba(242,237,227,0.66)', maxWidth: 500, marginBottom: 36, textWrap: 'pretty' }}>{t.contact.body}</p>
           <Hover as="a" href={PROFILE.mailto} base={{ display: 'inline-block', fontFamily: mono, fontSize: 'clamp(16px,2.6vw,28px)', fontWeight: 700, color: c.paper, textDecoration: 'none', borderBottom: `2px solid ${c.accent}`, paddingBottom: 5, transition: 'color .2s', wordBreak: 'break-all', marginBottom: 34 }} hover={{ color: c.accent }}>{PROFILE.email}</Hover>

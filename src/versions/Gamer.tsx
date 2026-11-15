@@ -44,10 +44,10 @@ interface GamerVocab {
 const GAMER: Record<Lang, GamerVocab> = {
   fr: {
     nav: { about: 'Profil', skills: 'Skills', work: 'Quêtes', edu: 'Succès', contact: 'Co-op' },
-    hero: { kicker: 'JOUEUR 01 — PRÊT', start: 'Démarrer la quête', loadout: 'Loadout (CV)', regionLabel: 'Serveur', guildLabel: 'Guilde', statusLabel: 'Statut', statusVal: 'En ligne · Dispo' },
+    hero: { kicker: 'JOUEUR 01 · PRÊT', start: 'Démarrer la quête', loadout: 'Loadout (CV)', regionLabel: 'Serveur', guildLabel: 'Guilde', statusLabel: 'Statut', statusVal: 'En ligne · Dispo' },
     playerCard: { class: 'Full-Stack Dev · Mage de la Data', lvlLabel: 'NIVEAU', rank: 'Légendaire', online: 'en ligne', statsLabel: 'Attributs' },
     aboutLabel: 'Dossier Joueur',
-    aboutBody: 'Master en Sciences des Données & Systèmes Intelligents. Je transforme des idées en produits — du pixel jusqu’au modèle.',
+    aboutBody: 'Master en Sciences des Données & Systèmes Intelligents. Je transforme des idées en produits, du pixel jusqu’au modèle.',
     skills: { label: 'Arbre de compétences', heading: 'Compétences débloquées & équipement.', unlocked: 'débloquées', comms: 'Communication / Langues' },
     work: { label: 'Journal de quêtes', heading: 'Quêtes accomplies & en cours.', loot: 'Butin', enter: 'Entrer' },
     edu: { label: 'Succès débloqués', heading: 'Progression de la campagne.', unlocked: 'Succès débloqué' },
@@ -59,10 +59,10 @@ const GAMER: Record<Lang, GamerVocab> = {
   },
   en: {
     nav: { about: 'Profile', skills: 'Skills', work: 'Quests', edu: 'Achievements', contact: 'Co-op' },
-    hero: { kicker: 'PLAYER 01 — READY', start: 'Start quest', loadout: 'Loadout (CV)', regionLabel: 'Server', guildLabel: 'Guild', statusLabel: 'Status', statusVal: 'Online · Open' },
+    hero: { kicker: 'PLAYER 01 · READY', start: 'Start quest', loadout: 'Loadout (CV)', regionLabel: 'Server', guildLabel: 'Guild', statusLabel: 'Status', statusVal: 'Online · Open' },
     playerCard: { class: 'Full-Stack Dev · Data Mage', lvlLabel: 'LEVEL', rank: 'Legendary', online: 'online', statsLabel: 'Attributes' },
     aboutLabel: 'Player File',
-    aboutBody: "Master's in Data Science & Intelligent Systems. I turn ideas into products — from the pixel all the way to the model.",
+    aboutBody: "Master's in Data Science & Intelligent Systems. I turn ideas into products, from the pixel all the way to the model.",
     skills: { label: 'Skill tree', heading: 'Unlocked skills & equipment.', unlocked: 'unlocked', comms: 'Comms / Languages' },
     work: { label: 'Quest log', heading: 'Quests cleared & in progress.', loot: 'Loot', enter: 'Enter' },
     edu: { label: 'Achievements unlocked', heading: 'Campaign progression.', unlocked: 'Achievement unlocked' },
@@ -74,10 +74,10 @@ const GAMER: Record<Lang, GamerVocab> = {
   },
   ar: {
     nav: { about: 'الملف', skills: 'المهارات', work: 'المهام', edu: 'الإنجازات', contact: 'تعاون' },
-    hero: { kicker: 'اللاعب 01 — جاهز', start: 'ابدأ المهمة', loadout: 'العتاد (CV)', regionLabel: 'الخادم', guildLabel: 'النقابة', statusLabel: 'الحالة', statusVal: 'متصل · متاح' },
+    hero: { kicker: 'اللاعب 01 · جاهز', start: 'ابدأ المهمة', loadout: 'العتاد (CV)', regionLabel: 'الخادم', guildLabel: 'النقابة', statusLabel: 'الحالة', statusVal: 'متصل · متاح' },
     playerCard: { class: 'مطوّر Full-Stack · ساحر البيانات', lvlLabel: 'المستوى', rank: 'أسطوري', online: 'متصل', statsLabel: 'الصفات' },
     aboutLabel: 'ملف اللاعب',
-    aboutBody: 'ماستر علم البيانات والأنظمة الذكية. أحوّل الأفكار إلى منتجات — من البكسل وصولاً إلى النموذج.',
+    aboutBody: 'ماستر علم البيانات والأنظمة الذكية. أحوّل الأفكار إلى منتجات، من البكسل وصولاً إلى النموذج.',
     skills: { label: 'شجرة المهارات', heading: 'مهارات وعتاد مفتوحان.', unlocked: 'مفتوحة', comms: 'التواصل / اللغات' },
     work: { label: 'سجلّ المهام', heading: 'مهام مكتملة وقيد التنفيذ.', loot: 'الغنيمة', enter: 'دخول' },
     edu: { label: 'الإنجازات المفتوحة', heading: 'تقدّم الحملة.', unlocked: 'إنجاز مفتوح' },
@@ -435,7 +435,7 @@ export default function Gamer({ index, onChange }: VersionProps) {
           <div style={{ position: 'relative', background: '#0A0E16', padding: 'clamp(40px,5.5vw,78px) clamp(26px,5vw,70px)', clipPath: clip(25), overflow: 'hidden' }}>
             <div data-contact-blob style={{ position: 'absolute', top: '-30%', right: '-8%', width: '48%', height: '160%', background: 'radial-gradient(circle at center, rgba(182,255,60,0.22), transparent 62%)', filter: 'blur(70px)', pointerEvents: 'none', transition: 'transform .4s cubic-bezier(.2,.7,.2,1)' }} />
             <div style={{ position: 'relative', zIndex: 1 }}>
-              <div style={{ fontFamily: mono, fontSize: 12, marginBottom: 20, textTransform: 'uppercase', letterSpacing: '.16em', color: col.lime }}>// 05 — {g.contact.label}</div>
+              <div style={{ fontFamily: mono, fontSize: 12, marginBottom: 20, textTransform: 'uppercase', letterSpacing: '.16em', color: col.lime }}>// 05 · {g.contact.label}</div>
               <h2 style={{ fontFamily: display, fontSize: 'clamp(38px,6.5vw,84px)', fontWeight: 700, letterSpacing: '-.01em', lineHeight: 0.96, marginBottom: 20, textWrap: 'balance', textTransform: 'uppercase' }}>{g.contact.heading}</h2>
               <p style={{ fontSize: 17, lineHeight: 1.6, color: col.ink2, maxWidth: 500, marginBottom: 30, textWrap: 'pretty', fontWeight: 500 }}>{t.contact.body}</p>
               <div style={{ fontFamily: mono, fontSize: 10, color: col.faint, letterSpacing: '.1em', textTransform: 'uppercase', marginBottom: 8 }}>{g.contact.invite}</div>

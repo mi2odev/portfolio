@@ -295,7 +295,7 @@ export default function Manga({ index, onChange }: VersionProps) {
   const sectionWrap: CSSProperties = { position: 'relative', zIndex: 2, padding: '0 18px 30px', scrollMarginTop: 84 };
 
   const PageNo = ({ n }: { n: number }) => (
-    <div style={{ textAlign: 'center', marginTop: 16, fontFamily: mono, fontSize: 11, letterSpacing: '.3em', color: c.ink2 }}>— {String(n).padStart(3, '0')} —</div>
+    <div style={{ textAlign: 'center', marginTop: 16, fontFamily: mono, fontSize: 11, letterSpacing: '.3em', color: c.ink2 }}>· {String(n).padStart(3, '0')} ·</div>
   );
 
   return (

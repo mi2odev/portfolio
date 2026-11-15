@@ -28,7 +28,7 @@ export function VersionAnnouncer({ index }: { index: number }) {
       return;
     }
     const theme = THEMES[index];
-    if (theme) setMessage(`${theme.kind} design — version ${index + 1} of ${THEMES.length}`);
+    if (theme) setMessage(`${theme.kind} design, version ${index + 1} of ${THEMES.length}`);
   }, [index]);
 
   return (

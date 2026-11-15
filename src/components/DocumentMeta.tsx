@@ -21,11 +21,11 @@ export function DocumentMeta({ versionIndex }: { versionIndex: number }) {
     const name = `${t.hero.name.n1} ${t.hero.name.n2} ${t.hero.name.n3}`;
     const design = THEMES[versionIndex]?.kind;
 
-    document.title = design ? `${name} — ${t.hero.eyebrow} · ${design}` : `${name} — ${t.hero.eyebrow}`;
+    document.title = design ? `${name} | ${t.hero.eyebrow} · ${design}` : `${name} | ${t.hero.eyebrow}`;
     setMeta('meta[name="description"]', t.seo.description);
-    setMeta('meta[property="og:title"]', `${name} — ${t.hero.eyebrow}`);
+    setMeta('meta[property="og:title"]', `${name} | ${t.hero.eyebrow}`);
     setMeta('meta[property="og:description"]', t.seo.description);
-    setMeta('meta[name="twitter:title"]', `${name} — ${t.hero.eyebrow}`);
+    setMeta('meta[name="twitter:title"]', `${name} | ${t.hero.eyebrow}`);
     setMeta('meta[name="twitter:description"]', t.seo.description);
     // The browser's own chrome (address bar on phones) takes the colour of the design on screen.
     setMeta('meta[name="theme-color"]', (PAGE_TONES[versionIndex] ?? PAGE_TONES[0]).bg);

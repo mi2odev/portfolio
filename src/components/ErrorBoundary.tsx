@@ -53,7 +53,7 @@ export class ErrorBoundary extends Component<Props, State> {
             This view failed to render.
           </h1>
           <p style={{ fontSize: 13.5, lineHeight: 1.7, color: 'rgba(234,240,255,0.66)' }}>
-            The rest of the portfolio still works — reload, or jump back to the first design.
+            The rest of the portfolio still works. Reload, or jump back to the first design.
           </p>
           <button
             type="button"

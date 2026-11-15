@@ -288,7 +288,7 @@ export default function Terminal({ index, onChange }: VersionProps) {
       {/* contact */}
       <section id="contact" style={{ position: 'relative', zIndex: 1, maxWidth: 1180, margin: '0 auto', padding: '40px 28px 70px', scrollMarginTop: 80 }}>
         <Reveal style={{ border: `1px solid ${c.lineStrong}`, borderRadius: 16, background: 'radial-gradient(circle at 50% 0%, rgba(198,242,78,0.07), transparent 60%), rgba(255,255,255,0.015)', padding: 'clamp(40px,6vw,72px) 28px', textAlign: 'center' }}>
-          <div style={{ fontFamily: mono, fontSize: 13, color: c.accent, marginBottom: 18 }}>// 05 — {t.contact.label}</div>
+          <div style={{ fontFamily: mono, fontSize: 13, color: c.accent, marginBottom: 18 }}>// 05 · {t.contact.label}</div>
           <h2 style={{ fontSize: 'clamp(32px,5.2vw,58px)', fontWeight: 700, letterSpacing: '-.03em', lineHeight: 1.02, marginBottom: 20 }}>{t.contact.heading}</h2>
           <p style={{ fontSize: 16.5, lineHeight: 1.7, color: c.muted, maxWidth: 480, margin: '0 auto 34px', textWrap: 'pretty' }}>{t.contact.body}</p>
           <Hover as="a" href={PROFILE.mailto} base={{ display: 'inline-block', fontSize: 'clamp(17px,2.4vw,26px)', fontWeight: 600, color: c.txt, textDecoration: 'none', borderBottom: `1.5px solid ${c.lineStrong}`, paddingBottom: 4, transition: 'color .2s, border-color .2s', wordBreak: 'break-all', marginBottom: 32 }} hover={{ color: c.accent, borderColor: c.accent }}>{PROFILE.email}</Hover>

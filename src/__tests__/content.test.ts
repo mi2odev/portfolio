@@ -36,6 +36,12 @@ describe('content bundles', () => {
     expect(empties).toHaveLength(0);
   });
 
+  it.each(LANGS)('uses no long dashes in %s copy', (lang) => {
+    // House style: commas, colons and full stops. An em dash in the middle of a sentence reads as machine-written.
+    const dashed = strings(CONTENT[lang]).filter((s) => s.includes('—'));
+    expect(dashed).toEqual([]);
+  });
+
   it('keeps the same shape across every translation', () => {
     const reference = shape(CONTENT.fr);
     for (const lang of LANGS.slice(1)) {

@@ -61,7 +61,7 @@ export function ProjectShot({ src, gallery, title, frame, img, imgHover, style }
         onMouseLeave={() => setHot(false)}
         onFocus={() => setHot(true)}
         onBlur={() => setHot(false)}
-        aria-label={`${title} — ${shots.length > 1 ? `${shots.length} screenshots` : 'screenshot'}`}
+        aria-label={`${title}, ${shots.length > 1 ? `${shots.length} screenshots` : 'screenshot'}`}
         ref={box}
         className={loaded ? 'shot' : 'shot skeleton'}
         style={{
@@ -356,7 +356,7 @@ function Viewer({ shots, title, onClose }: { shots: string[]; title: string; onC
           key={shots[at]}
           className={`viewer-shot viewer-shot-${dir}`}
           src={shots[at]}
-          alt={many ? `${title} — ${at + 1} / ${shots.length}` : title}
+          alt={many ? `${title}, ${at + 1} / ${shots.length}` : title}
           onLoad={() => setLoaded(true)}
           onError={() => setLoaded(true)}
           onClick={stop}

@@ -149,7 +149,7 @@ const BASE: BaseProject[] = [
 const TEXT: Record<Lang, Record<string, ProjectText>> = {
   fr: {
     siara: {
-      title: 'SIARA — Évaluation intelligente du risque d’accidents',
+      title: 'SIARA : Évaluation intelligente du risque d’accidents',
       role: 'Projet de mémoire de Master',
       period: '2025 – 2026',
       bullets: [
@@ -160,7 +160,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     sentiment: {
-      title: 'Analyse de sentiments — Avis Amazon',
+      title: 'Analyse de sentiments : Avis Amazon',
       role: 'Projet Machine Learning · Big Data & NoSQL',
       period: 'Mars – Mai 2025',
       bullets: [
@@ -174,7 +174,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       period: '2025',
       bullets: [
         'Système de détection d’intrusion pour maison connectée avec ESP32, capteurs PIR, MQTT et services AWS.',
-        'Pipeline événementiel complet : AWS IoT Core, Lambda, SNS, DynamoDB, CloudWatch et Grafana — alertes automatiques, stockage des événements et dashboard.',
+        'Pipeline événementiel complet : AWS IoT Core, Lambda, SNS, DynamoDB, CloudWatch et Grafana, pour les alertes automatiques, le stockage des événements et le dashboard.',
         'Dispositifs et réseau simulés avec Wokwi et Cisco Packet Tracer.',
       ],
     },
@@ -196,7 +196,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     'subscription-watch': {
-      title: 'Subscription Watch — suivi d’abonnements',
+      title: 'Subscription Watch : suivi d’abonnements',
       role: 'Application mobile · Projet personnel',
       period: '2026',
       bullets: [
@@ -206,7 +206,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     'gaming-center': {
-      title: 'mi2o Gaming Center — gestion & caisse',
+      title: 'mi2o Gaming Center : gestion & caisse',
       role: 'Application de bureau Windows',
       period: '2026',
       bullets: [
@@ -216,7 +216,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     'tutoring-center': {
-      title: 'Centre de soutien — gestion d’école privée',
+      title: 'Centre de soutien : gestion d’école privée',
       role: 'Application de bureau · Projet client',
       period: '2026',
       bullets: [
@@ -226,17 +226,17 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     weighpoint: {
-      title: 'Weighpoint — suivi de perte de poids',
+      title: 'Weighpoint : suivi de perte de poids',
       role: 'Application mobile · Projet personnel',
       period: '2026',
       bullets: [
-        'Application de suivi : pesée quotidienne, habitudes, objectifs, mensurations et photos de progression — toutes les données restent sur l’appareil.',
+        'Application de suivi : pesée quotidienne, habitudes, objectifs, mensurations et photos de progression. Toutes les données restent sur l’appareil.',
         'Courbes de tendance, barres de perte hebdomadaire, carte de chaleur des habitudes, projections et date d’objectif estimée.',
         'Export CSV, sauvegarde et restauration, verrouillage de l’app ; 377 tests sur les calculs, unités et règles de rappel.',
       ],
     },
     'e-card': {
-      title: 'E-Card — jeu de cartes de bluff à deux',
+      title: 'E-Card : jeu de cartes de bluff à deux',
       role: 'Jeu mobile · Projet personnel',
       period: '2026',
       bullets: [
@@ -246,7 +246,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     imposter: {
-      title: 'Imposter — jeu de société sur téléphone',
+      title: 'Imposter : jeu de société sur téléphone',
       role: 'Jeu mobile · Projet personnel',
       period: '2026',
       bullets: [
@@ -255,7 +255,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     'last-signal': {
-      title: 'The Last Signal — jeu de dactylographie sci-fi',
+      title: 'The Last Signal : jeu de dactylographie sci-fi',
       role: 'Jeu web · Projet personnel',
       period: '2026',
       bullets: [
@@ -303,7 +303,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
 
   en: {
     siara: {
-      title: 'SIARA — Smart Incident & Accident Risk Assessment',
+      title: 'SIARA: Smart Incident & Accident Risk Assessment',
       role: "Master's Thesis Project",
       period: '2025 – 2026',
       bullets: [
@@ -314,7 +314,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     sentiment: {
-      title: 'Sentiment Analysis — Amazon Reviews',
+      title: 'Sentiment Analysis: Amazon Reviews',
       role: 'Machine Learning Project · Big Data & NoSQL',
       period: 'Mar – May 2025',
       bullets: [
@@ -328,7 +328,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       period: '2025',
       bullets: [
         'A smart-home intrusion detection system using ESP32, PIR sensors, MQTT and AWS services.',
-        'A complete event-driven pipeline — AWS IoT Core, Lambda, SNS, DynamoDB, CloudWatch and Grafana — for automated alerts, event storage and a live dashboard.',
+        'A complete event-driven pipeline with AWS IoT Core, Lambda, SNS, DynamoDB, CloudWatch and Grafana, for automated alerts, event storage and a live dashboard.',
         'Devices and network simulated with Wokwi and Cisco Packet Tracer.',
       ],
     },
@@ -350,7 +350,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     'subscription-watch': {
-      title: 'Subscription Watch — Subscription Tracker',
+      title: 'Subscription Watch: Subscription Tracker',
       role: 'Mobile App · Personal Project',
       period: '2026',
       bullets: [
@@ -360,7 +360,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     'gaming-center': {
-      title: 'mi2o Gaming Center — Management & POS',
+      title: 'mi2o Gaming Center: Management & POS',
       role: 'Windows Desktop App',
       period: '2026',
       bullets: [
@@ -370,7 +370,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     'tutoring-center': {
-      title: 'Tutoring Center — Private School Management',
+      title: 'Tutoring Center: Private School Management',
       role: 'Desktop App · Client Project',
       period: '2026',
       bullets: [
@@ -380,27 +380,27 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     weighpoint: {
-      title: 'Weighpoint — Weight-Loss Tracker',
+      title: 'Weighpoint: Weight-Loss Tracker',
       role: 'Mobile App · Personal Project',
       period: '2026',
       bullets: [
-        'A tracking app: daily weigh-ins, habits, targets, body measurements and progress photos — all data stays on the device.',
+        'A tracking app: daily weigh-ins, habits, targets, body measurements and progress photos. All data stays on the device.',
         'Trend lines, weekly loss bars, a habit heat map, projections and an estimated goal date.',
         'CSV export, backup and restore, app lock; 377 tests covering calculations, units and reminder rules.',
       ],
     },
     'e-card': {
-      title: 'E-Card — Two-Player Bluffing Card Game',
+      title: 'E-Card: Two-Player Bluffing Card Game',
       role: 'Mobile Game · Personal Project',
       period: '2026',
       bullets: [
-        'A bluffing game for two players — Emperor, Citizen, Slave — with wagers and a purse to manage over twelve rounds.',
+        'A bluffing game for two players (Emperor, Citizen, Slave) with wagers and a purse to manage over twelve rounds.',
         'Plays on one phone or on two phones over Wi-Fi; the host referees the match and never sends the opponent’s hidden hand.',
         'Recovers from dropped connections, with a self-test suite covering the rules, the money and a whole online match.',
       ],
     },
     imposter: {
-      title: 'Imposter — Pass-the-Phone Party Game',
+      title: 'Imposter: Pass-the-Phone Party Game',
       role: 'Mobile Game · Personal Project',
       period: '2026',
       bullets: [
@@ -409,7 +409,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     'last-signal': {
-      title: 'The Last Signal — Sci-Fi Typing Game',
+      title: 'The Last Signal: Sci-Fi Typing Game',
       role: 'Web Game · Personal Project',
       period: '2026',
       bullets: [
@@ -457,7 +457,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
 
   ar: {
     siara: {
-      title: 'SIARA — التقييم الذكي لمخاطر الحوادث',
+      title: 'SIARA: التقييم الذكي لمخاطر الحوادث',
       role: 'مشروع مذكرة الماستر',
       period: '2025 – 2026',
       bullets: [
@@ -468,7 +468,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     sentiment: {
-      title: 'تحليل المشاعر — مراجعات أمازون',
+      title: 'تحليل المشاعر: مراجعات أمازون',
       role: 'مشروع تعلّم آلي · البيانات الضخمة و NoSQL',
       period: 'مارس – ماي 2025',
       bullets: [
@@ -482,7 +482,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       period: '2025',
       bullets: [
         'نظام كشف تسلّل للمنزل الذكي باستخدام ESP32 وحسّاسات PIR و MQTT وخدمات AWS.',
-        'خط معالجة كامل قائم على الأحداث: AWS IoT Core و Lambda و SNS و DynamoDB و CloudWatch و Grafana — تنبيهات آلية، تخزين الأحداث ولوحة متابعة حيّة.',
+        'خط معالجة كامل قائم على الأحداث: AWS IoT Core و Lambda و SNS و DynamoDB و CloudWatch و Grafana، من أجل التنبيهات الآلية وتخزين الأحداث ولوحة متابعة حيّة.',
         'محاكاة الأجهزة والشبكة باستخدام Wokwi و Cisco Packet Tracer.',
       ],
     },
@@ -504,7 +504,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     'subscription-watch': {
-      title: 'Subscription Watch — متابعة الاشتراكات',
+      title: 'Subscription Watch: متابعة الاشتراكات',
       role: 'تطبيق موبايل · مشروع شخصي',
       period: '2026',
       bullets: [
@@ -514,7 +514,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     'gaming-center': {
-      title: 'mi2o Gaming Center — إدارة ونقطة بيع',
+      title: 'mi2o Gaming Center: إدارة ونقطة بيع',
       role: 'تطبيق سطح مكتب لويندوز',
       period: '2026',
       bullets: [
@@ -524,7 +524,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     'tutoring-center': {
-      title: 'مركز الدعم — إدارة مدرسة خاصة',
+      title: 'مركز الدعم: إدارة مدرسة خاصة',
       role: 'تطبيق سطح مكتب · مشروع لعميل',
       period: '2026',
       bullets: [
@@ -534,17 +534,17 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     weighpoint: {
-      title: 'Weighpoint — متابعة إنقاص الوزن',
+      title: 'Weighpoint: متابعة إنقاص الوزن',
       role: 'تطبيق موبايل · مشروع شخصي',
       period: '2026',
       bullets: [
-        'تطبيق متابعة: وزن يومي، عادات، أهداف، قياسات الجسم وصور التقدّم — كل البيانات تبقى على الجهاز.',
+        'تطبيق متابعة: وزن يومي، عادات، أهداف، قياسات الجسم وصور التقدّم. كل البيانات تبقى على الجهاز.',
         'منحنيات الاتجاه، أعمدة الخسارة الأسبوعية، خريطة حرارية للعادات، توقّعات وتاريخ تقديري لبلوغ الهدف.',
         'تصدير CSV، نسخ احتياطي واسترجاع، قفل للتطبيق؛ 377 اختباراً للحسابات والوحدات وقواعد التذكير.',
       ],
     },
     'e-card': {
-      title: 'E-Card — لعبة ورق للخداع بين لاعبَين',
+      title: 'E-Card: لعبة ورق للخداع بين لاعبَين',
       role: 'لعبة موبايل · مشروع شخصي',
       period: '2026',
       bullets: [
@@ -554,7 +554,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     imposter: {
-      title: 'Imposter — لعبة جماعية على الهاتف',
+      title: 'Imposter: لعبة جماعية على الهاتف',
       role: 'لعبة موبايل · مشروع شخصي',
       period: '2026',
       bullets: [
@@ -563,7 +563,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
       ],
     },
     'last-signal': {
-      title: 'The Last Signal — لعبة كتابة بطابع الخيال العلمي',
+      title: 'The Last Signal: لعبة كتابة بطابع الخيال العلمي',
       role: 'لعبة ويب · مشروع شخصي',
       period: '2026',
       bullets: [

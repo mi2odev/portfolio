@@ -808,7 +808,7 @@ export default function NeuralMap({ index, onChange }: VersionProps) {
   return (
     <>
       {/* The map is a canvas: give the page the heading it would otherwise lack. */}
-      <h1 className="sr-only">Mohamed Mehdi Zitouni — {CONTENT[lang].hero.eyebrow}</h1>
+      <h1 className="sr-only">Mohamed Mehdi Zitouni, {CONTENT[lang].hero.eyebrow}</h1>
     <PortfolioV8
       index={index}
       onChange={onChange}

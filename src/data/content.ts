@@ -139,12 +139,12 @@ export const CONTENT: Record<Lang, Content> = {
       edu: 'Formation',
       contact: 'Contact',
     },
-    status: 'Disponible — Freelance',
+    status: 'Disponible · Freelance',
     hero: {
       eyebrow: 'Développeur Full Stack · Data Science & IA',
       eyebrowLabel: 'Rôle',
       tagline:
-        'Je conçois des applications web modernes et des solutions intelligentes — d’un front-end soigné jusqu’aux modèles de machine learning.',
+        'Je conçois des applications web modernes et des solutions intelligentes, d’un front-end soigné jusqu’aux modèles de machine learning.',
       ctaContact: 'Me contacter',
       ctaCV: 'Télécharger le CV',
       loc: 'Constantine, Algérie',
@@ -157,10 +157,10 @@ export const CONTENT: Record<Lang, Content> = {
       label: 'À propos',
       heading:
         'Développeur full stack, diplômé d’un Master en science des données et passionné d’intelligence artificielle.',
-      body: 'Développeur full stack, en freelance depuis 2023 : je conçois et livre des sites et des applications de bout en bout — interfaces React, TypeScript et React Native, back-ends Node.js, Laravel, Django ou Spring Boot, et applications de bureau C# / .NET hors ligne quand une entreprise en a besoin. Côté data, je m’appuie sur des projets concrets de machine learning et de big data (scikit-learn, LightGBM, PySpark, Hadoop) menés pendant mon Master en Sciences des Données & Systèmes Intelligents. Je travaille en français, en anglais et en arabe.',
+      body: 'Développeur full stack, en freelance depuis 2023. Je conçois et livre des sites et des applications de bout en bout : interfaces React, TypeScript et React Native, back-ends Node.js, Laravel, Django ou Spring Boot, et applications de bureau C# / .NET hors ligne quand une entreprise en a besoin. Côté data, je m’appuie sur des projets concrets de machine learning et de big data (scikit-learn, LightGBM, PySpark, Hadoop) menés pendant mon Master en Sciences des Données & Systèmes Intelligents. Je travaille en français, en anglais et en arabe.',
       facts: [
         { k: 'Localisation', v: 'Constantine, DZ' },
-        { k: 'Diplôme', v: 'Master — SDSI' },
+        { k: 'Diplôme', v: 'Master · SDSI' },
         { k: 'Focus', v: 'Web · IA / ML' },
         { k: 'Statut', v: 'Freelance · Stage' },
       ],
@@ -189,7 +189,7 @@ export const CONTENT: Record<Lang, Content> = {
       items: [
         {
           period: '2024 – 2026',
-          degree: 'Master — Sciences des Données & Systèmes Intelligents',
+          degree: 'Master · Sciences des Données & Systèmes Intelligents',
           school: 'Université Constantine 2 · Abdelhamid Mehri',
           modules: [
             'Machine Learning',
@@ -202,7 +202,7 @@ export const CONTENT: Record<Lang, Content> = {
         },
         {
           period: '2021 – 2024',
-          degree: 'Licence — Informatique',
+          degree: 'Licence · Informatique',
           school: 'Université Larbi Ben M’Hidi · Oum El Bouaghi',
           modules: [
             'Structures de données',
@@ -241,12 +241,12 @@ export const CONTENT: Record<Lang, Content> = {
 
   en: {
     nav: { about: 'About', skills: 'Skills', work: 'Work', edu: 'Education', contact: 'Contact' },
-    status: 'Available — Freelance',
+    status: 'Available · Freelance',
     hero: {
       eyebrow: 'Full Stack Developer · Data Science & AI',
       eyebrowLabel: 'Role',
       tagline:
-        'I build modern web applications and intelligent solutions — from polished front-ends to machine-learning models.',
+        'I build modern web applications and intelligent solutions, from polished front-ends to machine-learning models.',
       ctaContact: 'Get in touch',
       ctaCV: 'Download CV',
       loc: 'Constantine, Algeria',
@@ -258,10 +258,10 @@ export const CONTENT: Record<Lang, Content> = {
     about: {
       label: 'About',
       heading: "Full stack developer with a Master's in data science, and an AI enthusiast.",
-      body: "Full stack developer, freelancing since 2023: I design and ship websites and apps end to end — React, TypeScript and React Native front ends, Node.js, Laravel, Django or Spring Boot back ends, and offline C# / .NET desktop apps when a business needs one. On the data side I draw on hands-on machine learning and big data projects (scikit-learn, LightGBM, PySpark, Hadoop) from my Master's in Data Science & Intelligent Systems. I work in French, English and Arabic.",
+      body: "Full stack developer, freelancing since 2023. I design and ship websites and apps end to end: React, TypeScript and React Native front ends, Node.js, Laravel, Django or Spring Boot back ends, and offline C# / .NET desktop apps when a business needs one. On the data side I draw on hands-on machine learning and big data projects (scikit-learn, LightGBM, PySpark, Hadoop) from my Master's in Data Science & Intelligent Systems. I work in French, English and Arabic.",
       facts: [
         { k: 'Location', v: 'Constantine, DZ' },
-        { k: 'Degree', v: 'MSc — Data Science' },
+        { k: 'Degree', v: 'MSc · Data Science' },
         { k: 'Focus', v: 'Web · AI / ML' },
         { k: 'Status', v: 'Freelance · Intern' },
       ],
@@ -284,7 +284,7 @@ export const CONTENT: Record<Lang, Content> = {
       items: [
         {
           period: '2024 – 2026',
-          degree: "Master's — Data Science & Intelligent Systems",
+          degree: "Master's · Data Science & Intelligent Systems",
           school: 'Constantine 2 University · Abdelhamid Mehri',
           modules: [
             'Machine Learning',
@@ -297,7 +297,7 @@ export const CONTENT: Record<Lang, Content> = {
         },
         {
           period: '2021 – 2024',
-          degree: "Bachelor's — Computer Science",
+          degree: "Bachelor's · Computer Science",
           school: "Larbi Ben M'Hidi University · Oum El Bouaghi",
           modules: [
             'Data Structures',
@@ -308,7 +308,7 @@ export const CONTENT: Record<Lang, Content> = {
             'Advanced Databases',
           ],
         },
-        { period: '2020 – 2021', degree: 'Scientific Baccalaureate', school: 'Honors — Good', modules: [] },
+        { period: '2020 – 2021', degree: 'Scientific Baccalaureate', school: 'Honors: Good', modules: [] },
       ],
     },
     contact: {
@@ -320,7 +320,7 @@ export const CONTENT: Record<Lang, Content> = {
     footer: { built: 'Designed & built by Mohamed Mehdi Zitouni', top: 'Back to top' },
     seo: {
       description:
-        'Mohamed Mehdi Zitouni — full stack developer in Constantine, Algeria. 16 web, mobile and desktop projects, machine learning and IoT, with real screenshots.',
+        'Mohamed Mehdi Zitouni, full stack developer in Constantine, Algeria. 16 web, mobile and desktop projects, machine learning and IoT, with real screenshots.',
     },
     spoken: [
       { name: 'Arabic', level: 'Native', pct: 100 },
@@ -331,11 +331,11 @@ export const CONTENT: Record<Lang, Content> = {
 
   ar: {
     nav: { about: 'نبذة', skills: 'المهارات', work: 'الخبرة', edu: 'التعليم', contact: 'تواصل' },
-    status: 'متاح — عمل حر',
+    status: 'متاح · عمل حر',
     hero: {
       eyebrow: 'Full Stack · علم البيانات والذكاء الاصطناعي',
       eyebrowLabel: 'الدور',
-      tagline: 'أصمّم تطبيقات ويب حديثة وحلولاً ذكية — من واجهات أمامية متقنة إلى نماذج تعلّم الآلة.',
+      tagline: 'أصمّم تطبيقات ويب حديثة وحلولاً ذكية، من واجهات أمامية متقنة إلى نماذج تعلّم الآلة.',
       ctaContact: 'تواصل معي',
       ctaCV: 'تحميل السيرة الذاتية',
       loc: 'قسنطينة، الجزائر',
@@ -347,10 +347,10 @@ export const CONTENT: Record<Lang, Content> = {
     about: {
       label: 'نبذة',
       heading: 'مطوّر full stack حاصل على ماستر في علم البيانات، وشغوف بالذكاء الاصطناعي.',
-      body: 'مطوّر full stack أعمل بشكل حر منذ 2023: أصمّم وأنجز المواقع والتطبيقات من البداية إلى النهاية — واجهات بـ React و TypeScript و React Native، وخوادم بـ Node.js أو Laravel أو Django أو Spring Boot، وتطبيقات سطح مكتب بـ C# / .NET تعمل دون إنترنت عندما تحتاجها المؤسسة. وفي جانب البيانات أعتمد على مشاريع فعلية في تعلّم الآلة والبيانات الضخمة (scikit-learn و LightGBM و PySpark و Hadoop) أنجزتها خلال ماستر علم البيانات والأنظمة الذكية. أعمل بالعربية والفرنسية والإنجليزية.',
+      body: 'مطوّر full stack أعمل بشكل حر منذ 2023. أصمّم وأنجز المواقع والتطبيقات من البداية إلى النهاية: واجهات بـ React و TypeScript و React Native، وخوادم بـ Node.js أو Laravel أو Django أو Spring Boot، وتطبيقات سطح مكتب بـ C# / .NET تعمل دون إنترنت عندما تحتاجها المؤسسة. وفي جانب البيانات أعتمد على مشاريع فعلية في تعلّم الآلة والبيانات الضخمة (scikit-learn و LightGBM و PySpark و Hadoop) أنجزتها خلال ماستر علم البيانات والأنظمة الذكية. أعمل بالعربية والفرنسية والإنجليزية.',
       facts: [
         { k: 'الموقع', v: 'قسنطينة، الجزائر' },
-        { k: 'الشهادة', v: 'ماستر — SDSI' },
+        { k: 'الشهادة', v: 'ماستر · SDSI' },
         { k: 'التخصص', v: 'ويب · ذكاء اصطناعي / ML' },
         { k: 'الحالة', v: 'عمل حر · تربّص' },
       ],
@@ -385,7 +385,7 @@ export const CONTENT: Record<Lang, Content> = {
       items: [
         {
           period: '2024 – 2026',
-          degree: 'ماستر — علم البيانات والأنظمة الذكية',
+          degree: 'ماستر · علم البيانات والأنظمة الذكية',
           school: 'جامعة قسنطينة 2 · عبد الحميد مهري',
           modules: [
             'تعلّم الآلة',
@@ -398,7 +398,7 @@ export const CONTENT: Record<Lang, Content> = {
         },
         {
           period: '2021 – 2024',
-          degree: 'ليسانس — إعلام آلي',
+          degree: 'ليسانس · إعلام آلي',
           school: 'جامعة العربي بن مهيدي · أم البواقي',
           modules: [
             'هياكل البيانات',

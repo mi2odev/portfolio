@@ -5,7 +5,7 @@ import { useProjectFilter } from '../hooks/useProjectFilter';
 import { CONTENT } from '../data/content';
 
 const shots = ['/projects/x.webp?v=1', '/projects/x/1.webp?v=1', '/projects/x/2.webp?v=1'];
-const open = () => fireEvent.click(screen.getByRole('button', { name: /demo — 3 screenshots/i }));
+const open = () => fireEvent.click(screen.getByRole('button', { name: /demo, 3 screenshots/i }));
 
 afterEach(cleanup);
 

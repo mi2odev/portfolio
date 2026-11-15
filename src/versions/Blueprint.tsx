@@ -38,9 +38,9 @@ interface BPVocab {
 const BP: Record<Lang, BPVocab> = {
   fr: {
     nav: { about: 'Aperçu', skills: 'Spécifs', work: 'Plans', edu: 'Révisions', contact: 'Validation' },
-    hero: { stamp: 'Bon pour réalisation', discipline: 'DISCIPLINE — DÉV. WEB & IA', start: 'Demander un devis', cv: 'Télécharger le CV', subject: 'sujet' },
+    hero: { stamp: 'Bon pour réalisation', discipline: 'DISCIPLINE · DÉV. WEB & IA', start: 'Demander un devis', cv: 'Télécharger le CV', subject: 'sujet' },
     aboutLabel: 'Aperçu',
-    aboutBody: 'Master en Sciences des Données & Systèmes Intelligents. Je transforme des idées en produits — du pixel jusqu’au modèle, avec rigueur et précision.',
+    aboutBody: 'Master en Sciences des Données & Systèmes Intelligents. Je transforme des idées en produits, du pixel jusqu’au modèle, avec rigueur et précision.',
     skills: { label: 'Spécifications', heading: 'Nomenclature technique.', colItem: 'Réf', colQty: 'Qté', colCat: 'Catégorie', colDesc: 'Composants', comms: 'Langues / Communication' },
     work: { label: 'Plans', heading: 'Plans & projets sélectionnés.', notes: 'Notes', spec: 'Spéc' },
     edu: { label: 'Révisions', heading: 'Historique des révisions.', colRev: 'Rév', colDate: 'Date', colDesc: 'Description' },
@@ -49,9 +49,9 @@ const BP: Record<Lang, BPVocab> = {
   },
   en: {
     nav: { about: 'Overview', skills: 'Specs', work: 'Drawings', edu: 'Revisions', contact: 'Sign-off' },
-    hero: { stamp: 'For construction', discipline: 'DISCIPLINE — WEB DEV & AI', start: 'Request a quote', cv: 'Download CV', subject: 'subject' },
+    hero: { stamp: 'For construction', discipline: 'DISCIPLINE · WEB DEV & AI', start: 'Request a quote', cv: 'Download CV', subject: 'subject' },
     aboutLabel: 'Overview',
-    aboutBody: "Master's in Data Science & Intelligent Systems. I turn ideas into products — from the pixel all the way to the model, with rigor and precision.",
+    aboutBody: "Master's in Data Science & Intelligent Systems. I turn ideas into products, from the pixel all the way to the model, with rigor and precision.",
     skills: { label: 'Specifications', heading: 'Technical bill of materials.', colItem: 'Item', colQty: 'Qty', colCat: 'Category', colDesc: 'Components', comms: 'Languages / Comms' },
     work: { label: 'Drawings', heading: 'Selected drawings & projects.', notes: 'Notes', spec: 'Spec' },
     edu: { label: 'Revisions', heading: 'Revision history.', colRev: 'Rev', colDate: 'Date', colDesc: 'Description' },
@@ -60,9 +60,9 @@ const BP: Record<Lang, BPVocab> = {
   },
   ar: {
     nav: { about: 'نظرة', skills: 'المواصفات', work: 'المخططات', edu: 'المراجعات', contact: 'الاعتماد' },
-    hero: { stamp: 'صالح للتنفيذ', discipline: 'التخصص — تطوير ويب وذكاء', start: 'اطلب عرض سعر', cv: 'تحميل السيرة', subject: 'الموضوع' },
+    hero: { stamp: 'صالح للتنفيذ', discipline: 'التخصص · تطوير ويب وذكاء', start: 'اطلب عرض سعر', cv: 'تحميل السيرة', subject: 'الموضوع' },
     aboutLabel: 'نظرة عامة',
-    aboutBody: 'ماستر علم البيانات والأنظمة الذكية. أحوّل الأفكار إلى منتجات — من البكسل وصولاً إلى النموذج، بدقّة وانضباط.',
+    aboutBody: 'ماستر علم البيانات والأنظمة الذكية. أحوّل الأفكار إلى منتجات، من البكسل وصولاً إلى النموذج، بدقّة وانضباط.',
     skills: { label: 'المواصفات', heading: 'قائمة المكوّنات التقنية.', colItem: 'رقم', colQty: 'كمية', colCat: 'الفئة', colDesc: 'المكوّنات', comms: 'اللغات / التواصل' },
     work: { label: 'المخططات', heading: 'مخططات ومشاريع مختارة.', notes: 'ملاحظات', spec: 'مواصفة' },
     edu: { label: 'المراجعات', heading: 'سجلّ المراجعات.', colRev: 'مراجعة', colDate: 'التاريخ', colDesc: 'الوصف' },
@@ -174,7 +174,7 @@ export default function Blueprint({ index, onChange }: VersionProps) {
       <div style={{ position: 'fixed', bottom: 22, right: 22, zIndex: 45, background: 'rgba(10,39,66,0.92)', border: `1px solid ${col.line2}`, fontFamily: mono, backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', boxShadow: '0 18px 50px -20px rgba(0,0,0,0.7)' }}>
         <div style={{ padding: '8px 12px', borderBottom: `1px solid ${col.line2}`, display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ fontSize: 9, color: col.faint, letterSpacing: '.1em' }}>TITLE</span>
-          <span style={{ fontSize: 11, color: col.ink, letterSpacing: '.02em' }}>M. M. ZITOUNI — PORTFOLIO</span>
+          <span style={{ fontSize: 11, color: col.ink, letterSpacing: '.02em' }}>M. M. ZITOUNI · PORTFOLIO</span>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)' }}>
           <div style={{ padding: '7px 11px', borderRight: `1px solid ${col.line}` }}><div style={{ fontSize: 8, color: col.faint, letterSpacing: '.08em' }}>DWG NO</div><div style={{ fontSize: 11, color: col.ink }}>MZ-2026</div></div>
@@ -222,7 +222,7 @@ export default function Blueprint({ index, onChange }: VersionProps) {
           </div>
 
           <div style={{ position: 'relative', justifySelf: 'center', maxWidth: 380, width: '100%', animation: 'rise .95s cubic-bezier(.2,.7,.2,1) both' }}>
-            <div style={{ position: 'absolute', top: -14, left: 0, fontFamily: mono, fontSize: 10, letterSpacing: '.12em', color: col.cyan }}>FIG.1 — ELEVATION</div>
+            <div style={{ position: 'absolute', top: -14, left: 0, fontFamily: mono, fontSize: 10, letterSpacing: '.12em', color: col.cyan }}>FIG.1 · ELEVATION</div>
             <div className="bp-dim-v" style={{ position: 'absolute', left: -38, top: 0, bottom: 0, width: 1, background: col.line2 }}>
               <span style={{ position: 'absolute', top: 0, left: -4, width: 9, height: 1, background: col.line2 }} />
               <span style={{ position: 'absolute', bottom: 0, left: -4, width: 9, height: 1, background: col.line2 }} />
@@ -346,7 +346,7 @@ export default function Blueprint({ index, onChange }: VersionProps) {
                 <div style={{ fontFamily: mono, fontSize: 9.5, color: col.faint, letterSpacing: '.12em', textTransform: 'uppercase', marginBottom: 10 }}>{b.work.notes}</div>
                 <ul style={{ display: 'flex', flexDirection: 'column', gap: 9, listStyle: 'none', marginBottom: 20 }}>
                   {q.bullets.map((bl, bi) => (
-                    <li key={bi} style={{ display: 'flex', gap: 13, fontSize: 15, lineHeight: 1.58, color: col.ink2 }}><span style={{ color: col.red, flexShrink: 0, fontFamily: mono }}>—</span><span style={{ textWrap: 'pretty', maxWidth: 840 }}>{bl}</span></li>
+                    <li key={bi} style={{ display: 'flex', gap: 13, fontSize: 15, lineHeight: 1.58, color: col.ink2 }}><span style={{ color: col.red, flexShrink: 0, fontFamily: mono }}>›</span><span style={{ textWrap: 'pretty', maxWidth: 840 }}>{bl}</span></li>
                   ))}
                 </ul>
                 <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 7 }}>
@@ -409,7 +409,7 @@ export default function Blueprint({ index, onChange }: VersionProps) {
             <span style={{ fontFamily: mono, fontSize: phone ? 9.5 : 13, letterSpacing: phone ? '.1em' : '.16em', color: col.red, textTransform: 'uppercase', textAlign: 'center', lineHeight: 1.4, padding: '0 6px' }}>{b.contact.stamp}</span>
           </div>
           <div style={{ padding: phone ? '104px 22px 40px' : 'clamp(40px,5.5vw,76px) clamp(28px,5vw,70px)' }}>
-            <div style={{ fontFamily: mono, fontSize: 12, marginBottom: 18, textTransform: 'uppercase', letterSpacing: '.2em', color: col.cyan }}>05 — {b.contact.label}</div>
+            <div style={{ fontFamily: mono, fontSize: 12, marginBottom: 18, textTransform: 'uppercase', letterSpacing: '.2em', color: col.cyan }}>05 · {b.contact.label}</div>
             <h2 style={{ fontFamily: sans, fontSize: 'clamp(38px,6.5vw,82px)', fontWeight: 800, letterSpacing: '-.025em', lineHeight: 0.98, marginBottom: 20, textWrap: 'balance', textTransform: 'uppercase' }}>{b.contact.heading}</h2>
             <p style={{ fontSize: 16.5, lineHeight: 1.62, color: col.ink2, maxWidth: 500, marginBottom: 34, textWrap: 'pretty' }}>{t.contact.body}</p>
             <div style={{ fontFamily: mono, fontSize: 10, color: col.faint, letterSpacing: '.12em', textTransform: 'uppercase', marginBottom: 8 }}>{b.contact.sign}</div>
