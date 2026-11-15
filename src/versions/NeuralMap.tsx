@@ -317,9 +317,9 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
 
     const pj = CONTENT.en.work.items; const phub = byId['projects'];
     pj.forEach((e, i) => {
-      const m = pj.length; const aa = phub._a! + (i - (m - 1) / 2) * Math.min(0.3, 2.7 / Math.max(1, m - 1)); const rr = 118 + (i % 2) * 64; const id = 'p' + i; // two staggered rings so many projects fan out instead of piling up
+      const m = pj.length; const aa = phub._a! + (i - (m - 1) / 2) * Math.min(0.3, 2.0 / Math.max(1, m - 1)); const rr = 120 + (i % 3) * 58; const id = 'p' + i; // three staggered rings in a narrower fan: room for many projects, none drifting back over the portrait
       add({ id, type: 'project', x: phub.x + Math.cos(aa) * rr, y: phub.y + Math.sin(aa) * rr, vx: 0, vy: 0, r: 13, color: COL.projects, labels: { fr: e.i, en: e.i, ar: e.i } });
-      edges.push({ a: 'projects', b: id, rest: 112 + (i % 2) * 64, k: 0.03, kind: 'proj', color: COL.projects });
+      edges.push({ a: 'projects', b: id, rest: 114 + (i % 3) * 58, k: 0.03, kind: 'proj', color: COL.projects });
       (PROJSK[i] || []).forEach((nm) => { const sid = this.skillIdByName[nm]; if (sid) { edges.push({ a: id, b: sid, rest: 210, k: 0.006, kind: 'assoc' }); (this.skillToProjects[sid] = this.skillToProjects[sid] || []).push(i); } });
     });
 
@@ -441,6 +441,9 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
       n.vx = (n.vx + n.fx! * A) * this.damp; n.vy = (n.vy + n.fy! * A) * this.damp;
       const sp = Math.hypot(n.vx, n.vy); if (sp > 22) { n.vx = (n.vx / sp) * 22; n.vy = (n.vy / sp) * 22; }
       n.x += n.vx; n.y += n.vy;
+      // Keep a clear ring around the portrait: nothing may settle on top of it or its name.
+      const keep = 46 + n.r + 48; const dc = Math.hypot(n.x, n.y);
+      if (dc < keep) { const ux = dc > 0.01 ? n.x / dc : 1, uy = dc > 0.01 ? n.y / dc : 0; n.x = ux * keep; n.y = uy * keep; }
     }
     this.alpha = Math.max(this.alphaMin, A * 0.99);
   }
