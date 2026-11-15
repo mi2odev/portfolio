@@ -28,20 +28,30 @@ describe('ProjectShot', () => {
     expect(screen.getByText('3 / 3')).toBeInTheDocument();
   });
 
-  it('closes on Escape', () => {
+  it('adds a history entry when it opens, so Back has something to undo', () => {
     render(<ProjectShot src={shots[0]} gallery={shots} title="Demo" />);
+    const before = window.history.length;
     open();
-    fireEvent.keyDown(window, { key: 'Escape' });
-    expect(screen.queryByRole('dialog')).toBeNull();
+    expect(window.history.length).toBe(before + 1);
+    expect((window.history.state as { viewer?: boolean }).viewer).toBe(true);
+    expect(window.location.hash).toBe('#view');
   });
 
   it('closes when the visitor goes back, instead of leaving the page', () => {
     render(<ProjectShot src={shots[0]} gallery={shots} title="Demo" />);
     open();
-    expect((window.history.state as { viewer?: boolean }).viewer).toBe(true);
+    // What the browser does on Back: the viewer's entry is gone, then popstate fires.
     act(() => {
+      window.history.replaceState(null, '');
       window.dispatchEvent(new PopStateEvent('popstate', { state: null }));
     });
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
+
+  it('closes on Escape', () => {
+    render(<ProjectShot src={shots[0]} gallery={shots} title="Demo" />);
+    open();
+    fireEvent.keyDown(window, { key: 'Escape' });
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 });

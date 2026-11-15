@@ -30,7 +30,35 @@ export function ProjectShot({ src, gallery, title, frame, img, imgHover, style }
   const [seen, setSeen] = useState(false);
   const box = useRef<HTMLButtonElement>(null);
   const shots = gallery && gallery.length > 0 ? gallery : [src];
-  const close = useCallback(() => setOpen(false), []);
+  // The phone's Back button (or gesture) should close the picture, not leave the
+  // page. Opening adds a history entry right inside the tap handler, where the
+  // browser is certain a person asked for it (Chrome skips entries added any
+  // other way). Going back lands on the page entry and closes the viewer; closing
+  // with the button, Escape or the backdrop goes back one step itself.
+  /** True while the viewer's own history entry is still on the stack. */
+  const entry = useRef(false);
+  const openViewer = () => {
+    window.history.pushState({ ...(window.history.state ?? {}), viewer: true }, '', '#view');
+    entry.current = true;
+    setOpen(true);
+  };
+  const close = useCallback(() => {
+    setOpen(false);
+    // One step back per opening, however many things ask to close (the × sits on the backdrop).
+    if (!entry.current) return;
+    entry.current = false;
+    if ((window.history.state as { viewer?: boolean } | null)?.viewer) window.history.back();
+  }, []);
+  useEffect(() => {
+    if (!open) return;
+    const onPop = () => {
+      if ((window.history.state as { viewer?: boolean } | null)?.viewer) return;
+      entry.current = false;
+      setOpen(false);
+    };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, [open]);
 
   // Slide the cover into place the first time it scrolls into view.
   useEffect(() => {
@@ -56,7 +84,7 @@ export function ProjectShot({ src, gallery, title, frame, img, imgHover, style }
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={openViewer}
         onMouseEnter={() => setHot(true)}
         onMouseLeave={() => setHot(false)}
         onFocus={() => setHot(true)}
@@ -216,25 +244,6 @@ function Viewer({ shots, title, onClose }: { shots: string[]; title: string; onC
       document.body.style.overflow = overflow;
     };
   }, [go, onClose]);
-
-  // The phone's Back button (or gesture) should close the picture, not leave the
-  // page. Opening adds a history entry for the viewer; going back removes it and
-  // closes, and closing any other way takes that entry away again.
-  useEffect(() => {
-    window.history.pushState({ ...(window.history.state ?? {}), viewer: true }, '');
-    let wentBack = false;
-    const onPop = (e: PopStateEvent) => {
-      // Still on a viewer entry (React's development double-mount lands here): stay open.
-      if ((e.state as { viewer?: boolean } | null)?.viewer) return;
-      wentBack = true;
-      onClose();
-    };
-    window.addEventListener('popstate', onPop);
-    return () => {
-      window.removeEventListener('popstate', onPop);
-      if (!wentBack && (window.history.state as { viewer?: boolean } | null)?.viewer) window.history.back();
-    };
-  }, [onClose]);
 
   // Fetch the neighbours ahead of time so stepping through never waits on the network.
   useEffect(() => {
