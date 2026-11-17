@@ -154,6 +154,7 @@ const PROJSK_BY_ID: Record<string, string[]> = {
   'subscription-watch': ['React Native', 'Expo', 'TypeScript'],
   'gaming-center': ['C# / .NET'],
   'tutoring-center': ['C# / .NET'],
+  creche: ['C# / .NET'],
   weighpoint: ['React Native', 'Expo', 'TypeScript'],
   'e-card': ['React Native', 'Expo', 'TypeScript'],
   imposter: ['React Native', 'Expo', 'JavaScript'],

@@ -75,7 +75,7 @@ export interface Content {
     heading: string;
     /** Labels of the category filter. */
     filters: { all: string; web: string; mobile: string; desktop: string; data: string };
-    /** The word after the count, as in “16 projects”. */
+    /** The word after the count, as in “17 projects”. */
     countWord: string;
     items: Experience[];
   };
@@ -230,7 +230,7 @@ export const CONTENT: Record<Lang, Content> = {
     footer: { built: 'Conçu & développé par Mohamed Mehdi Zitouni', top: 'Haut de page' },
     seo: {
       description:
-        'Portfolio de Mohamed Mehdi Zitouni, développeur full stack à Constantine, Algérie : 16 projets web, mobile et bureau, machine learning et IoT, avec captures.',
+        'Portfolio de Mohamed Mehdi Zitouni, développeur full stack à Constantine, Algérie : 17 projets web, mobile et bureau, machine learning et IoT, avec captures.',
     },
     spoken: [
       { name: 'Arabe', level: 'Natif', pct: 100 },
@@ -320,7 +320,7 @@ export const CONTENT: Record<Lang, Content> = {
     footer: { built: 'Designed & built by Mohamed Mehdi Zitouni', top: 'Back to top' },
     seo: {
       description:
-        'Mohamed Mehdi Zitouni, full stack developer in Constantine, Algeria. 16 web, mobile and desktop projects, machine learning and IoT, with real screenshots.',
+        'Mohamed Mehdi Zitouni, full stack developer in Constantine, Algeria. 17 web, mobile and desktop projects, machine learning and IoT, with real screenshots.',
     },
     spoken: [
       { name: 'Arabic', level: 'Native', pct: 100 },
@@ -421,7 +421,7 @@ export const CONTENT: Record<Lang, Content> = {
     footer: { built: 'صُمّم وطُوّر بواسطة محمد مهدي زيتوني', top: 'العودة للأعلى' },
     seo: {
       description:
-        'معرض أعمال محمد مهدي زيتوني، مطوّر full stack من قسنطينة، الجزائر: 16 مشروعاً في الويب والموبايل وسطح المكتب وتعلّم الآلة وإنترنت الأشياء، مع لقطات شاشة.',
+        'معرض أعمال محمد مهدي زيتوني، مطوّر full stack من قسنطينة، الجزائر: 17 مشروعاً في الويب والموبايل وسطح المكتب وتعلّم الآلة وإنترنت الأشياء، مع لقطات شاشة.',
     },
     spoken: [
       { name: 'العربية', level: 'لغة أم', pct: 100 },

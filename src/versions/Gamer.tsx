@@ -98,6 +98,7 @@ const QUEST_META: Record<string, { rarity: string; status: string; xp: number }>
   'subscription-watch': { rarity: 'epic', status: 'done', xp: 1100 },
   'gaming-center': { rarity: 'epic', status: 'done', xp: 1400 },
   'tutoring-center': { rarity: 'epic', status: 'done', xp: 1400 },
+  creche: { rarity: 'epic', status: 'done', xp: 1500 },
   weighpoint: { rarity: 'epic', status: 'done', xp: 1200 },
   'e-card': { rarity: 'epic', status: 'done', xp: 1300 },
   imposter: { rarity: 'rare', status: 'done', xp: 700 },

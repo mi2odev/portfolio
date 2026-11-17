@@ -69,6 +69,13 @@ const BASE: BaseProject[] = [
     links: [gh('ecoleprive')],
   },
   {
+    id: 'creche',
+    category: 'desktop',
+    shots: 10,
+    tags: ['C#', '.NET 10', 'WPF', 'MVVM', 'EF Core', 'SQLite', 'xUnit'],
+    links: [gh('cr-che')],
+  },
+  {
     id: 'subscription-watch',
     category: 'mobile',
     shots: 3,
@@ -225,6 +232,16 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
         'Fonctionne en local sans serveur, interface en français, montants en DZD, export Excel.',
       ],
     },
+    creche: {
+      title: 'Gestion de crèche : enfants, présences et facturation',
+      role: 'Application de bureau Windows',
+      period: '2026',
+      bullets: [
+        'Application de bureau pour gérer une crèche : enfants et familles, inscriptions avec liste d’attente, présences du jour par groupe, personnel et dépenses.',
+        'Factures mensuelles en un clic, avec remise fratrie, supplément repas et frais de retard calculés au départ de l’enfant. Les paiements d’une famille soldent d’abord les factures les plus anciennes, avec reçu imprimé.',
+        'Fonctionne hors ligne sur un seul PC (SQLite, sauvegardes quotidiennes), trois rôles (admin, secrétaire, éducatrice), en français, anglais et arabe, couverte par 98 tests.',
+      ],
+    },
     weighpoint: {
       title: 'Weighpoint : suivi de perte de poids',
       role: 'Application mobile · Projet personnel',
@@ -377,6 +394,16 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
         'A desktop app for the owner of a private tutoring center: students, parents, teachers, groups, rooms and the weekly timetable.',
         'Attendance, grades and exams, payments by packs of sessions with printed receipts, teacher pay, expenses and estimated profit.',
         'Runs locally with no server, French interface, amounts in DZD, Excel export.',
+      ],
+    },
+    creche: {
+      title: 'Crèche Manager: Children, Attendance and Billing',
+      role: 'Windows Desktop App',
+      period: '2026',
+      bullets: [
+        'A desktop app for running a crèche: children and families, enrolment with a waiting list, daily attendance by group, staff and expenses.',
+        "Monthly invoices in one click, with sibling discounts, meal supplements and late pick-up charges worked out at check-out. A family's payments settle its oldest invoices first, with a printed receipt.",
+        'Runs offline on one PC (SQLite, daily backups), with three roles (admin, secretary, educator), English, French and Arabic, and 98 tests.',
       ],
     },
     weighpoint: {
@@ -533,6 +560,16 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
         'يعمل محلياً دون خادم، واجهة بالفرنسية، المبالغ بالدينار الجزائري، وتصدير إلى Excel.',
       ],
     },
+    creche: {
+      title: 'إدارة الحضانة: الأطفال والحضور والفوترة',
+      role: 'تطبيق سطح مكتب لويندوز',
+      period: '2026',
+      bullets: [
+        'تطبيق سطح مكتب لتسيير حضانة: الأطفال والعائلات، التسجيل مع قائمة انتظار، الحضور اليومي حسب الفوج، الموظفون والمصاريف.',
+        'فواتير شهرية بنقرة واحدة، مع تخفيض للإخوة ومكمّل الوجبات ورسوم التأخر التي تُحسب عند خروج الطفل. دفعات العائلة تسدّد الفواتير الأقدم أولاً، مع وصل مطبوع.',
+        'يعمل دون إنترنت على حاسوب واحد (SQLite ونسخ احتياطية يومية)، بثلاثة أدوار (مدير، سكرتيرة، مربية)، بالعربية والفرنسية والإنجليزية، مع 98 اختباراً.',
+      ],
+    },
     weighpoint: {
       title: 'Weighpoint: متابعة إنقاص الوزن',
       role: 'تطبيق موبايل · مشروع شخصي',
@@ -615,7 +652,7 @@ const TEXT: Record<Lang, Record<string, ProjectText>> = {
  * name: the files keep stable names, so the query string is what tells a
  * browser that already cached the old one to fetch the new one.
  */
-export const PICTURES_REV = 7;
+export const PICTURES_REV = 8;
 
 /** Where a project's cover lives in public/. */
 export const projectImage = (id: string) => `/projects/${id}.webp?v=${PICTURES_REV}`;
