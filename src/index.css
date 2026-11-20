@@ -18,34 +18,51 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Chrome and decorative layers are not selectable — dragging across the page
-   should never highlight the UI. Real content stays selectable so a visitor can
-   copy the email address, the phone number or a project name. */
-button,
-nav,
-canvas,
+/* ──────────────────────────────────────────────────────────────────────────
+   Copy protection, text and images, everywhere on the site.
+   Nothing can be selected, dragged out or long-pressed (no iOS share sheet /
+   "Save image"); right-click, copy, cut and the Ctrl/Cmd shortcuts are blocked
+   in src/lib/contentProtection.ts. Form fields, should any appear, still work.
+   This deters casual copying only: the files are served publicly and a
+   screenshot always works.
+   ────────────────────────────────────────────────────────────────────────── */
+html,
+body,
+*,
+*::before,
+*::after {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  user-select: none !important;
+  -webkit-touch-callout: none !important;
+}
+img,
 svg,
-[role='menu'],
-[aria-hidden='true'] {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
+picture,
+video,
+canvas,
+[data-no-copy] {
+  -webkit-user-drag: none !important;
+}
+input,
+textarea,
+select,
+[contenteditable=''],
+[contenteditable='true'] {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  user-select: text !important;
+}
+::selection {
+  background: transparent;
 }
 
-/* ──────────────────────────────────────────────────────────────────────────
-   Images are not selectable, draggable or long-pressable, so the portrait
-   cannot be dragged out, copied from a selection, or saved from the iOS
-   share sheet. Right-click and dragstart are blocked in
-   src/lib/imageProtection.ts. This deters casual copying only — the file is
-   still served publicly and a screenshot always works.
-   ────────────────────────────────────────────────────────────────────────── */
-img,
-[data-no-copy] {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-  -webkit-user-drag: none;
-  -webkit-touch-callout: none;
+/* Printing (or "Save as PDF") gives a blank page instead of the content. */
+@media print {
+  html,
+  body {
+    display: none !important;
+  }
 }
 
 /* ──────────────────────────────────────────────────────────────────────────

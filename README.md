@@ -95,7 +95,7 @@ portfolio/
 │  │  ├─ useReactiveFX.ts             # V4 engine (canvas, cursor, parallax, tilt, magnetic)
 │  │  ├─ useGamerFX.ts                # V5 engine (reticle, parallax, XP bar; touch + gyro on phones)
 │  │  ├─ useBlueprintFX.ts            # V6 engine (crosshair, survey markers, grid drift)
-│  │  ├─ useImageProtection.ts        # mounts the portrait copy-deterrents
+│  │  ├─ useContentProtection.ts      # mounts the copy-deterrents
 │  │  ├─ useMediaQuery.ts             # reactive matchMedia (+ useIsPhone / useIsTouch)
 │  │  └─ useTilt.ts                   # shared touch helpers: haptics, gyroscope binding
 │  ├─ components/
@@ -113,7 +113,7 @@ portfolio/
 │  │  └─ versionThemes.ts             # per-version tag, accent and active styles
 │  ├─ lib/
 │  │  ├─ versions.ts                  # ?v= slugs, parsing and validation
-│  │  ├─ imageProtection.ts           # blocks right-click / drag on the portrait
+│  │  ├─ contentProtection.ts         # blocks copy / select / right-click / drag
 │  │  ├─ lang.ts                      # ?lang= parsing + browser-language detection
 │  │  └─ url.ts                       # query-string writes (replace vs push)
 │  ├─ versions/                       # the eight designs + their shared props type
@@ -196,22 +196,21 @@ never blocks the first paint. Scroll, resize and pointer listeners are passive.
 - `<html lang>` and `dir` follow the language toggle; Arabic renders RTL.
 - The tab title and description follow the language and the design on screen, so
   history and bookmarks stay meaningful when eight views share one URL.
-- Page text is selectable — a recruiter can copy the email address — and the
-  phone number is a `tel:` link; only the chrome, the decorative layers and the
-  portrait are not (see below).
+- Text and images cannot be copied (see below); the email is a `mailto:` link
+  and the phone number a `tel:` link, so visitors can still reach out in one tap.
 
-### Image copying
+### Copy protection
 
-The portrait is guarded against casual copying: it cannot be selected, dragged
-out, or right-clicked for **Save image as**, and iOS shows no long-press share
-sheet. The CSS lives in `src/index.css`; the right-click and drag handlers in
-`src/lib/imageProtection.ts`, mounted from `App` via `useImageProtection`. Add
-`data-no-copy` to any element that paints the photo as a CSS background to give
-it the same treatment.
+Nothing on the site, text or image, can be copied casually: selection is off
+everywhere, right-click, copy, cut and dragging are blocked, as are Ctrl/Cmd+C,
+X, A, S (save page), U (view source) and P (print), and printing yields a blank
+page. iOS shows no long-press sheet. The CSS lives in `src/index.css`; the event
+handlers in `src/lib/contentProtection.ts`, mounted from `App` via
+`useContentProtection`. Form fields, should any be added, keep working.
 
-This is a deterrent, not protection — the file is served publicly, so the direct
-URL, the network panel and a plain screenshot all still work. Text elsewhere on
-the page is deliberately left selectable and right-clickable.
+This is a deterrent, not protection: everything shown has already been
+downloaded, so the developer tools, the direct URL, reader mode and a plain
+screenshot all still work.
 
 ---
 

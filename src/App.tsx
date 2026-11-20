@@ -5,7 +5,7 @@ import { PageSkeleton } from './components/PageSkeleton';
 import { SkipLink } from './components/SkipLink';
 import { DocumentMeta } from './components/DocumentMeta';
 import { VersionAnnouncer } from './components/VersionAnnouncer';
-import { useImageProtection } from './hooks/useImageProtection';
+import { useContentProtection } from './hooks/useContentProtection';
 import { indexFromSearch, normaliseIndex, slugForIndex } from './lib/versions';
 import { writeQuery } from './lib/url';
 import type { VersionProps } from './versions/types';
@@ -59,7 +59,7 @@ function prefetchNeighbours(index: number) {
 export default function App() {
   const [index, setIndex] = useState<number>(initialIndex);
 
-  useImageProtection();
+  useContentProtection();
 
   /** Applies a version everywhere it is remembered: state, storage and the URL. */
   const change = useCallback((i: number, { fromHistory = false } = {}) => {
