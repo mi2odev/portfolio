@@ -619,7 +619,8 @@ export class PortfolioV8 extends React.Component<PortfolioV8Props, PortfolioV8St
         dir={dir}
         style={{ position: 'fixed', inset: 0, overflow: 'hidden', background: '#05070F', color: '#EAF0FF', fontFamily: "'Sora','IBM Plex Sans Arabic',sans-serif", WebkitFontSmoothing: 'antialiased', ['--acc' as string]: acc }}
       >
-        <style dangerouslySetInnerHTML={{ __html: GLOBAL_CSS }} />
+        {/* A text child, never an HTML string: keeps the Trusted Types policy in netlify.toml happy. */}
+        <style>{GLOBAL_CSS}</style>
 
         {/* backgrounds */}
         <div style={css('position:absolute; inset:0; background:radial-gradient(120% 90% at 22% 16%, rgba(46,72,168,.32), transparent 55%), radial-gradient(110% 95% at 82% 82%, rgba(124,72,206,.24), transparent 55%), radial-gradient(120% 120% at 50% 50%, #080D1E, #05070F 72%);')} />

@@ -14,16 +14,53 @@
   for = "/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
-    X-Frame-Options = "SAMEORIGIN"
+    # Nothing on the site is meant to be framed: blocks clickjacking outright.
+    X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
-    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    # Every powerful browser feature off: the site needs none of them.
+    Permissions-Policy = "accelerometer=(), autoplay=(), browsing-topics=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), hid=(), idle-detection=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), usb=(), xr-spatial-tracking=()"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
     Cross-Origin-Opener-Policy = "same-origin"
+    # No Flash / Acrobat cross-domain policy files are honoured.
+    X-Permitted-Cross-Domain-Policies = "none"
+    # Keeps Chromium from grouping this origin's process with others.
+    Origin-Agent-Cluster = "?1"
     # Strict enough that no third-party script can run: the only inline script is
     # the JSON-LD block, which browsers parse as data rather than execute, and the
     # font stylesheet is promoted from src/main.tsx instead of an inline onload.
-    # `style-src 'unsafe-inline'` is unavoidable — the designs are inline styles.
-    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; connect-src 'self'; manifest-src 'self'; upgrade-insecure-requests"
+    # `style-src 'unsafe-inline'` is unavoidable: the designs are inline styles.
+    # Trusted Types: no code may write HTML strings into the DOM (innerHTML and
+    # friends throw), which shuts the door on DOM-based XSS.
+    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; worker-src 'none'; form-action 'self'; img-src 'self' data:; media-src 'self'; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; connect-src 'self'; manifest-src 'self'; require-trusted-types-for 'script'; trusted-types 'none'; upgrade-insecure-requests"
+
+# The HTML shell must never be served stale: always revalidate.
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+# Hotlink protection: other sites cannot embed the portrait, the project
+# screenshots or the CV in their own pages. Opening the URL directly still works,
+# and og-image.jpg is left out so link previews keep working.
+[[headers]]
+  for = "/photo.webp"
+  [headers.values]
+    Cross-Origin-Resource-Policy = "same-origin"
+
+[[headers]]
+  for = "/projects/*"
+  [headers.values]
+    Cross-Origin-Resource-Policy = "same-origin"
+
+[[headers]]
+  for = "/*.pdf"
+  [headers.values]
+    Cross-Origin-Resource-Policy = "same-origin"
+
+[[headers]]
+  for = "/.well-known/security.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
 
 # Hashed build output never changes under the same name — cache it hard.
 [[headers]]
